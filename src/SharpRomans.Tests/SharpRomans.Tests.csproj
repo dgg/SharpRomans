@@ -42,7 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RomanFigure.spec.cs" />
+    <Compile Include="RomanFigure.TryParse.spec.cs" />
+    <Compile Include="RomanFigure.Parse.spec.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpRomans\SharpRomans.csproj">

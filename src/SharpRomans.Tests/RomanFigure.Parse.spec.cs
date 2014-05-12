@@ -4,8 +4,8 @@ using StoryQ;
 
 namespace SharpRomans.Tests
 {
-	[TestFixture]
-	public class RomanFigureSpec
+	[TestFixture, Category("Spec"), Category("RomanLiteral")]
+	public class ParseTester
 	{
 		[Test]
 		public void ParseChar()
