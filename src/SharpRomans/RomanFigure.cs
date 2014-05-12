@@ -9,19 +9,19 @@ namespace SharpRomans
 	{
 		public char Figure { get; private set; }
 		public ushort Value { get; private set; }
-		public string Description { get; private set; }
+		public string Name { get; private set; }
 
 		public bool IsSubstractive { get; private set; }
 		public bool IsSingle { get; private set; }
 		public bool IsRepeteable { get; private set; }
 
 		private readonly string _string;
-		private RomanFigure(char figure, ushort value, string description, bool isSubstractive, bool isSingle, bool isRepeteable)
+		private RomanFigure(char figure, ushort value, string name, bool isSubstractive, bool isSingle, bool isRepeteable)
 		{
 			Figure = figure;
 			_string = figure.ToString(CultureInfo.InvariantCulture);
 			Value = value;
-			Description = description;
+			Name = name;
 			IsSubstractive = isSubstractive;
 			IsSingle = isSingle;
 			IsRepeteable = isRepeteable;
