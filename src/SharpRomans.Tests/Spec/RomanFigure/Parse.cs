@@ -18,7 +18,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.WithScenario("parse a defined figure")
 					.Given(aCharacter_, 'I')
 					.When(theCharIsParsed)
-					.Then(theFigure_Is, SharpRomans.RomanFigure.I)
+					.Then(theFigureIs_, SharpRomans.RomanFigure.I)
 
 				.WithScenario("parse an undefined figure")
 					.Given(aCharacter_, 'W')
@@ -27,33 +27,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 
 				.WithScenario("figures are unique")
 					.Given(aCharacter_, 'X')
-					.When(theCharIsParsedAgain_, 'X')
-					.Then(isTheSameFigure)
-
-				.ExecuteWithReport();
-		}
-
-		[Test]
-		public void ParseNumber()
-		{
-			new Story("parse a number")
-				.InOrderTo("get a figure instance")
-				.AsA("library user")
-				.IWant("to be able to parse a short")
-
-				.WithScenario("parse a defined figure")
-					.Given(aNumber_, 1)
-					.When(theNumberIsParsed)
-					.Then(theFigure_Is, SharpRomans.RomanFigure.I)
-
-				.WithScenario("parse an undefined figure")
-					.Given(aNumber_, 3)
-					.When(theNumberIsParsed)
-					.Then(throwsArgumentException)
-
-				.WithScenario("figures are unique")
-					.Given(aNumber_, 10)
-					.When(theNumberIsParsedAgain_, 10)
+					.When(theChar_IsParsedAgain, 'X')
 					.Then(isTheSameFigure)
 
 				.ExecuteWithReport();
@@ -70,7 +44,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.WithScenario("parse a defined figure")
 					.Given(aString_, "I")
 					.When(theStringIsParsed)
-					.Then(theFigure_Is, SharpRomans.RomanFigure.I)
+					.Then(theFigureIs_, SharpRomans.RomanFigure.I)
 
 				.WithScenario("parse an undefined figure")
 					.Given(aString_, "W")
@@ -84,7 +58,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 
 				.WithScenario("figures are unique")
 					.Given(aString_, "X")
-					.When(theStringIsParsedAgain_, "X")
+					.When(theString_IsParsedAgain, "X")
 					.Then(isTheSameFigure)
 
 				.ExecuteWithReport();
@@ -94,12 +68,6 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 		private void aCharacter_(char character)
 		{
 			_character = character;
-		}
-
-		ushort _number;
-		private void aNumber_(int number)
-		{
-			_number = (ushort)number;
 		}
 
 		string _string;
@@ -114,17 +82,12 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			_figure = () => SharpRomans.RomanFigure.Parse(_character);
 		}
 
-		private void theNumberIsParsed()
-		{
-			_figure = () => SharpRomans.RomanFigure.Convert(_number);
-		}
-
 		private void theStringIsParsed()
 		{
 			_figure = () => SharpRomans.RomanFigure.Parse(_string);
 		}
 
-		private void theFigure_Is(SharpRomans.RomanFigure figure)
+		private void theFigureIs_(SharpRomans.RomanFigure figure)
 		{
 			Assert.That(_figure(), Is.EqualTo(figure));
 		}
@@ -142,17 +105,12 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 		}
 
 		private SharpRomans.RomanFigure _anotherFigure;
-		private void theCharIsParsedAgain_(char c)
+		private void theChar_IsParsedAgain(char c)
 		{
 			_anotherFigure = SharpRomans.RomanFigure.Parse(c);
 		}
 
-		private void theNumberIsParsedAgain_(int number)
-		{
-			_anotherFigure = SharpRomans.RomanFigure.Convert((ushort)number);
-		}
-
-		private void theStringIsParsedAgain_(string s)
+		private void theString_IsParsedAgain(string s)
 		{
 			_anotherFigure = SharpRomans.RomanFigure.Parse(s);
 		}
