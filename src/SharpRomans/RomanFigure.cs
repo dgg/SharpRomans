@@ -94,6 +94,12 @@ namespace SharpRomans
 			}
 		}
 
+		public static bool TryConvert(ushort value, out RomanFigure figure)
+		{
+			figure = All.SingleOrDefault(f => f.Value.Equals(value));
+			return figure != null;
+		}
+
 		#endregion
 
 	}
