@@ -78,8 +78,20 @@ namespace SharpRomans
 			return parsed != null;
 		}
 
+		public static bool TryParse(string figure, out RomanFigure parsed)
+		{
+			bool success = false;
+			parsed = null;
+			char character;
+			if (char.TryParse(figure, out character))
+			{
+				success = TryParse(character, out parsed);
+			}
+			return success;
+		}
+
 		#endregion
 
-		
+
 	}
 }
