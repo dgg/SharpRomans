@@ -55,18 +55,6 @@ namespace SharpRomans
 			return parsed;
 		}
 
-		public static RomanFigure Parse(ushort value)
-		{
-			try
-			{
-				return All.Single(f => f.Value.Equals(value));
-			}
-			catch (InvalidOperationException ex)
-			{
-				throw new ArgumentException(string.Format("Requested value '{0}' was not found", value), "value", ex);
-			}
-		}
-
 		public static RomanFigure Parse(string figure)
 		{
 			return Parse(char.Parse(figure));
@@ -92,6 +80,21 @@ namespace SharpRomans
 
 		#endregion
 
+		#region Convert
+
+		public static RomanFigure Convert(ushort value)
+		{
+			try
+			{
+				return All.Single(f => f.Value.Equals(value));
+			}
+			catch (InvalidOperationException ex)
+			{
+				throw new ArgumentException(string.Format("Requested value '{0}' was not found", value), "value", ex);
+			}
+		}
+
+		#endregion
 
 	}
 }

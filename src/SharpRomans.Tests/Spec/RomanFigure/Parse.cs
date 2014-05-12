@@ -116,7 +116,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 
 		private void theNumberIsParsed()
 		{
-			_figure = () => SharpRomans.RomanFigure.Parse(_number);
+			_figure = () => SharpRomans.RomanFigure.Convert(_number);
 		}
 
 		private void theStringIsParsed()
@@ -149,7 +149,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 
 		private void theNumberIsParsedAgain_(int number)
 		{
-			_anotherFigure = SharpRomans.RomanFigure.Parse((ushort)number);
+			_anotherFigure = SharpRomans.RomanFigure.Convert((ushort)number);
 		}
 
 		private void theStringIsParsedAgain_(string s)
