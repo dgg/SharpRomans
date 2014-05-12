@@ -33,16 +33,53 @@ namespace SharpRomans.Tests
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ParseNumber()
+		{
+			new Story("parse a number")
+				.InOrderTo("get a figure instance")
+				.AsA("library user")
+				.IWant("to be able to parse a short")
+
+				.WithScenario("parse a defined figure")
+					.Given(aNumber_, 1)
+					.When(theNumberIsParsed)
+					.Then(theFigure_Is, RomanFigure.I)
+
+				.WithScenario("parse an undefined figure")
+					.Given(aNumber_, 3)
+					.When(theNumberIsParsed)
+					.Then(throwsArgumentException)
+
+				.WithScenario("figures are unique")
+					.Given(aNumber_, 10)
+					.When(theNumberIsParsedAgain_, 10)
+					.Then(isTheSameFigure)
+
+				.ExecuteWithReport();
+		}
+
 		char _character;
 		private void aCharacter_(char character)
 		{
 			_character = character;
 		}
 
+		ushort _number;
+		private void aNumber_(int number)
+		{
+			_number = (ushort)number;
+		}
+
 		Func<RomanFigure> _figure;
 		private void theCharIsParsed()
 		{
 			_figure = () => RomanFigure.Parse(_character);
+		}
+
+		private void theNumberIsParsed()
+		{
+			_figure = () => RomanFigure.Parse(_number);
 		}
 
 		private void theFigure_Is(RomanFigure figure)
@@ -60,6 +97,11 @@ namespace SharpRomans.Tests
 		private void theCharIsParsedAgain_(char c)
 		{
 			_anotherFigure = RomanFigure.Parse(c);
+		}
+
+		private void theNumberIsParsedAgain_(int number)
+		{
+			_anotherFigure = RomanFigure.Parse((ushort)number);
 		}
 
 		private void isTheSameFigure()

@@ -8,7 +8,7 @@ namespace SharpRomans
 	public class RomanFigure
 	{
 		public char Figure { get; private set; }
-		public short Value { get; private set; }
+		public ushort Value { get; private set; }
 		public string Description { get; private set; }
 
 		public bool IsSubstractive { get; private set; }
@@ -16,7 +16,7 @@ namespace SharpRomans
 		public bool IsRepeteable { get; private set; }
 
 		private readonly string _string;
-		private RomanFigure(char figure, short value, string description, bool isSubstractive, bool isSingle, bool isRepeteable)
+		private RomanFigure(char figure, ushort value, string description, bool isSubstractive, bool isSingle, bool isRepeteable)
 		{
 			Figure = figure;
 			_string = figure.ToString(CultureInfo.InvariantCulture);
@@ -43,6 +43,8 @@ namespace SharpRomans
 			return _string;
 		}
 
+		#region Parsing
+
 		public static RomanFigure Parse(char figure)
 		{
 			RomanFigure parsed;
@@ -53,11 +55,26 @@ namespace SharpRomans
 			return parsed;
 		}
 
+		public static RomanFigure Parse(ushort value)
+		{
+			try
+			{
+				return All.Single(f => f.Value.Equals(value));
+			}
+			catch (InvalidOperationException ex)
+			{
+				throw new ArgumentException(string.Format("Requested value '{0}' was not found", value), "value", ex);
+			}
+		}
+
 		public static bool TryParse(char figure, out RomanFigure parsed)
 		{
 			parsed = All.FirstOrDefault(f => f.Figure.Equals(figure));
 			return parsed != null;
 		}
+
+		#endregion
+
 		
 	}
 }
