@@ -59,6 +59,37 @@ namespace SharpRomans.Tests
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ParseString()
+		{
+			new Story("parse a string")
+				.InOrderTo("get a figure instance")
+				.AsA("library user")
+				.IWant("to be able to parse a string")
+
+				.WithScenario("parse a defined figure")
+					.Given(aString_, "I")
+					.When(theStringIsParsed)
+					.Then(theFigure_Is, RomanFigure.I)
+
+				.WithScenario("parse an undefined figure")
+					.Given(aString_, "W")
+					.When(theStringIsParsed)
+					.Then(throwsArgumentException)
+
+				.WithScenario("parse a multiple character string")
+					.Given(aString_, "XI")
+					.When(theStringIsParsed)
+					.Then(throwsFormatException)
+
+				.WithScenario("figures are unique")
+					.Given(aString_, "X")
+					.When(theStringIsParsedAgain_, "X")
+					.Then(isTheSameFigure)
+
+				.ExecuteWithReport();
+		}
+
 		char _character;
 		private void aCharacter_(char character)
 		{
@@ -69,6 +100,12 @@ namespace SharpRomans.Tests
 		private void aNumber_(int number)
 		{
 			_number = (ushort)number;
+		}
+
+		string _string;
+		private void aString_(string s)
+		{
+			_string = s;
 		}
 
 		Func<RomanFigure> _figure;
@@ -82,6 +119,11 @@ namespace SharpRomans.Tests
 			_figure = () => RomanFigure.Parse(_number);
 		}
 
+		private void theStringIsParsed()
+		{
+			_figure = () => RomanFigure.Parse(_string);
+		}
+
 		private void theFigure_Is(RomanFigure figure)
 		{
 			Assert.That(_figure(), Is.EqualTo(figure));
@@ -93,6 +135,12 @@ namespace SharpRomans.Tests
 			Assert.That(cast, Throws.ArgumentException);
 		}
 
+		private void throwsFormatException()
+		{
+			TestDelegate cast = () => _figure();
+			Assert.That(cast, Throws.InstanceOf<FormatException>());
+		}
+
 		private RomanFigure _anotherFigure;
 		private void theCharIsParsedAgain_(char c)
 		{
@@ -102,6 +150,11 @@ namespace SharpRomans.Tests
 		private void theNumberIsParsedAgain_(int number)
 		{
 			_anotherFigure = RomanFigure.Parse((ushort)number);
+		}
+
+		private void theStringIsParsedAgain_(string s)
+		{
+			_anotherFigure = RomanFigure.Parse(s);
 		}
 
 		private void isTheSameFigure()

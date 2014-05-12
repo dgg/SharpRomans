@@ -67,6 +67,11 @@ namespace SharpRomans
 			}
 		}
 
+		public static RomanFigure Parse(string figure)
+		{
+			return Parse(char.Parse(figure));
+		}
+
 		public static bool TryParse(char figure, out RomanFigure parsed)
 		{
 			parsed = All.FirstOrDefault(f => f.Figure.Equals(figure));
