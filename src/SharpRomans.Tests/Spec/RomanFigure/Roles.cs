@@ -7,9 +7,9 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 	public class RolesTester
 	{
 		[Test]
-		public void Substractive()
+		public void Substractiveness()
 		{
-			new Story("substractive")
+			new Story("substractiveness")
 				.InOrderTo("know whether a figure is substractive or not")
 				.AsA("library user")
 				.IWant("to be able to invoke a method on a roman figure")
@@ -18,13 +18,32 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 					.Given(aSubstractiveRomanFigure_, SharpRomans.RomanFigure.I)
 					.When(substractivenessIsChecked)
 					.Then(substractivenessIs_, true)
-					.And(isNotSingle)
 
 				.WithScenario("non-substractive figure")
 					.Given(aNonSubstractiveRomanFigure_, SharpRomans.RomanFigure.V)
 					.When(substractivenessIsChecked)
 					.Then(substractivenessIs_, false)
-					.And(isSingle)
+
+				.ExecuteWithReport();
+		}
+
+		[Test]
+		public void Repeteability()
+		{
+			new Story("repeteability")
+				.InOrderTo("know whether a figure can be repeated or not")
+				.AsA("library user")
+				.IWant("to be able to invoke a method on a roman figure")
+
+				.WithScenario("repeteable figure")
+					.Given(aRepeteableRomanFigure_, SharpRomans.RomanFigure.I)
+					.When(repeteabilityIsChecked)
+					.Then(repeteabilityIs_, true)
+
+				.WithScenario("non-repeteable figure")
+					.Given(aNonRepeteableRomanFigure_, SharpRomans.RomanFigure.V)
+					.When(repeteabilityIsChecked)
+					.Then(repeteabilityIs_, false)
 
 				.ExecuteWithReport();
 		}
@@ -35,7 +54,17 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			_subject = figure;
 		}
 
+		private void aRepeteableRomanFigure_(SharpRomans.RomanFigure figure)
+		{
+			_subject = figure;
+		}
+
 		private void aNonSubstractiveRomanFigure_(SharpRomans.RomanFigure figure)
+		{
+			_subject = figure;
+		}
+
+		private void aNonRepeteableRomanFigure_(SharpRomans.RomanFigure figure)
 		{
 			_subject = figure;
 		}
@@ -46,19 +75,20 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			_substractiveness = _subject.IsSubstractive;
 		}
 
+		bool _repeteability;
+		private void repeteabilityIsChecked()
+		{
+			_repeteability = _subject.IsRepeteable;
+		}
+
 		private void substractivenessIs_(bool substractiveness)
 		{
 			Assert.That(_substractiveness, Is.EqualTo(substractiveness));
 		}
 
-		private void isSingle()
+		private void repeteabilityIs_(bool repeteability)
 		{
-			Assert.That(_subject.IsSingle, Is.True);
-		}
-
-		private void isNotSingle()
-		{
-			Assert.That(_subject.IsSingle, Is.False);
+			Assert.That(_repeteability, Is.EqualTo(repeteability));
 		}
 	}
 }
