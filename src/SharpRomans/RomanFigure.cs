@@ -7,7 +7,7 @@ namespace SharpRomans
 {
 	public class RomanFigure : IComparable<RomanFigure>
 	{
-		public char Figure { get; private set; }
+		public char Literal { get; private set; }
 		public ushort Value { get; private set; }
 		public string Name { get; private set; }
 
@@ -15,10 +15,10 @@ namespace SharpRomans
 		public bool IsRepeteable { get; private set; }
 
 		private readonly string _string;
-		private RomanFigure(char figure, ushort value, string name, bool isSubstractive, bool isRepeteable)
+		private RomanFigure(char literal, ushort value, string name, bool isSubstractive, bool isRepeteable)
 		{
-			Figure = figure;
-			_string = figure.ToString(CultureInfo.InvariantCulture);
+			Literal = literal;
+			_string = literal.ToString(CultureInfo.InvariantCulture);
 			Value = value;
 			Name = name;
 			IsSubstractive = isSubstractive;
@@ -60,7 +60,7 @@ namespace SharpRomans
 
 		public static bool TryParse(char figure, out RomanFigure parsed)
 		{
-			parsed = All.FirstOrDefault(f => f.Figure.Equals(figure));
+			parsed = All.FirstOrDefault(f => f.Literal.Equals(figure));
 			return parsed != null;
 		}
 

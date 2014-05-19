@@ -4,50 +4,50 @@ using StoryQ;
 namespace SharpRomans.Tests.Spec.RomanFigure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
-	public class FigureTester
+	public class LiteralTester
 	{
 		[Test]
-		public void Figures()
+		public void Literals()
 		{
-			new Story("figures")
-				.InOrderTo("get the character of individual figures")
+			new Story("literals")
+				.InOrderTo("get the literal of individual figures")
 				.AsA("library user")
 				.IWant("to be able to invoke a method on a roman figure")
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, SharpRomans.RomanFigure.I)
-					.When(theFigureIsObtained)
-					.Then(theFigureIs_, 'I')
+					.When(theLiteralIsObtained)
+					.Then(theLiteralIs_, 'I')
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, SharpRomans.RomanFigure.V)
-					.When(theFigureIsObtained)
-					.Then(theFigureIs_, 'V')
+					.When(theLiteralIsObtained)
+					.Then(theLiteralIs_, 'V')
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, SharpRomans.RomanFigure.X)
-					.When(theFigureIsObtained)
-					.Then(theFigureIs_, 'X')
+					.When(theLiteralIsObtained)
+					.Then(theLiteralIs_, 'X')
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, SharpRomans.RomanFigure.L)
-					.When(theFigureIsObtained)
-					.Then(theFigureIs_, 'L')
+					.When(theLiteralIsObtained)
+					.Then(theLiteralIs_, 'L')
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, SharpRomans.RomanFigure.C)
-					.When(theFigureIsObtained)
-					.Then(theFigureIs_, 'C')
+					.When(theLiteralIsObtained)
+					.Then(theLiteralIs_, 'C')
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, SharpRomans.RomanFigure.D)
-					.When(theFigureIsObtained)
-					.Then(theFigureIs_, 'D')
+					.When(theLiteralIsObtained)
+					.Then(theLiteralIs_, 'D')
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, SharpRomans.RomanFigure.M)
-					.When(theFigureIsObtained)
-					.Then(theFigureIs_, 'M')
+					.When(theLiteralIsObtained)
+					.Then(theLiteralIs_, 'M')
 
 				.ExecuteWithReport();
 		}
@@ -58,15 +58,15 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			_subject = figure;
 		}
 
-		char _character;
-		private void theFigureIsObtained()
+		char _literal;
+		private void theLiteralIsObtained()
 		{
-			_character = _subject.Figure;
+			_literal = _subject.Literal;
 		}
 
-		private void theFigureIs_(char character)
+		private void theLiteralIs_(char character)
 		{
-			Assert.That(_character, Is.EqualTo(character));
+			Assert.That(_literal, Is.EqualTo(character));
 		}
 	}
 }
