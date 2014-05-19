@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SharpRomans
 {
-	public class RomanFigure
+	public class RomanFigure : IComparable<RomanFigure>
 	{
 		public char Figure { get; private set; }
 		public ushort Value { get; private set; }
@@ -96,6 +96,16 @@ namespace SharpRomans
 		{
 			figure = All.SingleOrDefault(f => f.Value.Equals(value));
 			return figure != null;
+		}
+
+		#endregion
+
+		#region comparisons
+
+		public int CompareTo(RomanFigure anotherFigure)
+		{
+			if (anotherFigure == null) return 1;
+			return Value.CompareTo(anotherFigure.Value);
 		}
 
 		#endregion
