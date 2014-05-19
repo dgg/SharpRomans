@@ -1,5 +1,5 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using SharpRomans.Tests.Spec.RomanFigure.Support;
 using StoryQ;
 
 namespace SharpRomans.Tests.Spec.RomanFigure
@@ -48,27 +48,27 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 
 			.WithScenario("one figure is greater than another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.V)
-				.When(GreaterThanIsEvaluatedAgainst_, SharpRomans.RomanFigure.I)
+				.When(_IsEvaluatedAgainst_, Op.Gt, SharpRomans.RomanFigure.I)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is less than another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.I)
-				.When(GreaterThanIsEvaluatedAgainst_, SharpRomans.RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.Gt, SharpRomans.RomanFigure.X)
 				.Then(Is_, false)
 
 			.WithScenario("one figure is equal to another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.X)
-				.When(GreaterThanIsEvaluatedAgainst_, SharpRomans.RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.Gt, SharpRomans.RomanFigure.X)
 				.Then(Is_, false)
 
 			.WithScenario("one figure is compared to NULL")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.N)
-				.When(GreaterThanIsEvaluatedAgainst_, (SharpRomans.RomanFigure)null)
+				.When(_IsEvaluatedAgainst_, Op.Gt, (SharpRomans.RomanFigure)null)
 				.Then(Is_, true)
 
 				.WithScenario("NULL is compared to a figure")
 				.Given(TheRomanFigure_, (SharpRomans.RomanFigure)null)
-				.When(GreaterThanIsEvaluatedAgainst_, SharpRomans.RomanFigure.N)
+				.When(_IsEvaluatedAgainst_, Op.Gt, SharpRomans.RomanFigure.N)
 				.Then(Is_, false)
 
 			.ExecuteWithReport();
@@ -84,27 +84,27 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 
 			.WithScenario("one figure is greater than another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.V)
-				.When(GreaterThanOrEqualToIsEvaluatedAgainst_, SharpRomans.RomanFigure.I)
+				.When(_IsEvaluatedAgainst_, Op.GtOE, SharpRomans.RomanFigure.I)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is less than another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.I)
-				.When(GreaterThanOrEqualToIsEvaluatedAgainst_, SharpRomans.RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.GtOE, SharpRomans.RomanFigure.X)
 				.Then(Is_, false)
 
 			.WithScenario("one figure is equal to another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.X)
-				.When(GreaterThanOrEqualToIsEvaluatedAgainst_, SharpRomans.RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.GtOE, SharpRomans.RomanFigure.X)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is compared to NULL")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.N)
-				.When(GreaterThanOrEqualToIsEvaluatedAgainst_, (SharpRomans.RomanFigure)null)
+				.When(_IsEvaluatedAgainst_, Op.GtOE, (SharpRomans.RomanFigure)null)
 				.Then(Is_, true)
 
 				.WithScenario("NULL is compared to a figure")
 				.Given(TheRomanFigure_, (SharpRomans.RomanFigure)null)
-				.When(GreaterThanOrEqualToIsEvaluatedAgainst_, SharpRomans.RomanFigure.N)
+				.When(_IsEvaluatedAgainst_, Op.GtOE, SharpRomans.RomanFigure.N)
 				.Then(Is_, false)
 
 			.ExecuteWithReport();
@@ -120,27 +120,32 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 
 			.WithScenario("one figure is greater than another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.V)
-				.When(LessThanIsEvaluatedAgainst_, SharpRomans.RomanFigure.I)
+				.When(_IsEvaluatedAgainst_, Op.Lt, (SharpRomans.RomanFigure.I))
+				.Then(Is_, false)
+
+			.WithScenario("one figure is greater than another")
+				.Given(TheRomanFigure_, SharpRomans.RomanFigure.V)
+				.When(_IsEvaluatedAgainst_, Op.Lt, SharpRomans.RomanFigure.I)
 				.Then(Is_, false)
 
 			.WithScenario("one figure is less than another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.I)
-				.When(LessThanIsEvaluatedAgainst_, SharpRomans.RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.Lt, SharpRomans.RomanFigure.X)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is equal to another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.X)
-				.When(LessThanIsEvaluatedAgainst_, SharpRomans.RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.Lt, SharpRomans.RomanFigure.X)
 				.Then(Is_, false)
 
 			.WithScenario("one figure is compared to NULL")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.N)
-				.When(LessThanIsEvaluatedAgainst_, (SharpRomans.RomanFigure)null)
+				.When(_IsEvaluatedAgainst_, Op.Lt, (SharpRomans.RomanFigure)null)
 				.Then(Is_, false)
 
 				.WithScenario("NULL is compared to a figure")
 				.Given(TheRomanFigure_, (SharpRomans.RomanFigure)null)
-				.When(LessThanIsEvaluatedAgainst_, SharpRomans.RomanFigure.N)
+				.When(_IsEvaluatedAgainst_, Op.Lt, SharpRomans.RomanFigure.N)
 				.Then(Is_, true)
 
 			.ExecuteWithReport();
@@ -156,27 +161,27 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 
 			.WithScenario("one figure is greater than another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.V)
-				.When(LessThanOrEqualToIsEvaluatedAgainst_, SharpRomans.RomanFigure.I)
+				.When(_IsEvaluatedAgainst_, Op.LtOE, SharpRomans.RomanFigure.I)
 				.Then(Is_, false)
 
 			.WithScenario("one figure is less than another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.I)
-				.When(LessThanOrEqualToIsEvaluatedAgainst_, SharpRomans.RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.LtOE, SharpRomans.RomanFigure.X)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is equal to another")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.X)
-				.When(LessThanOrEqualToIsEvaluatedAgainst_, SharpRomans.RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.LtOE, SharpRomans.RomanFigure.X)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is compared to NULL")
 				.Given(TheRomanFigure_, SharpRomans.RomanFigure.N)
-				.When(LessThanOrEqualToIsEvaluatedAgainst_, (SharpRomans.RomanFigure)null)
+				.When(_IsEvaluatedAgainst_, Op.LtOE, (SharpRomans.RomanFigure)null)
 				.Then(Is_, false)
 
 				.WithScenario("NULL is compared to a figure")
 				.Given(TheRomanFigure_, (SharpRomans.RomanFigure)null)
-				.When(LessThanOrEqualToIsEvaluatedAgainst_, SharpRomans.RomanFigure.N)
+				.When(_IsEvaluatedAgainst_, Op.LtOE, SharpRomans.RomanFigure.N)
 				.Then(Is_, true)
 
 			.ExecuteWithReport();
@@ -195,32 +200,12 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			_comparison = _subject.CompareTo(anotherFigure);
 		}
 
-		private void GreaterThanIsEvaluatedAgainst_(SharpRomans.RomanFigure right)
-		{
-			operate(left => left > right);
-		}
-
-		private void LessThanIsEvaluatedAgainst_(SharpRomans.RomanFigure right)
-		{
-			operate(left => left < right);
-		}
-
-		private void GreaterThanOrEqualToIsEvaluatedAgainst_(SharpRomans.RomanFigure right)
-		{
-			operate(left => left >= right);
-		}
-
-		private void LessThanOrEqualToIsEvaluatedAgainst_(SharpRomans.RomanFigure right)
-		{
-			operate(left => left <= right);
-		}
-
 		bool _operation;
-		private void operate(Func<SharpRomans.RomanFigure, bool> operation)
+		private void _IsEvaluatedAgainst_(Op op, SharpRomans.RomanFigure right)
 		{
-			_operation = operation(_subject);
+			_operation = op.Execute(_subject, right);
 		}
-
+		
 		private void TheResultIsZero()
 		{
 			Assert.That(_comparison, Is.EqualTo(0));

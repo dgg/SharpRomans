@@ -46,6 +46,7 @@
     <Compile Include="Spec\RomanFigure\Convert.cs" />
     <Compile Include="Spec\RomanFigure\Literal.cs" />
     <Compile Include="Spec\RomanFigure\Roles.cs" />
+    <Compile Include="Spec\RomanFigure\Support\Op.cs" />
     <Compile Include="Spec\RomanFigure\Value.cs" />
     <Compile Include="Spec\RomanFigure\Name.cs" />
     <Compile Include="Spec\RomanFigure\TryConvert.cs" />
