@@ -44,6 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spec\RomanFigure\Convert.cs" />
     <Compile Include="Spec\RomanFigure\Figure.cs" />
+    <Compile Include="Spec\RomanFigure\Roles.cs" />
     <Compile Include="Spec\RomanFigure\Value.cs" />
     <Compile Include="Spec\RomanFigure\Name.cs" />
     <Compile Include="Spec\RomanFigure\TryConvert.cs" />
