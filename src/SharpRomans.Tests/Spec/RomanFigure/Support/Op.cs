@@ -22,7 +22,11 @@ namespace SharpRomans.Tests.Spec.RomanFigure.Support
 		{
 			string str = _exp.ToString();
 			int index =  str.IndexOf(ROCKET, StringComparison.OrdinalIgnoreCase);
-			return str.Substring(index + ROCKET.Length).Trim();
+			return str.Substring(index + ROCKET.Length).Trim()
+				.Replace("(x", string.Empty)
+				.Replace("y)", string.Empty)
+				.Trim()
+				;
 		}
 
 		public static Op Gt { get { return new Op((x, y) => x > y); } }
