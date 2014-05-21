@@ -68,7 +68,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void ConvertToSByte()
 		{
 			new Story("convert to SByte")
-				.InOrderTo("convert a roman figure to a signed byte whenever possible")
+				.InOrderTo("convert a roman figure to a signed byte")
 				.AsA("library user")
 				.IWant("Convert() to a roman figure")
 
@@ -85,6 +85,32 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedToSByte)
+				.Then(Overflows)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void ConvertToByte()
+		{
+			new Story("convert to Byte")
+				.InOrderTo("convert a roman figure to a byte whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedToByte)
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanFigure_, RomanFigure.C)
+				.When(ConvertedToByte)
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedToByte)
 				.Then(Overflows)
 
 			.ExecuteWithReport();
@@ -110,6 +136,11 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		private void ConvertedToSByte()
 		{
 			_conversion = () => Convert.ToSByte(_subject);
+		}
+
+		private void ConvertedToByte()
+		{
+			_conversion = () => Convert.ToByte(_subject);
 		}
 
 		private void Is_<T>(T value) where T : struct 

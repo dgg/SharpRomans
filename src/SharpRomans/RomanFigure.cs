@@ -158,7 +158,7 @@ namespace SharpRomans
 
 		public byte ToByte(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return System.Convert.ToByte(Value);
 		}
 
 		public short ToInt16(IFormatProvider provider)
