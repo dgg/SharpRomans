@@ -232,7 +232,7 @@ namespace SharpRomans
 
 		#region castings
 
-		public static explicit operator char(RomanFigure figure)
+		public static implicit operator char(RomanFigure figure)
 		{
 			if (figure == null) throw new ArgumentNullException("figure");
 

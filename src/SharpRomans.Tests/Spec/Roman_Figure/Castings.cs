@@ -63,6 +63,32 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void AssignToChar()
+		{
+			new Story("assign to char")
+				.InOrderTo("get the character of individual figures")
+				.AsA("library user")
+				.IWant("to be able to implicitely cast a roman figure")
+
+				.WithScenario("character of a figure")
+					.Given(aRomanFigure_, RomanFigure.N)
+					.When(theFigureIsAssigned)
+					.Then(theCharacterIs_, 'N')
+
+				.WithScenario("character of a figure")
+					.Given(aRomanFigure_, RomanFigure.V)
+					.When(theFigureIsAssigned)
+					.Then(theCharacterIs_, 'V')
+
+				.WithScenario("character of null")
+					.Given(aRomanFigure_, (RomanFigure)null)
+					.When(theFigureIsAssigned)
+					.Then(throwsArgumentException)
+
+				.ExecuteWithReport();
+		}
+
 		RomanFigure _subject;
 		private void aRomanFigure_(RomanFigure figure)
 		{
@@ -73,6 +99,14 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		private void theFigureIsCasted()
 		{
 			_character = () => (char)_subject;
+		}
+
+		private char _assigned;
+		Func<char> _assignation;
+
+		private void theFigureIsAssigned()
+		{
+			_character = () => (_assigned = _subject);
 		}
 
 		private void theCharacterIs_(char character)
