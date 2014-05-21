@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spec\Roman_Figure\Castings.cs" />
     <Compile Include="Spec\Roman_Figure\Comparisons.cs" />
     <Compile Include="Spec\Roman_Figure\Conversions.cs" />
     <Compile Include="Spec\Roman_Figure\Convert.cs" />

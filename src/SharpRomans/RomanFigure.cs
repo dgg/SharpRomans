@@ -229,5 +229,16 @@ namespace SharpRomans
 		}
 
 		#endregion
+
+		#region castings
+
+		public static explicit operator char(RomanFigure figure)
+		{
+			if (figure == null) throw new ArgumentNullException("figure");
+
+			return figure.Literal;
+		}
+
+		#endregion
 	}
 }
