@@ -351,6 +351,32 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToDateTime()
+		{
+			new Story("convert to DateTime")
+				.InOrderTo("convert a roman figure to date-time whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
+				.Then(CannotCast)
+
+			.WithScenario("less than max")
+				.Given(TheRomanFigure_, RomanFigure.C)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
+				.Then(CannotCast)
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
+				.Then(CannotCast)
+
+			.ExecuteWithReport();
+		}
+
 		RomanFigure _subject;
 		private void TheRomanFigure_(RomanFigure subject)
 		{
@@ -372,6 +398,13 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		{
 			TestDelegate conversion = () => _conversion();
 			Assert.That(conversion, Throws.InstanceOf<OverflowException>());
+		}
+
+		private void CannotCast()
+		{
+			TestDelegate conversion = () => _conversion();
+			Assert.That(conversion, Throws.InstanceOf<InvalidCastException>()
+				.With.Message.StringContaining(typeof(RomanFigure).Name));
 		}
 	}
 }

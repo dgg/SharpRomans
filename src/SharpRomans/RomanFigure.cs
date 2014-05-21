@@ -208,7 +208,12 @@ namespace SharpRomans
 
 		public DateTime ToDateTime(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			throw invalidCast(typeof(DateTime));
+		}
+
+		private InvalidCastException invalidCast(Type other)
+		{
+			return new InvalidCastException(string.Format("Invalid cast from '{0}' to '{1}'", typeof(RomanFigure).Name, other.Name));
 		}
 
 		public string ToString(IFormatProvider provider)
