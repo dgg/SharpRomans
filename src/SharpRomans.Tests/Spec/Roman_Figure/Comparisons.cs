@@ -5,7 +5,7 @@ using StoryQ;
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
-	public class FigureComparisonsTester
+	public class ComparisonsTester
 	{
 		[Test]
 		public void CompareToRomanFigure()
@@ -226,4 +226,5 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			Assert.That(_operation, Is.EqualTo(value));
 		}
 	}
+
 }
