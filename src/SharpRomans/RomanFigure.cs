@@ -239,6 +239,13 @@ namespace SharpRomans
 			return figure.Literal;
 		}
 
+		public static implicit operator ushort(RomanFigure figure)
+		{
+			if (figure == null) throw new ArgumentNullException("figure");
+
+			return figure.Value;
+		}
+
 		#endregion
 	}
 }

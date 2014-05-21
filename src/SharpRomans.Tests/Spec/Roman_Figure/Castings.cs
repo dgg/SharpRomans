@@ -17,47 +17,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, RomanFigure.N)
-					.When(theFigureIsCasted)
+					.When(theFigureIsCastedToChar)
 					.Then(theCharacterIs_, 'N')
 
 				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.I)
-					.When(theFigureIsCasted)
-					.Then(theCharacterIs_, 'I')
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.V)
-					.When(theFigureIsCasted)
-					.Then(theCharacterIs_, 'V')
-
-				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, RomanFigure.X)
-					.When(theFigureIsCasted)
+					.When(theFigureIsCastedToChar)
 					.Then(theCharacterIs_, 'X')
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.L)
-					.When(theFigureIsCasted)
-					.Then(theCharacterIs_, 'L')
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.C)
-					.When(theFigureIsCasted)
-					.Then(theCharacterIs_, 'C')
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.D)
-					.When(theFigureIsCasted)
-					.Then(theCharacterIs_, 'D')
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.M)
-					.When(theFigureIsCasted)
-					.Then(theCharacterIs_, 'M')
 
 				.WithScenario("character of null")
 					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(theFigureIsCasted)
+					.When(theFigureIsCastedToChar)
 					.Then(throwsArgumentException)
 
 				.ExecuteWithReport();
@@ -73,17 +43,69 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, RomanFigure.N)
-					.When(theFigureIsAssigned)
+					.When(theFigureIsAssignedToChar)
 					.Then(theCharacterIs_, 'N')
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, RomanFigure.V)
-					.When(theFigureIsAssigned)
+					.When(theFigureIsAssignedToChar)
 					.Then(theCharacterIs_, 'V')
 
 				.WithScenario("character of null")
 					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(theFigureIsAssigned)
+					.When(theFigureIsAssignedToChar)
+					.Then(throwsArgumentException)
+
+				.ExecuteWithReport();
+		}
+
+		[Test]
+		public void CastToNumber()
+		{
+			new Story("casting to number")
+				.InOrderTo("get the value of individual figures")
+				.AsA("library user")
+				.IWant("to be able to explicitely cast a roman figure")
+
+				.WithScenario("character of a figure")
+					.Given(aRomanFigure_, RomanFigure.N)
+					.When(theFigureIsCastedToNumber)
+					.Then(theNumberIs_, 0)
+
+				.WithScenario("character of a figure")
+					.Given(aRomanFigure_, RomanFigure.X)
+					.When(theFigureIsCastedToNumber)
+					.Then(theNumberIs_, 10)
+
+				.WithScenario("character of null")
+					.Given(aRomanFigure_, (RomanFigure)null)
+					.When(theFigureIsCastedToNumber)
+					.Then(throwsArgumentException)
+
+				.ExecuteWithReport();
+		}
+
+		[Test]
+		public void AssignToNumber()
+		{
+			new Story("assign to number")
+				.InOrderTo("get the value of individual figures")
+				.AsA("library user")
+				.IWant("to be able to implicitely cast a roman figure")
+
+				.WithScenario("character of a figure")
+					.Given(aRomanFigure_, RomanFigure.N)
+					.When(theFigureIsAssignedToNumber)
+					.Then(theNumberIs_, 0)
+
+				.WithScenario("character of a figure")
+					.Given(aRomanFigure_, RomanFigure.V)
+					.When(theFigureIsAssignedToNumber)
+					.Then(theNumberIs_, 5)
+
+				.WithScenario("character of null")
+					.Given(aRomanFigure_, (RomanFigure)null)
+					.When(theFigureIsAssignedToNumber)
 					.Then(throwsArgumentException)
 
 				.ExecuteWithReport();
@@ -96,22 +118,37 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		}
 
 		Func<char> _character;
-		private void theFigureIsCasted()
+		private void theFigureIsCastedToChar()
 		{
 			_character = () => (char)_subject;
 		}
 
-		private char _assigned;
-		Func<char> _assignation;
-
-		private void theFigureIsAssigned()
+		Func<ushort> _number;
+		private void theFigureIsCastedToNumber()
 		{
-			_character = () => (_assigned = _subject);
+			_number = () => (ushort)_subject;
+		}
+
+		private char _assignedChar;
+		private void theFigureIsAssignedToChar()
+		{
+			_character = () => (_assignedChar = _subject);
+		}
+
+		private ushort _assignedNumber;
+		private void theFigureIsAssignedToNumber()
+		{
+			_number = () => (_assignedNumber = _subject);
 		}
 
 		private void theCharacterIs_(char character)
 		{
 			Assert.That(_character(), Is.EqualTo(character));
+		}
+
+		private void theNumberIs_(int number)
+		{
+			Assert.That(_number(), Is.EqualTo(number));
 		}
 
 		private void throwsArgumentException()
