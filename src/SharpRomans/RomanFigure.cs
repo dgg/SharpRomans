@@ -168,7 +168,7 @@ namespace SharpRomans
 
 		public ushort ToUInt16(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return System.Convert.ToUInt16(Value, provider);
 		}
 
 		public int ToInt32(IFormatProvider provider)
