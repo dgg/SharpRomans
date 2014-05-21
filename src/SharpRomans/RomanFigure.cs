@@ -193,17 +193,17 @@ namespace SharpRomans
 
 		public float ToSingle(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return System.Convert.ToSingle(Value, provider);
 		}
 
 		public double ToDouble(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return System.Convert.ToDouble(Value, provider);
 		}
 
 		public decimal ToDecimal(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return System.Convert.ToDecimal(Value, provider);
 		}
 
 		public DateTime ToDateTime(IFormatProvider provider)

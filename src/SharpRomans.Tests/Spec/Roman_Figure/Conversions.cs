@@ -273,6 +273,84 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToFloat()
+		{
+			new Story("convert to Float")
+				.InOrderTo("convert a roman figure to a float")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanFigure_, RomanFigure.C)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
+				.Then(Is_, 1000)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void ConvertToDouble()
+		{
+			new Story("convert to Double")
+				.InOrderTo("convert a roman figure to a double")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanFigure_, RomanFigure.C)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
+				.Then(Is_, 1000)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void ConvertToDecimal()
+		{
+			new Story("convert to Decimal")
+				.InOrderTo("convert a roman figure to a decimal")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanFigure_, RomanFigure.C)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
+				.Then(Is_, 1000)
+
+			.ExecuteWithReport();
+		}
+
 		RomanFigure _subject;
 		private void TheRomanFigure_(RomanFigure subject)
 		{
