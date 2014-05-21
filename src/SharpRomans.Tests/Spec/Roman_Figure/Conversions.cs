@@ -117,6 +117,32 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToShort()
+		{
+			new Story("convert to short")
+				.InOrderTo("convert a roman figure to a short whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanFigure_, RomanFigure.C)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
+				.Then(Is_, 1000)
+
+			.ExecuteWithReport();
+		}
+
 		RomanFigure _subject;
 		private void TheRomanFigure_(RomanFigure subject)
 		{
