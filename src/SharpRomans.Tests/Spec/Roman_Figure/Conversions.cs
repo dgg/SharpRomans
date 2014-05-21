@@ -403,6 +403,42 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ChangeType()
+		{
+			new Story("ChangeType")
+				.InOrderTo("convert a roman figure to a clr type whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("supported type")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, typeof(long))
+				.Then(Is_, 1000)
+
+			.WithScenario("overflowing type")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, typeof(byte))
+				.Then(Overflows)
+
+			.WithScenario("unsupported type")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, typeof(TimeSpan))
+				.Then(CannotCast)
+
+			.WithScenario("unsupported type")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, typeof(Exception))
+				.Then(CannotCast)
+
+			.WithScenario("itself")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, typeof(RomanFigure))
+				.Then(Is_, RomanFigure.M)
+
+			.ExecuteWithReport();
+		}
+
 		RomanFigure _subject;
 		private void TheRomanFigure_(RomanFigure subject)
 		{
@@ -413,6 +449,11 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		private void ConvertedTo_(Conv exp)
 		{
 			_conversion = () => exp.Execute(_subject);
+		}
+
+		private void ConvertedTo_(Type to)
+		{
+			_conversion = () => Convert.ChangeType(_subject, to);
 		}
 
 		private void Is_<T>(T value)

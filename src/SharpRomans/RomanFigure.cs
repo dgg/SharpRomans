@@ -223,7 +223,9 @@ namespace SharpRomans
 
 		public object ToType(Type conversionType, IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			// only called when another CLR type is passed. So unless it is itself (weird) it cannot be converted
+			if (conversionType == typeof(RomanFigure)) return this;
+			throw invalidCast(conversionType);
 		}
 
 		#endregion
