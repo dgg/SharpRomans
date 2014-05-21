@@ -24,7 +24,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure.Support
 
 		public override string ToString()
 		{
-			return ((UnaryExpression)_exp.Body).Operand.Type.Name;
+			var unary = _exp.Body as UnaryExpression;
+			if (unary != null)
+			{
+				return unary.Operand.Type.ToString();
+			}
+			var call = _exp.Body as MethodCallExpression;
+			if (call != null)
+			{
+				return call.Type.ToString();
+			}
+			throw new NotSupportedException(_exp.Body.GetType().Name);
 		}
 	}
 }

@@ -377,6 +377,32 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToString()
+		{
+			new Story("convert to Char")
+				.InOrderTo("convert a roman figure to a string")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
+				.Then(Is_, "N")
+
+			.WithScenario("more than one")
+				.Given(TheRomanFigure_, RomanFigure.D)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
+				.Then(Is_, "D")
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
+				.Then(Is_, "M")
+
+			.ExecuteWithReport();
+		}
+
 		RomanFigure _subject;
 		private void TheRomanFigure_(RomanFigure subject)
 		{
@@ -389,7 +415,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			_conversion = () => exp.Execute(_subject);
 		}
 
-		private void Is_<T>(T value) where T : struct
+		private void Is_<T>(T value)
 		{
 			Assert.That(_conversion(), Is.EqualTo(value));
 		}

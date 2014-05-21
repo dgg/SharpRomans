@@ -218,7 +218,7 @@ namespace SharpRomans
 
 		public string ToString(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return System.Convert.ToString(Literal, provider);
 		}
 
 		public object ToType(Type conversionType, IFormatProvider provider)
