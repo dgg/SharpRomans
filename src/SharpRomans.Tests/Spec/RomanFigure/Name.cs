@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using StoryQ;
 
-namespace SharpRomans.Tests.Spec.RomanFigure
+namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
 	public class NameTester
@@ -15,55 +15,55 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.IWant("to be able to invoke a property on a roman figure")
 
 						.WithScenario("zero")
-							.Given(theFigure_DoesHaveAName, SharpRomans.RomanFigure.N)
+							.Given(theFigure_DoesHaveAName, RomanFigure.N)
 							.When(theNameIsObtained)
 							.Then(theNameIsNotEmpty)
 
 						.WithScenario("one")
-							.Given(theFigure_DoesHaveAName, SharpRomans.RomanFigure.I)
+							.Given(theFigure_DoesHaveAName, RomanFigure.I)
 							.When(theNameIsObtained)
 							.Then(theNameIsNotEmpty)
 
 						.WithScenario("five")
-							.Given(theFigure_DoesHaveAName, SharpRomans.RomanFigure.V)
+							.Given(theFigure_DoesHaveAName, RomanFigure.V)
 							.When(theNameIsObtained)
 							.Then(theNameIsNotEmpty)
 
 						.WithScenario("ten")
-							.Given(theFigure_DoesHaveAName, SharpRomans.RomanFigure.X)
+							.Given(theFigure_DoesHaveAName, RomanFigure.X)
 							.When(theNameIsObtained)
 							.Then(theNameIsNotEmpty)
 
 						.WithScenario("figures with names")
-							.Given(theFigure_DoesHaveAName, SharpRomans.RomanFigure.L)
+							.Given(theFigure_DoesHaveAName, RomanFigure.L)
 							.When(theNameIsObtained)
 							.Then(theNameIsNotEmpty)
 
 						.WithScenario("figures with names")
-							.Given(theFigure_DoesHaveAName, SharpRomans.RomanFigure.C)
+							.Given(theFigure_DoesHaveAName, RomanFigure.C)
 							.When(theNameIsObtained)
 							.Then(theNameIsNotEmpty)
 
 						.WithScenario("figures with names")
-							.Given(theFigure_DoesHaveAName, SharpRomans.RomanFigure.D)
+							.Given(theFigure_DoesHaveAName, RomanFigure.D)
 							.When(theNameIsObtained)
 							.Then(theNameIsNotEmpty)
 
 						.WithScenario("figures with names")
-							.Given(theFigure_DoesHaveAName, SharpRomans.RomanFigure.M)
+							.Given(theFigure_DoesHaveAName, RomanFigure.M)
 							.When(theNameIsObtained)
 							.Then(theNameIsNotEmpty)
 				.ExecuteWithReport();
 		}
 
-		SharpRomans.RomanFigure _subject;
+		RomanFigure _subject;
 		string _name;
 		private void theNameIsObtained()
 		{
 			_name = _subject.Name;
 		}
 
-		private void theFigure_DoesHaveAName(SharpRomans.RomanFigure figureWithName)
+		private void theFigure_DoesHaveAName(RomanFigure figureWithName)
 		{
 			_subject = figureWithName;
 		}

@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using StoryQ;
 
-namespace SharpRomans.Tests.Spec.RomanFigure
+namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
 	public class LiteralTester
@@ -15,45 +15,45 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.IWant("to be able to invoke a method on a roman figure")
 
 				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.I)
+					.Given(aRomanFigure_, RomanFigure.I)
 					.When(theLiteralIsObtained)
 					.Then(theLiteralIs_, 'I')
 
 				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.V)
+					.Given(aRomanFigure_, RomanFigure.V)
 					.When(theLiteralIsObtained)
 					.Then(theLiteralIs_, 'V')
 
 				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.X)
+					.Given(aRomanFigure_, RomanFigure.X)
 					.When(theLiteralIsObtained)
 					.Then(theLiteralIs_, 'X')
 
 				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.L)
+					.Given(aRomanFigure_, RomanFigure.L)
 					.When(theLiteralIsObtained)
 					.Then(theLiteralIs_, 'L')
 
 				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.C)
+					.Given(aRomanFigure_, RomanFigure.C)
 					.When(theLiteralIsObtained)
 					.Then(theLiteralIs_, 'C')
 
 				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.D)
+					.Given(aRomanFigure_, RomanFigure.D)
 					.When(theLiteralIsObtained)
 					.Then(theLiteralIs_, 'D')
 
 				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.M)
+					.Given(aRomanFigure_, RomanFigure.M)
 					.When(theLiteralIsObtained)
 					.Then(theLiteralIs_, 'M')
 
 				.ExecuteWithReport();
 		}
 
-		SharpRomans.RomanFigure _subject;
-		private void aRomanFigure_(SharpRomans.RomanFigure figure)
+		RomanFigure _subject;
+		private void aRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}

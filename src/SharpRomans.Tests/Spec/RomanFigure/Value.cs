@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using StoryQ;
 
-namespace SharpRomans.Tests.Spec.RomanFigure
+namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
 	public class ValueTester
@@ -15,45 +15,45 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.IWant("to be able to invoke a method on a roman figure")
 
 				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.I)
+					.Given(aRomanFigure_, RomanFigure.I)
 					.When(theValueIsObtained)
 					.Then(theValueIs_, 1u)
 
 				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.V)
+					.Given(aRomanFigure_, RomanFigure.V)
 					.When(theValueIsObtained)
 					.Then(theValueIs_, 5u)
 
 				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.X)
+					.Given(aRomanFigure_, RomanFigure.X)
 					.When(theValueIsObtained)
 					.Then(theValueIs_, 10u)
 
 				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.L)
+					.Given(aRomanFigure_, RomanFigure.L)
 					.When(theValueIsObtained)
 					.Then(theValueIs_, 50u)
 
 				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.C)
+					.Given(aRomanFigure_, RomanFigure.C)
 					.When(theValueIsObtained)
 					.Then(theValueIs_, 100u)
 
 				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.D)
+					.Given(aRomanFigure_, RomanFigure.D)
 					.When(theValueIsObtained)
 					.Then(theValueIs_, 500u)
 
 				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, SharpRomans.RomanFigure.M)
+					.Given(aRomanFigure_, RomanFigure.M)
 					.When(theValueIsObtained)
 					.Then(theValueIs_, 1000u)
 
 				.ExecuteWithReport();
 		}
 
-		SharpRomans.RomanFigure _subject;
-		private void aRomanFigure_(SharpRomans.RomanFigure figure)
+		RomanFigure _subject;
+		private void aRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}

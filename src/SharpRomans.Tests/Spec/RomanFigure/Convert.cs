@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using StoryQ;
 
-namespace SharpRomans.Tests.Spec.RomanFigure
+namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
 	public class ConvertTester
@@ -18,7 +18,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.WithScenario("convert a defined figure")
 					.Given(aNumber_, 1)
 					.When(theNumberIsConverted)
-					.Then(theFigureIs_, SharpRomans.RomanFigure.I)
+					.Then(theFigureIs_, RomanFigure.I)
 
 				.WithScenario("convert an undefined figure")
 					.Given(aNumber_, 3)
@@ -39,14 +39,14 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			_number = (ushort)number;
 		}
 
-		Func<SharpRomans.RomanFigure> _figure;
+		Func<RomanFigure> _figure;
 		
 		private void theNumberIsConverted()
 		{
-			_figure = () => SharpRomans.RomanFigure.Convert(_number);
+			_figure = () => RomanFigure.Convert(_number);
 		}
 
-		private void theFigureIs_(SharpRomans.RomanFigure figure)
+		private void theFigureIs_(RomanFigure figure)
 		{
 			Assert.That(_figure(), Is.EqualTo(figure));
 		}
@@ -57,10 +57,10 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			Assert.That(cast, Throws.ArgumentException);
 		}
 
-		private SharpRomans.RomanFigure _anotherFigure;
+		private RomanFigure _anotherFigure;
 		private void theNumber_IsConvertedAgain(int number)
 		{
-			_anotherFigure = SharpRomans.RomanFigure.Convert((ushort)number);
+			_anotherFigure = RomanFigure.Convert((ushort)number);
 		}
 
 		private void isTheSameFigure()

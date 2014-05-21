@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using StoryQ;
 
-namespace SharpRomans.Tests.Spec.RomanFigure
+namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
 	public class RolesTester
@@ -15,12 +15,12 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.IWant("to be able to invoke a method on a roman figure")
 
 				.WithScenario("substractive figure")
-					.Given(aSubstractiveRomanFigure_, SharpRomans.RomanFigure.I)
+					.Given(aSubstractiveRomanFigure_, RomanFigure.I)
 					.When(substractivenessIsChecked)
 					.Then(substractivenessIs_, true)
 
 				.WithScenario("non-substractive figure")
-					.Given(aNonSubstractiveRomanFigure_, SharpRomans.RomanFigure.V)
+					.Given(aNonSubstractiveRomanFigure_, RomanFigure.V)
 					.When(substractivenessIsChecked)
 					.Then(substractivenessIs_, false)
 
@@ -36,35 +36,35 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.IWant("to be able to invoke a method on a roman figure")
 
 				.WithScenario("repeteable figure")
-					.Given(aRepeteableRomanFigure_, SharpRomans.RomanFigure.I)
+					.Given(aRepeteableRomanFigure_, RomanFigure.I)
 					.When(repeteabilityIsChecked)
 					.Then(repeteabilityIs_, true)
 
 				.WithScenario("non-repeteable figure")
-					.Given(aNonRepeteableRomanFigure_, SharpRomans.RomanFigure.V)
+					.Given(aNonRepeteableRomanFigure_, RomanFigure.V)
 					.When(repeteabilityIsChecked)
 					.Then(repeteabilityIs_, false)
 
 				.ExecuteWithReport();
 		}
 
-		SharpRomans.RomanFigure _subject;
-		private void aSubstractiveRomanFigure_(SharpRomans.RomanFigure figure)
+		RomanFigure _subject;
+		private void aSubstractiveRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}
 
-		private void aRepeteableRomanFigure_(SharpRomans.RomanFigure figure)
+		private void aRepeteableRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}
 
-		private void aNonSubstractiveRomanFigure_(SharpRomans.RomanFigure figure)
+		private void aNonSubstractiveRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}
 
-		private void aNonRepeteableRomanFigure_(SharpRomans.RomanFigure figure)
+		private void aNonRepeteableRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}

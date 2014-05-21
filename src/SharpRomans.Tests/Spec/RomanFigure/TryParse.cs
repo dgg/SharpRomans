@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using StoryQ;
 
-namespace SharpRomans.Tests.Spec.RomanFigure
+namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
 	public class TryParseTester
@@ -18,13 +18,13 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 					.Given(aCharacter_, 'I')
 					.When(theCharIsParsed)
 					.Then(theResultIs_, true)
-					.And(theFigureIs_, SharpRomans.RomanFigure.I)
+					.And(theFigureIs_, RomanFigure.I)
 
 				.WithScenario("parse an undefined figure")
 					.Given(aCharacter_, 'W')
 					.When(theCharIsParsed)
 					.Then(theResultIs_, false)
-					.And(theFigureIs_, (SharpRomans.RomanFigure)null)
+					.And(theFigureIs_, (RomanFigure)null)
 
 				.WithScenario("figures are unique")
 					.Given(aCharacter_, 'X')
@@ -47,13 +47,13 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 					.Given(aString_, "I")
 					.When(theStringIsParsed)
 					.Then(theResultIs_, true)
-					.And(theFigureIs_, SharpRomans.RomanFigure.I)
+					.And(theFigureIs_, RomanFigure.I)
 
 				.WithScenario("parse an undefined figure")
 					.Given(aString_, "W")
 					.When(theStringIsParsed)
 					.Then(theResultIs_, false)
-					.And(theFigureIs_, (SharpRomans.RomanFigure)null)
+					.And(theFigureIs_, (RomanFigure)null)
 
 				.WithScenario("figures are unique")
 					.Given(aString_, "X")
@@ -77,26 +77,26 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 		}
 
 		private bool _result;
-		private SharpRomans.RomanFigure _parsed;
+		private RomanFigure _parsed;
 		private void theCharIsParsed()
 		{
-			_result = SharpRomans.RomanFigure.TryParse(_character, out _parsed);
+			_result = RomanFigure.TryParse(_character, out _parsed);
 		}
 
-		private SharpRomans.RomanFigure _anotherFigure;
+		private RomanFigure _anotherFigure;
 		private void theChar_IsParsedAgain(char c)
 		{
-			_result = SharpRomans.RomanFigure.TryParse(c, out _anotherFigure);
+			_result = RomanFigure.TryParse(c, out _anotherFigure);
 		}
 
 		private void theStringIsParsed()
 		{
-			_result = SharpRomans.RomanFigure.TryParse(_string, out _parsed);
+			_result = RomanFigure.TryParse(_string, out _parsed);
 		}
 
 		private void theString_IsParsedAgain(string s)
 		{
-			_result = SharpRomans.RomanFigure.TryParse(s, out _anotherFigure);
+			_result = RomanFigure.TryParse(s, out _anotherFigure);
 		}
 
 		private void theResultIs_(bool obj)
@@ -104,7 +104,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			Assert.That(_result, Is.EqualTo(obj));
 		}
 
-		private void theFigureIs_(SharpRomans.RomanFigure figure)
+		private void theFigureIs_(RomanFigure figure)
 		{
 			Assert.That(_parsed, Is.EqualTo(figure));
 		}

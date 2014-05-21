@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using StoryQ;
 
-namespace SharpRomans.Tests.Spec.RomanFigure
+namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[TestFixture, Category("Spec"), Category("RomanFigure")]
 	public class ParseTester
@@ -18,7 +18,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.WithScenario("parse a defined figure")
 					.Given(aCharacter_, 'I')
 					.When(theCharIsParsed)
-					.Then(theFigureIs_, SharpRomans.RomanFigure.I)
+					.Then(theFigureIs_, RomanFigure.I)
 
 				.WithScenario("parse an undefined figure")
 					.Given(aCharacter_, 'W')
@@ -44,7 +44,7 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 				.WithScenario("parse a defined figure")
 					.Given(aString_, "I")
 					.When(theStringIsParsed)
-					.Then(theFigureIs_, SharpRomans.RomanFigure.I)
+					.Then(theFigureIs_, RomanFigure.I)
 
 				.WithScenario("parse an undefined figure")
 					.Given(aString_, "W")
@@ -76,18 +76,18 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			_string = s;
 		}
 
-		Func<SharpRomans.RomanFigure> _figure;
+		Func<RomanFigure> _figure;
 		private void theCharIsParsed()
 		{
-			_figure = () => SharpRomans.RomanFigure.Parse(_character);
+			_figure = () => RomanFigure.Parse(_character);
 		}
 
 		private void theStringIsParsed()
 		{
-			_figure = () => SharpRomans.RomanFigure.Parse(_string);
+			_figure = () => RomanFigure.Parse(_string);
 		}
 
-		private void theFigureIs_(SharpRomans.RomanFigure figure)
+		private void theFigureIs_(RomanFigure figure)
 		{
 			Assert.That(_figure(), Is.EqualTo(figure));
 		}
@@ -104,15 +104,15 @@ namespace SharpRomans.Tests.Spec.RomanFigure
 			Assert.That(cast, Throws.InstanceOf<FormatException>());
 		}
 
-		private SharpRomans.RomanFigure _anotherFigure;
+		private RomanFigure _anotherFigure;
 		private void theChar_IsParsedAgain(char c)
 		{
-			_anotherFigure = SharpRomans.RomanFigure.Parse(c);
+			_anotherFigure = RomanFigure.Parse(c);
 		}
 
 		private void theString_IsParsedAgain(string s)
 		{
-			_anotherFigure = SharpRomans.RomanFigure.Parse(s);
+			_anotherFigure = RomanFigure.Parse(s);
 		}
 
 		private void isTheSameFigure()
