@@ -143,22 +143,22 @@ namespace SharpRomans
 
 		public bool ToBoolean(IFormatProvider provider)
 		{
-			return System.Convert.ToBoolean(Value);
+			return System.Convert.ToBoolean(Value, provider);
 		}
 
 		public char ToChar(IFormatProvider provider)
 		{
-			return Literal;
+			return System.Convert.ToChar(Literal, provider);
 		}
 
 		public sbyte ToSByte(IFormatProvider provider)
 		{
-			return System.Convert.ToSByte(Value);
+			return System.Convert.ToSByte(Value, provider);
 		}
 
 		public byte ToByte(IFormatProvider provider)
 		{
-			return System.Convert.ToByte(Value);
+			return System.Convert.ToByte(Value, provider);
 		}
 
 		public short ToInt16(IFormatProvider provider)

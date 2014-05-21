@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using SharpRomans.Tests.Spec.Roman_Figure.Support;
 using StoryQ;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
@@ -17,22 +18,22 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(ConvertedToBoolean)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToBoolean(f)))
 				.Then(Is_, false)
 
 			.WithScenario("one")
 				.Given(TheRomanFigure_, RomanFigure.I)
-				.When(ConvertedToBoolean)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToBoolean(f)))
 				.Then(Is_, true)
 
 			.WithScenario("more than one")
 				.Given(TheRomanFigure_, RomanFigure.D)
-				.When(ConvertedToBoolean)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToBoolean(f)))
 				.Then(Is_, true)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
-				.When(ConvertedToBoolean)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToBoolean(f)))
 				.Then(Is_, true)
 
 			.ExecuteWithReport();
@@ -48,17 +49,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(ConvertedToChar)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
 				.Then(Is_, 'N')
 
 			.WithScenario("more than one")
 				.Given(TheRomanFigure_, RomanFigure.D)
-				.When(ConvertedToChar)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
 				.Then(Is_, 'D')
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
-				.When(ConvertedToChar)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
 				.Then(Is_, 'M')
 
 			.ExecuteWithReport();
@@ -74,17 +75,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(ConvertedToSByte)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
 				.Then(Is_, 0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
-				.When(ConvertedToSByte)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
 				.Then(Is_, 100)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
-				.When(ConvertedToSByte)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
 				.Then(Overflows)
 
 			.ExecuteWithReport();
@@ -100,17 +101,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(ConvertedToByte)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
 				.Then(Is_, 0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
-				.When(ConvertedToByte)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
 				.Then(Is_, 100)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
-				.When(ConvertedToByte)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
 				.Then(Overflows)
 
 			.ExecuteWithReport();
@@ -123,27 +124,12 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		}
 
 		Func<object> _conversion;
-		private void ConvertedToBoolean()
+		private void ConvertedTo_(Conv exp)
 		{
-			_conversion = () => Convert.ToBoolean(_subject);
+			_conversion = () => exp.Execute(_subject);
 		}
 
-		private void ConvertedToChar()
-		{
-			_conversion = () => Convert.ToChar(_subject);
-		}
-
-		private void ConvertedToSByte()
-		{
-			_conversion = () => Convert.ToSByte(_subject);
-		}
-
-		private void ConvertedToByte()
-		{
-			_conversion = () => Convert.ToByte(_subject);
-		}
-
-		private void Is_<T>(T value) where T : struct 
+		private void Is_<T>(T value) where T : struct
 		{
 			Assert.That(_conversion(), Is.EqualTo(value));
 		}

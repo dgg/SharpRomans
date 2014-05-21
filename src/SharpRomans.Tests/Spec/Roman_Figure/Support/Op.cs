@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq.Expressions;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure.Support
@@ -21,7 +22,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure.Support
 		public override string ToString()
 		{
 			string str = _exp.ToString();
-			int index =  str.IndexOf(ROCKET, StringComparison.OrdinalIgnoreCase);
+			int index = str.IndexOf(ROCKET, StringComparison.OrdinalIgnoreCase);
 			return str.Substring(index + ROCKET.Length).Trim()
 				.Replace("(x", string.Empty)
 				.Replace("y)", string.Empty)
