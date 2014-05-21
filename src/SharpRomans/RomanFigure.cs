@@ -173,12 +173,12 @@ namespace SharpRomans
 
 		public int ToInt32(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return System.Convert.ToInt32(Value, provider);
 		}
 
 		public uint ToUInt32(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return System.Convert.ToUInt32(Value, provider);
 		}
 
 		public long ToInt64(IFormatProvider provider)
