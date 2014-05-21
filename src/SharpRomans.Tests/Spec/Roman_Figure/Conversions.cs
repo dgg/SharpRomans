@@ -199,7 +199,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void ConvertToUInt()
 		{
 			new Story("convert to UInt")
-				.InOrderTo("convert a roman figure to an unsigned int whenever possible")
+				.InOrderTo("convert a roman figure to an unsigned int")
 				.AsA("library user")
 				.IWant("Convert() to a roman figure")
 
@@ -216,6 +216,58 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
+				.Then(Is_, 1000)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void ConvertToLong()
+		{
+			new Story("convert to Long")
+				.InOrderTo("convert a roman figure to a long")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanFigure_, RomanFigure.C)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
+				.Then(Is_, 1000)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void ConvertToULong()
+		{
+			new Story("convert to ULong")
+				.InOrderTo("convert a roman figure to an unsigned long")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanFigure_, RomanFigure.N)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanFigure_, RomanFigure.C)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanFigure_, RomanFigure.M)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
 				.Then(Is_, 1000)
 
 			.ExecuteWithReport();
