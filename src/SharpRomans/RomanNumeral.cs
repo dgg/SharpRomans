@@ -261,6 +261,13 @@ namespace SharpRomans
 			return left == null ? right : left.Plus(right);
 		}
 
+		public static RomanNumeral operator +(RomanNumeral left, RomanFigure right)
+		{
+			return left == null ?
+				(right == null ? null : new RomanNumeral(right.Value)) :
+				left.Plus(right);
+		}
+
 		#endregion
 
 		#endregion
