@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq.Expressions;
 
-namespace SharpRomans.Tests.Spec.Roman_Figure.Support
+namespace SharpRomans.Tests.Spec.Roman_Numeral.Support
 {
 	internal class Op
 	{
-		private readonly Expression<Func<RomanFigure, RomanFigure, bool>> _exp;
+		private readonly Expression<Func<RomanNumeral, RomanNumeral, bool>> _exp;
 
-		private Op(Expression<Func<RomanFigure, RomanFigure, bool>> exp)
+		private Op(Expression<Func<RomanNumeral, RomanNumeral, bool>> exp)
 		{
 			_exp = exp;
 		}
 
-		public bool Execute(RomanFigure x, RomanFigure y)
+		public bool Execute(RomanNumeral x, RomanNumeral y)
 		{
 			return _exp.Compile()(x, y);
 		}

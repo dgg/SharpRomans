@@ -84,27 +84,27 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 			.WithScenario("one figure is greater than another")
 				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(_IsEvaluatedAgainst_, Op.GtOE, RomanFigure.I)
+				.When(_IsEvaluatedAgainst_, Op.GtE, RomanFigure.I)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is less than another")
 				.Given(TheRomanFigure_, RomanFigure.I)
-				.When(_IsEvaluatedAgainst_, Op.GtOE, RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.GtE, RomanFigure.X)
 				.Then(Is_, false)
 
 			.WithScenario("one figure is equal to another")
 				.Given(TheRomanFigure_, RomanFigure.X)
-				.When(_IsEvaluatedAgainst_, Op.GtOE, RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.GtE, RomanFigure.X)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is compared to NULL")
 				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(_IsEvaluatedAgainst_, Op.GtOE, (RomanFigure)null)
+				.When(_IsEvaluatedAgainst_, Op.GtE, (RomanFigure)null)
 				.Then(Is_, true)
 
 				.WithScenario("NULL is compared to a figure")
 				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(_IsEvaluatedAgainst_, Op.GtOE, RomanFigure.N)
+				.When(_IsEvaluatedAgainst_, Op.GtE, RomanFigure.N)
 				.Then(Is_, false)
 
 			.ExecuteWithReport();
@@ -161,27 +161,27 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 			.WithScenario("one figure is greater than another")
 				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(_IsEvaluatedAgainst_, Op.LtOE, RomanFigure.I)
+				.When(_IsEvaluatedAgainst_, Op.LtE, RomanFigure.I)
 				.Then(Is_, false)
 
 			.WithScenario("one figure is less than another")
 				.Given(TheRomanFigure_, RomanFigure.I)
-				.When(_IsEvaluatedAgainst_, Op.LtOE, RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.LtE, RomanFigure.X)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is equal to another")
 				.Given(TheRomanFigure_, RomanFigure.X)
-				.When(_IsEvaluatedAgainst_, Op.LtOE, RomanFigure.X)
+				.When(_IsEvaluatedAgainst_, Op.LtE, RomanFigure.X)
 				.Then(Is_, true)
 
 			.WithScenario("one figure is compared to NULL")
 				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(_IsEvaluatedAgainst_, Op.LtOE, (RomanFigure)null)
+				.When(_IsEvaluatedAgainst_, Op.LtE, (RomanFigure)null)
 				.Then(Is_, false)
 
 				.WithScenario("NULL is compared to a figure")
 				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(_IsEvaluatedAgainst_, Op.LtOE, RomanFigure.N)
+				.When(_IsEvaluatedAgainst_, Op.LtE, RomanFigure.N)
 				.Then(Is_, true)
 
 			.ExecuteWithReport();

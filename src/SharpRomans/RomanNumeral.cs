@@ -57,6 +57,26 @@ namespace SharpRomans
 
 		#region operators
 
+		public static bool operator >(RomanNumeral left, RomanNumeral right)
+		{
+			return left != null && left.CompareTo(right) > 0;
+		}
+
+		public static bool operator >=(RomanNumeral left, RomanNumeral right)
+		{
+			return left == (RomanNumeral)null ? right == null : left.CompareTo(right) >= 0;
+		}
+
+		public static bool operator <(RomanNumeral left, RomanNumeral right)
+		{
+			return left == (RomanNumeral)null ? right != null : left.CompareTo(right) < 0;
+		}
+
+		public static bool operator <=(RomanNumeral left, RomanNumeral right)
+		{
+			return left == null || left.CompareTo(right) <= 0;
+		}
+
 		#endregion
 
 		#endregion
