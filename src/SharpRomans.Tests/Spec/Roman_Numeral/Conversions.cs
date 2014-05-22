@@ -351,6 +351,32 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToDateTime()
+		{
+			new Story("convert to DateTime")
+				.InOrderTo("convert a roman numeral to date-time whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
+				.Then(CannotCast)
+
+			.WithScenario("less than max")
+				.Given(TheRomanNumeral_, new RomanNumeral(100))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
+				.Then(CannotCast)
+
+			.WithScenario("max")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
+				.Then(CannotCast)
+
+			.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void TheRomanNumeral_(RomanNumeral subject)
 		{
@@ -378,6 +404,13 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		{
 			TestDelegate conversion = () => _conversion();
 			Assert.That(conversion, Throws.InstanceOf<OverflowException>());
+		}
+
+		private void CannotCast()
+		{
+			TestDelegate conversion = () => _conversion();
+			Assert.That(conversion, Throws.InstanceOf<InvalidCastException>()
+				.With.Message.StringContaining(typeof(RomanNumeral).Name));
 		}
 	}
 }

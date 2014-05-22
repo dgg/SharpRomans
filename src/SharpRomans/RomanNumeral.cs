@@ -190,9 +190,14 @@ namespace SharpRomans
 			return Convert.ToDecimal(Value, provider);
 		}
 
-		public DateTime ToDateTime(IFormatProvider provider)
+		DateTime IConvertible.ToDateTime(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			throw invalidCast(typeof(DateTime));
+		}
+
+		private InvalidCastException invalidCast(Type other)
+		{
+			return new InvalidCastException(string.Format("Invalid cast from '{0}' to '{1}'", typeof(RomanNumeral).Name, other.Name));
 		}
 
 		public string ToString(IFormatProvider provider)
