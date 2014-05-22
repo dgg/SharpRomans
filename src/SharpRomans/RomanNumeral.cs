@@ -1,4 +1,7 @@
-﻿using SharpRomans.Support;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
+using SharpRomans.Support;
 
 namespace SharpRomans
 {
@@ -9,12 +12,18 @@ namespace SharpRomans
 		private static readonly Range<ushort> _validity = new Range<ushort>(MinValue, MaxValue);
 
 		public ushort Value { get; private set; }
+		public ReadOnlyCollection<RomanFigure> Figures { get; private set; }
 
 		public RomanNumeral(ushort number)
 		{
 			AssertRange(number);
 
 			Value = number;
+
+			if (number.Equals(0))
+			{
+				Figures =  new ReadOnlyCollection<RomanFigure>(new[] { RomanFigure.N });
+			}
 		}
 
 		public static void AssertRange(ushort value)
