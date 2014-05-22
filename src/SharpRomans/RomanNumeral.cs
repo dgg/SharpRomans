@@ -249,6 +249,15 @@ namespace SharpRomans
 			return new RomanNumeral(result);
 		}
 
+		#region operators
+
+		public static RomanNumeral operator +(RomanNumeral left, RomanNumeral right)
+		{
+			return left == null ? right : left.Plus(right);
+		}
+
+		#endregion
+
 		#endregion
 	}
 }

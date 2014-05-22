@@ -34,6 +34,43 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void AdditionOperation()
+		{
+			new Story("arithmetic addition")
+				.InOrderTo("calculate the value of adding one roman numeral to another roman numeral")
+				.AsA("library user")
+				.IWant("to use an operator")
+
+				.WithScenario("bounded operation")
+					.Given(theRomanNumeral_, new RomanNumeral(20))
+					.When(added_, new RomanNumeral(11))
+					.Then(theResultIs_, new RomanNumeral(31))
+					.And(isNotDestructive)
+
+				.WithScenario("overflowing operation")
+					.Given(theRomanNumeral_, RomanNumeral.Max)
+					.When(added_, new RomanNumeral(1))
+					.Then(theResultOverflows)
+
+				.WithScenario("adding NULL to not NULL")
+					.Given(theRomanNumeral_, new RomanNumeral(13))
+					.When(added_, (RomanNumeral)null)
+					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _subject))
+
+				.WithScenario("adding not NULL to NULL")
+					.Given(theRomanNumeral_, (RomanNumeral)null)
+					.When(added_, new RomanNumeral(13))
+					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _operand))
+
+				.WithScenario("adding NULL to NULL")
+					.Given(theRomanNumeral_, (RomanNumeral)null)
+					.When(added_, (RomanNumeral)null)
+					.Then(theResultIs_, (RomanNumeral)null)
+
+				.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void theRomanNumeral_(RomanNumeral subject)
 		{
@@ -46,6 +83,12 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		{
 			_operand = operand;
 			_addition = () => _subject.Plus(operand);
+		}
+
+		private void added_(RomanNumeral operand)
+		{
+			_operand = operand;
+			_addition = () => _subject + operand;
 		}
 
 		private RomanNumeral _result;
