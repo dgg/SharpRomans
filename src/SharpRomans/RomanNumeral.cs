@@ -273,6 +273,11 @@ namespace SharpRomans
 				left.Plus(right);
 		}
 
+		public static RomanNumeral operator -(RomanNumeral left, RomanNumeral right)
+		{
+			return left == null ? right : left.Minus(right);
+		}
+
 		#endregion
 
 		#endregion

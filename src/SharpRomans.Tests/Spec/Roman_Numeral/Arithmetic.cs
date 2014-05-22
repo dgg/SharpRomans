@@ -163,6 +163,43 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void SubstractionOperation()
+		{
+			new Story("arithmetic substraction")
+				.InOrderTo("calculate the value of substracting one roman numeral from another roman numeral")
+				.AsA("library user")
+				.IWant("to use an operator")
+
+				.WithScenario("bounded operation")
+					.Given(theRomanNumeral_, new RomanNumeral(20))
+					.When(substracted_, new RomanNumeral(11))
+					.Then(theResultIs_, new RomanNumeral(9))
+					.And(isNotDestructive)
+
+				.WithScenario("overflowing operation")
+					.Given(theRomanNumeral_, RomanNumeral.Min)
+					.When(substracted_, new RomanNumeral(1))
+					.Then(theResultOverflows)
+
+				.WithScenario("substracting NULL to not NULL")
+					.Given(theRomanNumeral_, new RomanNumeral(13))
+					.When(substracted_, (RomanNumeral)null)
+					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _subject))
+
+				.WithScenario("substracting not NULL to NULL")
+					.Given(theRomanNumeral_, (RomanNumeral)null)
+					.When(substracted_, new RomanNumeral(13))
+					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _operand))
+
+				.WithScenario("substracting NULL to NULL")
+					.Given(theRomanNumeral_, (RomanNumeral)null)
+					.When(substracted_, (RomanNumeral)null)
+					.Then(theResultIs_, (RomanNumeral)null)
+
+				.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void theRomanNumeral_(RomanNumeral subject)
 		{
@@ -199,6 +236,12 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		{
 			_operand = operand;
 			_operation = () => _subject.Minus(operand);
+		}
+
+		private void substracted_(RomanNumeral operand)
+		{
+			_operand = operand;
+			_operation = () => _subject - operand;
 		}
 
 		private RomanNumeral _result;
