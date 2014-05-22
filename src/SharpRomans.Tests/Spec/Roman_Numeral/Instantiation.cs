@@ -1,13 +1,14 @@
-﻿using NUnit.Framework;
+﻿using System.Globalization;
+using NUnit.Framework;
 using StoryQ;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Creation")]
-	public class CreationTester
+	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Instantiation")]
+	public class InstantiationTester
 	{
 		[Test]
-		public void RomanNumeralCreation()
+		public void Instantiation()
 		{
 			new Story("roman numerals creation")
 				.InOrderTo("convert an arabic numeral to a roman numeral")
@@ -16,28 +17,28 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 				.WithScenario("negative number")
 					.Given(anArabicNumeral_, -20)
-					.When(theRomanNumeralIsInstantiated)
+					.When(theRomanNumeralIsInstantiating)
 					.Then(aRangeExceptionIsThrown)
 
 				.WithScenario("overflowing number")
 					.Given(anArabicNumeral_, 4001)
-					.When(theRomanNumeralIsInstantiated)
+					.When(theRomanNumeralIsInstantiating)
 					.Then(aRangeExceptionIsThrown)
 
 				.WithScenario("zero")
 					.Given(anArabicNumeral_, 0)
-					.When(theRomanNumeralIsCreated)
-					.Then(isA_ValuedRomanNumeral, 0)
+					.When(theRomanNumeralIsInstantiated)
+					.Then(isARomanNumeralWithValue_, 0)
 
 				.WithScenario("single-figure")
 					.Given(anArabicNumeral_, 50)
-					.When(theRomanNumeralIsCreated)
-					.Then(isA_ValuedRomanNumeral, 50)
+					.When(theRomanNumeralIsInstantiated)
+					.Then(isARomanNumeralWithValue_, 50)
 
 				.WithScenario("multiple-figures")
 					.Given(anArabicNumeral_, 75)
-					.When(theRomanNumeralIsCreated)
-					.Then(isA_ValuedRomanNumeral, 75)
+					.When(theRomanNumeralIsInstantiated)
+					.Then(isARomanNumeralWithValue_, 75)
 
 				.ExecuteWithReport();
 		}
@@ -48,27 +49,27 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_number = (ushort)number;
 		}
 
-		TestDelegate _subjectInstantion;
-		private void theRomanNumeralIsInstantiated()
+		TestDelegate _instantiation;
+		private void theRomanNumeralIsInstantiating()
 		{
-			_subjectInstantion = () => new RomanNumeral(_number);
+			_instantiation = () => new RomanNumeral(_number);
 		}
 
 		RomanNumeral _subject;
-		private void theRomanNumeralIsCreated()
+		private void theRomanNumeralIsInstantiated()
 		{
 			_subject = new RomanNumeral(_number);
 		}
 
 		private void aRangeExceptionIsThrown()
 		{
-			Assert.That(_subjectInstantion, Throws.InstanceOf<NumeralOutOfRangeException>()
+			Assert.That(_instantiation, Throws.InstanceOf<NumeralOutOfRangeException>()
 				.With.Property("ActualValue").EqualTo(_number)
-				.And.Message.StringContaining(RomanNumeral.MinValue.ToString())
-				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString()));
+				.And.Message.StringContaining(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture))
+				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture)));
 		}
 
-		private void isA_ValuedRomanNumeral(int value)
+		private void isARomanNumeralWithValue_(int value)
 		{
 			Assert.That(_subject.Value, Is.EqualTo(value));
 			
