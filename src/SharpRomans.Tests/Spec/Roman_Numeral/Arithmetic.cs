@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using NUnit.Framework;
 using StoryQ;
 
@@ -56,17 +57,44 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.WithScenario("adding NULL to not NULL")
 					.Given(theRomanNumeral_, new RomanNumeral(13))
 					.When(added_, (RomanNumeral)null)
-					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _subject))
+					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _subject))
 
 				.WithScenario("adding not NULL to NULL")
 					.Given(theRomanNumeral_, (RomanNumeral)null)
 					.When(added_, new RomanNumeral(13))
-					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _operand))
+					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _operand))
 
 				.WithScenario("adding NULL to NULL")
 					.Given(theRomanNumeral_, (RomanNumeral)null)
 					.When(added_, (RomanNumeral)null)
 					.Then(theResultIs_, (RomanNumeral)null)
+
+				.ExecuteWithReport();
+		}
+
+		[Test]
+		public void RomanFigureAddition()
+		{
+			new Story("arithmetic addition")
+				.InOrderTo("calculate the value of adding a roman figure to a roman numeral")
+				.AsA("library user")
+				.IWant("to use an instance method on a roman numeral")
+
+				.WithScenario("bounded operation")
+					.Given(theRomanNumeral_, new RomanNumeral(20))
+					.When(plus_, RomanFigure.V)
+					.Then(theResultIs_, new RomanNumeral(25))
+					.And(isNotDestructive)
+
+				.WithScenario("overflowing operation")
+					.Given(theRomanNumeral_, RomanNumeral.Max)
+					.When(plus_, RomanFigure.I)
+					.Then(theResultOverflows)
+
+				.WithScenario("adding NULL")
+					.Given(theRomanNumeral_, new RomanNumeral(13))
+					.When(plus_, (RomanFigure)null)
+					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _subject))
 
 				.ExecuteWithReport();
 		}
@@ -78,7 +106,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		}
 
 		private Func<RomanNumeral> _addition;
-		private RomanNumeral _operand;
+		private IValuable _operand;
 		private void plus_(RomanNumeral operand)
 		{
 			_operand = operand;
@@ -89,6 +117,12 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		{
 			_operand = operand;
 			_addition = () => _subject + operand;
+		}
+
+		private void plus_(RomanFigure operand)
+		{
+			_operand = operand;
+			_addition = () => _subject.Plus(operand);
 		}
 
 		private RomanNumeral _result;
@@ -108,11 +142,12 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		{
 			TestDelegate operation = () => _addition();
 			Assert.That(operation, Throws.InstanceOf<NumeralOutOfRangeException>()
-				.And.Message.StringContaining(RomanNumeral.MinValue.ToString())
-				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString()));
+				.And.Message.StringContaining(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture))
+				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture)));
 		}
 
-		private void theResultIsTheSameAs_(Func<RomanNumeral> same)
+		// TODO: implement pretty print of expression
+		private void theResultIsTheSameAs_(Func<IValuable> same)
 		{
 			Assert.That(_addition(), Is.SameAs(same()));
 		}

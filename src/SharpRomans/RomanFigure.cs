@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SharpRomans
 {
-	public sealed class RomanFigure : IComparable<RomanFigure>, IConvertible, IEquatable<RomanFigure>
+	public sealed class RomanFigure : IComparable<RomanFigure>, IConvertible, IEquatable<RomanFigure>, IValuable
 	{
 		public char Literal { get; private set; }
 		public ushort Value { get; private set; }
