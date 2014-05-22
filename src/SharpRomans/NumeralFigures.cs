@@ -44,6 +44,8 @@ namespace SharpRomans
 			_zero = new ReadOnlyCollection<RomanFigure>(new[] { RomanFigure.N });
 		}
 
+		internal static readonly int MaxLength = 16;
+
 		private static Tuple<RomanFigure[], ushort> calculationRow(ushort value, params RomanFigure[] figures)
 		{
 			return new Tuple<RomanFigure[], ushort>(figures, value);
@@ -53,7 +55,7 @@ namespace SharpRomans
 		{
 			if (number == 0) throw new ArgumentOutOfRangeException("number", number, "only > 0");
 
-			var figures = new ReadOnlyCollectionBuilder<RomanFigure>(16);
+			var figures = new ReadOnlyCollectionBuilder<RomanFigure>(MaxLength);
 			for (int i = 0; i < _calculationTable.Length; i++)
 			{
 				while (number >= _calculationTable[i].Item2)

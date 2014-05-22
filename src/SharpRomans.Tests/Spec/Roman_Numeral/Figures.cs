@@ -52,6 +52,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ToArray();
 
 			Assert.That(_subject.Figures, Is.EqualTo(list));
+			Assert.That(_subject.ToString(), Is.EqualTo(figures));
 		}
 	}
 }
