@@ -169,6 +169,58 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToInt()
+		{
+			new Story("convert to Int")
+				.InOrderTo("convert a roman numeral to an int whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt32(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanNumeral_, new RomanNumeral(100))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt32(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt32(f)))
+				.Then(Is_, 3999)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void ConvertToUInt()
+		{
+			new Story("convert to UInt")
+				.InOrderTo("convert a roman numeral to an unsigned int whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanNumeral_, new RomanNumeral(100))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
+				.Then(Is_, 3999)
+
+			.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void TheRomanNumeral_(RomanNumeral subject)
 		{
