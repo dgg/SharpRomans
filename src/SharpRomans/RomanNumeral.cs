@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.ObjectModel;
 using SharpRomans.Support;
 
 namespace SharpRomans
@@ -14,52 +12,13 @@ namespace SharpRomans
 		public ushort Value { get; private set; }
 		public ReadOnlyCollection<RomanFigure> Figures { get; private set; }
 
-		private static readonly Tuple<RomanFigure[], ushort>[] _calculationTable = new[]
-		{
-			RomanFigure.M.AsCalculationRow(),
-			calculationRow(900, RomanFigure.C, RomanFigure.M),
-			RomanFigure.D.AsCalculationRow(),
-			calculationRow(400, RomanFigure.C, RomanFigure.D),
-			RomanFigure.C.AsCalculationRow(),
-			calculationRow(90, RomanFigure.X, RomanFigure.C),
-			RomanFigure.L.AsCalculationRow(),
-			calculationRow(40, RomanFigure.X, RomanFigure.L),
-			RomanFigure.X.AsCalculationRow(),
-			calculationRow(9, RomanFigure.I, RomanFigure.X),
-			RomanFigure.V.AsCalculationRow(),
-			calculationRow(4, RomanFigure.I, RomanFigure.V),
-			RomanFigure.I.AsCalculationRow()
-		};
-
-		private static Tuple<RomanFigure[], ushort> calculationRow(ushort value, params RomanFigure[] figures)
-		{
-			return new Tuple<RomanFigure[], ushort>(figures, value);
-		}
-
 		public RomanNumeral(ushort number)
 		{
 			AssertRange(number);
 
 			Value = number;
 
-			if (number.Equals(0))
-			{
-				Figures = new ReadOnlyCollection<RomanFigure>(new[] {RomanFigure.N});
-			}
-			else
-			{
-				var figures = new ReadOnlyCollectionBuilder<RomanFigure>(16);
-				for (int i = 0; i < _calculationTable.Length; i++)
-				{
-					while (number >= _calculationTable[i].Item2)
-					{
-						number -= _calculationTable[i].Item2;
-						figures.AddRange(_calculationTable[i].Item1);
-						//sb.Append(string.Concat(_calculationTable[i].Item1.Select(f => f.ToString(CultureInfo.InvariantCulture)).ToArray()));
-					}
-				}
-				Figures = figures.ToReadOnlyCollection();
-			}
+			Figures = number.Equals(0) ? NumeralFigures.Zero : NumeralFigures.Calculate(number);
 		}
 
 		public static void AssertRange(ushort value)
