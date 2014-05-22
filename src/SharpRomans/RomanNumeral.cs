@@ -6,7 +6,7 @@ using SharpRomans.Support;
 
 namespace SharpRomans
 {
-	public sealed class RomanNumeral : IComparable<RomanNumeral>, IEquatable<RomanNumeral>, IConvertible
+	public sealed class RomanNumeral : IComparable<RomanNumeral>, IEquatable<RomanNumeral>, IConvertible, IValuable
 	{
 		public static readonly ushort MinValue = default(ushort);
 		public static readonly ushort MaxValue = 3999;
@@ -228,6 +228,25 @@ namespace SharpRomans
 			if (numeral == null) return null;
 
 			return numeral._figures;
+		}
+
+		#endregion
+
+		#region arithmetic
+
+		public RomanNumeral Plus(RomanNumeral numeral)
+		{
+			return withValue(numeral, (value, valuable) => (ushort)(value + valuable.Value));
+		}
+
+		private RomanNumeral withValue(IValuable valuable, Func<ushort, IValuable, ushort> op)
+		{
+			if (valuable == null) return this;
+
+			var result = op(Value, valuable);
+
+			AssertRange(result);
+			return new RomanNumeral(result);
 		}
 
 		#endregion

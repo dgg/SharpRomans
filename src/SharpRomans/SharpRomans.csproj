@@ -35,6 +35,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IValuable.cs" />
     <Compile Include="NumeralFigures.cs" />
     <Compile Include="NumeralOutOfRangeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
