@@ -147,12 +147,12 @@ namespace SharpRomans
 
 		public short ToInt16(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToInt16(Value, provider);
 		}
 
 		public ushort ToUInt16(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToUInt16(Value, provider);
 		}
 
 		public int ToInt32(IFormatProvider provider)
