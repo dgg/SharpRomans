@@ -34,32 +34,6 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		}
 
 		[Test]
-		public void AssignToChar()
-		{
-			new Story("assign to char")
-				.InOrderTo("get the character of individual figures")
-				.AsA("library user")
-				.IWant("to be able to implicitely cast a roman figure")
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.N)
-					.When(theFigureIsAssignedToChar)
-					.Then(theCharacterIs_, 'N')
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.V)
-					.When(theFigureIsAssignedToChar)
-					.Then(theCharacterIs_, 'V')
-
-				.WithScenario("character of null")
-					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(theFigureIsAssignedToChar)
-					.Then(throwsArgumentException)
-
-				.ExecuteWithReport();
-		}
-
-		[Test]
 		public void CastToNumber()
 		{
 			new Story("casting to number")
@@ -85,32 +59,6 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.ExecuteWithReport();
 		}
 
-		[Test]
-		public void AssignToNumber()
-		{
-			new Story("assign to number")
-				.InOrderTo("get the value of individual figures")
-				.AsA("library user")
-				.IWant("to be able to implicitely cast a roman figure")
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.N)
-					.When(theFigureIsAssignedToNumber)
-					.Then(theNumberIs_, 0)
-
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.V)
-					.When(theFigureIsAssignedToNumber)
-					.Then(theNumberIs_, 5)
-
-				.WithScenario("character of null")
-					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(theFigureIsAssignedToNumber)
-					.Then(throwsArgumentException)
-
-				.ExecuteWithReport();
-		}
-
 		RomanFigure _subject;
 		private void aRomanFigure_(RomanFigure figure)
 		{
@@ -127,18 +75,6 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		private void theFigureIsCastedToNumber()
 		{
 			_number = () => (ushort)_subject;
-		}
-
-		private char _assignedChar;
-		private void theFigureIsAssignedToChar()
-		{
-			_character = () => (_assignedChar = _subject);
-		}
-
-		private ushort _assignedNumber;
-		private void theFigureIsAssignedToNumber()
-		{
-			_number = () => (_assignedNumber = _subject);
 		}
 
 		private void theCharacterIs_(char character)

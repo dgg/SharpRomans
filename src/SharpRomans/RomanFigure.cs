@@ -232,14 +232,14 @@ namespace SharpRomans
 
 		#region castings
 
-		public static implicit operator char(RomanFigure figure)
+		public static explicit operator char(RomanFigure figure)
 		{
 			if (figure == null) throw new ArgumentNullException("figure");
 
 			return figure.Literal;
 		}
 
-		public static implicit operator ushort(RomanFigure figure)
+		public static explicit operator ushort(RomanFigure figure)
 		{
 			if (figure == null) throw new ArgumentNullException("figure");
 

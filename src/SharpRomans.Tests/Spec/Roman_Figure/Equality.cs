@@ -89,7 +89,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		}
 
 		[Test]
-		public void EqualsToRomanFigure()
+		public void EqualToRomanFigure()
 		{
 			new Story("equality to roman figure")
 				.InOrderTo("say that a figure is equal to another figure")
