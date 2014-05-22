@@ -7,7 +7,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 	public class EqualityTester
 	{
 		[Test]
-		public void Equatable()
+		public void NonGenericEquals()
 		{
 			new Story("non generic equatable")
 				.InOrderTo("say that an object is equal to a roman figure")
@@ -88,6 +88,78 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void EqualsToRomanFigure()
+		{
+			new Story("equality to roman figure")
+				.InOrderTo("say that a figure is equal to another figure")
+				.AsA("library user")
+				.IWant("to use the equality operator against a roman figure")
+
+			.WithScenario("a roman figure is compared against the same roman figure")
+				.Given(TheRomanFigure_, RomanFigure.V)
+				.When(EqualTo_, RomanFigure.Convert(5))
+				.Then(Is_, true)
+
+			.WithScenario("a roman figure is compared against not the same roman figure")
+				.Given(TheRomanFigure_, RomanFigure.V)
+				.When(EqualTo_, RomanFigure.X)
+				.Then(Is_, false)
+
+			.WithScenario("a roman figure is compared against null")
+				.Given(TheRomanFigure_, RomanFigure.V)
+				.When(EqualTo_, (RomanFigure)null)
+				.Then(Is_, false)
+
+			.WithScenario("null is compared against a roman figure")
+				.Given(TheRomanFigure_, (RomanFigure)null)
+				.When(EqualTo_, RomanFigure.X)
+				.Then(Is_, false)
+
+			.WithScenario("null is compared against null")
+				.Given(TheRomanFigure_, (RomanFigure)null)
+				.When(EqualTo_, (RomanFigure)null)
+				.Then(Is_, true)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void NotEqualToRomanFigure()
+		{
+			new Story("inequality to roman figure")
+				.InOrderTo("say that a figure is not equal to another figure")
+				.AsA("library user")
+				.IWant("to use the inequality operator against a roman figure")
+
+			.WithScenario("a roman figure is compared against the same roman figure")
+				.Given(TheRomanFigure_, RomanFigure.V)
+				.When(NotEqualTo_, RomanFigure.V)
+				.Then(Is_, false)
+
+			.WithScenario("a roman figure is compared against not the same roman figure")
+				.Given(TheRomanFigure_, RomanFigure.V)
+				.When(NotEqualTo_, RomanFigure.X)
+				.Then(Is_, true)
+
+			.WithScenario("a roman figure is compared against null")
+				.Given(TheRomanFigure_, RomanFigure.V)
+				.When(NotEqualTo_, (RomanFigure)null)
+				.Then(Is_, true)
+
+			.WithScenario("null is compared against a roman figure")
+				.Given(TheRomanFigure_, (RomanFigure)null)
+				.When(NotEqualTo_, RomanFigure.X)
+				.Then(Is_, true)
+
+			.WithScenario("null is compared against null")
+				.Given(TheRomanFigure_, (RomanFigure)null)
+				.When(NotEqualTo_, (RomanFigure)null)
+				.Then(Is_, false)
+
+			.ExecuteWithReport();
+		}
+
 		private RomanFigure _subject;
 		private void TheRomanFigure_(RomanFigure figure)
 		{
@@ -103,6 +175,16 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		private void ComparedTo_(RomanFigure anotherFigure)
 		{
 			_operation = _subject.Equals(anotherFigure);
+		}
+
+		private void EqualTo_(RomanFigure anotherFigure)
+		{
+			_operation = _subject == anotherFigure;
+		}
+
+		private void NotEqualTo_(RomanFigure anotherFigure)
+		{
+			_operation = _subject != anotherFigure;
 		}
 
 		private void Is_(bool result)
