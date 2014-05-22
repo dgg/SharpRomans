@@ -167,12 +167,12 @@ namespace SharpRomans
 
 		public long ToInt64(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToInt64(Value, provider);
 		}
 
 		public ulong ToUInt64(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToUInt64(Value, provider);
 		}
 
 		public float ToSingle(IFormatProvider provider)
