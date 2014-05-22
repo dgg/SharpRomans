@@ -102,10 +102,9 @@ namespace SharpRomans
 
 		#region comparisons
 
-		public int CompareTo(RomanFigure anotherFigure)
+		public int CompareTo(RomanFigure another)
 		{
-			if (anotherFigure == null) return 1;
-			return Value.CompareTo(anotherFigure.Value);
+			return ReferenceEquals(another, null) ? 1 : Value.CompareTo(another.Value);
 		}
 
 		#region operators

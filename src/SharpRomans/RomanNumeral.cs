@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using SharpRomans.Support;
 
 namespace SharpRomans
 {
-	public sealed class RomanNumeral
+	public sealed class RomanNumeral : IComparable<RomanNumeral>
 	{
 		public static readonly ushort MinValue = default(ushort);
 		public static readonly ushort MaxValue = 3999;
@@ -46,5 +47,18 @@ namespace SharpRomans
 		{
 			return _figures;
 		}
+
+		#region comparisons
+
+		public int CompareTo(RomanNumeral other)
+		{
+			return ReferenceEquals(other, null) ? 1 : Value.CompareTo(other.Value);
+		}
+
+		#region operators
+
+		#endregion
+
+		#endregion
 	}
 }
