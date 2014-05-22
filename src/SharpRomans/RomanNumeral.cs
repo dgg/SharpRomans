@@ -202,7 +202,7 @@ namespace SharpRomans
 
 		public string ToString(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToString(_figures, provider);
 		}
 
 		public object ToType(Type conversionType, IFormatProvider provider)

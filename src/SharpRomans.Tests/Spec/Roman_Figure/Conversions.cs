@@ -380,7 +380,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		[Test]
 		public void ConvertToString()
 		{
-			new Story("convert to Char")
+			new Story("convert to String")
 				.InOrderTo("convert a roman figure to a string")
 				.AsA("library user")
 				.IWant("Convert() to a roman figure")

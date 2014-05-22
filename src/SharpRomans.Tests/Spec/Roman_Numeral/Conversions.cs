@@ -377,6 +377,32 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToString()
+		{
+			new Story("convert to Char")
+				.InOrderTo("convert a roman figure to a string")
+				.AsA("library user")
+				.IWant("Convert() to a roman figure")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
+				.Then(Is_, "N")
+
+			.WithScenario("single figure")
+				.Given(TheRomanNumeral_, new RomanNumeral(500))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
+				.Then(Is_, "D")
+
+			.WithScenario("multiple figure")
+				.Given(TheRomanNumeral_, new RomanNumeral(11))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
+				.Then(Is_, "XI")
+
+			.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void TheRomanNumeral_(RomanNumeral subject)
 		{
