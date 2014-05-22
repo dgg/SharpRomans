@@ -200,6 +200,70 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void RomanFigureSubstraction()
+		{
+			new Story("arithmetic addition")
+				.InOrderTo("calculate the value of substracting a roman figure from a roman numeral")
+				.AsA("library user")
+				.IWant("to use an instance method on a roman numeral")
+
+				.WithScenario("bounded operation")
+					.Given(theRomanNumeral_, new RomanNumeral(20))
+					.When(minus_, RomanFigure.V)
+					.Then(theResultIs_, new RomanNumeral(15))
+					.And(isNotDestructive)
+
+				.WithScenario("overflowing operation")
+					.Given(theRomanNumeral_, RomanNumeral.Min)
+					.When(minus_, RomanFigure.I)
+					.Then(theResultOverflows)
+
+				.WithScenario("substracting NULL")
+					.Given(theRomanNumeral_, new RomanNumeral(13))
+					.When(minus_, (RomanFigure)null)
+					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _subject))
+
+				.ExecuteWithReport();
+		}
+
+		[Test]
+		public void RomanFigureSubstractionOperation()
+		{
+			new Story("arithmetic addition")
+				.InOrderTo("calculate the value of substracting a roman figure from a roman numeral")
+				.AsA("library user")
+				.IWant("to use an operator")
+
+				.WithScenario("bounded operation")
+					.Given(theRomanNumeral_, new RomanNumeral(20))
+					.When(substracted_, RomanFigure.V)
+					.Then(theResultIs_, new RomanNumeral(15))
+					.And(isNotDestructive)
+
+				.WithScenario("overflowing operation")
+					.Given(theRomanNumeral_, RomanNumeral.Min)
+					.When(substracted_, RomanFigure.I)
+					.Then(theResultOverflows)
+
+				.WithScenario("substracting NULL from not NULL")
+					.Given(theRomanNumeral_, new RomanNumeral(13))
+					.When(substracted_, (RomanFigure)null)
+					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _subject))
+
+				.WithScenario("substracting not NULL to NULL")
+					.Given(theRomanNumeral_, (RomanNumeral)null)
+					.When(substracted_, RomanFigure.V)
+					.Then(theResultIs_, new RomanNumeral(5))
+
+				.WithScenario("substracting NULL to NULL")
+					.Given(theRomanNumeral_, (RomanNumeral)null)
+					.When(substracted_, (RomanFigure)null)
+					.Then(theResultIs_, (RomanNumeral)null)
+
+				.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void theRomanNumeral_(RomanNumeral subject)
 		{
@@ -239,6 +303,18 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		}
 
 		private void substracted_(RomanNumeral operand)
+		{
+			_operand = operand;
+			_operation = () => _subject - operand;
+		}
+
+		private void minus_(RomanFigure operand)
+		{
+			_operand = operand;
+			_operation = () => _subject.Minus(operand);
+		}
+
+		private void substracted_(RomanFigure operand)
 		{
 			_operand = operand;
 			_operation = () => _subject - operand;

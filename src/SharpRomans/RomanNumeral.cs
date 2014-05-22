@@ -249,6 +249,11 @@ namespace SharpRomans
 			return withValue(numeral, (value, valuable) => (ushort)(value - valuable.Value));
 		}
 
+		public RomanNumeral Minus(RomanFigure figure)
+		{
+			return withValue(figure, (value, valuable) => (ushort)(value - valuable.Value));
+		}
+
 		private RomanNumeral withValue(IValuable valuable, Func<ushort, IValuable, ushort> op)
 		{
 			if (valuable == null) return this;
@@ -276,6 +281,13 @@ namespace SharpRomans
 		public static RomanNumeral operator -(RomanNumeral left, RomanNumeral right)
 		{
 			return left == null ? right : left.Minus(right);
+		}
+
+		public static RomanNumeral operator -(RomanNumeral left, RomanFigure right)
+		{
+			return left == null ?
+				(right == null ? null : new RomanNumeral(right.Value)) :
+				left.Minus(right);
 		}
 
 		#endregion
