@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SharpRomans
 {
-	public class RomanFigure : IComparable<RomanFigure>, IConvertible
+	public class RomanFigure : IComparable<RomanFigure>, IConvertible, IEquatable<RomanFigure>
 	{
 		public char Literal { get; private set; }
 		public ushort Value { get; private set; }
@@ -244,6 +244,33 @@ namespace SharpRomans
 			if (figure == null) throw new ArgumentNullException("figure");
 
 			return figure.Value;
+		}
+
+		#endregion
+
+		#region equality
+
+		public bool Equals(RomanFigure figure)
+		{
+			if (ReferenceEquals(null, figure)) return false;
+			if (ReferenceEquals(this, figure)) return true;
+			return figure.Value == Value;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+
+			var a = obj as RomanFigure;
+			if (a != null) return Equals(a);
+
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return Value.GetHashCode();
 		}
 
 		#endregion
