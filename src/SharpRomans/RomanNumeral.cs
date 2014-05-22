@@ -177,12 +177,12 @@ namespace SharpRomans
 
 		public float ToSingle(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToSingle(Value, provider);
 		}
 
 		public double ToDouble(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToDouble(Value, provider);
 		}
 
 		public decimal ToDecimal(IFormatProvider provider)

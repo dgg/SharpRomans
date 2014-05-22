@@ -273,6 +273,58 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToFloat()
+		{
+			new Story("convert to Float")
+				.InOrderTo("convert a roman numeral to a float whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanNumeral_, new RomanNumeral(100))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
+				.Then(Is_, 3999)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void ConvertToDouble()
+		{
+			new Story("convert to Double")
+				.InOrderTo("convert a roman numeral to a double whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanNumeral_, new RomanNumeral(100))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
+				.Then(Is_, 3999)
+
+			.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void TheRomanNumeral_(RomanNumeral subject)
 		{
