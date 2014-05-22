@@ -403,6 +403,42 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ChangeType()
+		{
+			new Story("change type")
+				.InOrderTo("convert a roman numeral to a clr type whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("supported type")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, typeof(long))
+				.Then(Is_, 3999)
+
+			.WithScenario("overflowing type")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, typeof(byte))
+				.Then(Overflows)
+
+			.WithScenario("unsupported type")
+				.Given(TheRomanNumeral_, RomanNumeral.Min)
+				.When(ConvertedTo_, typeof(TimeSpan))
+				.Then(CannotCast)
+
+			.WithScenario("unsupported type")
+				.Given(TheRomanNumeral_, RomanNumeral.Min)
+				.When(ConvertedTo_, typeof(Exception))
+				.Then(CannotCast)
+
+			.WithScenario("itself")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, typeof(RomanNumeral))
+				.Then(Is_, RomanNumeral.Max)
+
+			.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void TheRomanNumeral_(RomanNumeral subject)
 		{
@@ -413,6 +449,11 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		private void ConvertedTo_(Conv exp)
 		{
 			_conversion = () => exp.Execute(_subject);
+		}
+
+		private void ConvertedTo_(Type to)
+		{
+			_conversion = () => Convert.ChangeType(_subject, to);
 		}
 
 		private void Is_<T>(T value)
