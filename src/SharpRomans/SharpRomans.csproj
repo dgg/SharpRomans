@@ -35,6 +35,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculationTable.cs" />
     <Compile Include="NumeralOutOfRangeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RomanFigure.cs" />

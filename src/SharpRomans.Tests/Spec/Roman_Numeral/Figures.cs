@@ -20,6 +20,16 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 					.When(theRomanNumeralIsInstantiated)
 					.Then(isARomanNumeralWithFigures_, "N")
 
+				.WithScenario("single-figure")
+					.Given(anArabicNumeral_, 50)
+					.When(theRomanNumeralIsInstantiated)
+					.Then(isARomanNumeralWithFigures_, "L")
+
+				.WithScenario("multiple-figures")
+					.Given(anArabicNumeral_, 75)
+					.When(theRomanNumeralIsInstantiated)
+					.Then(isARomanNumeralWithFigures_, "LXXV")
+
 				.ExecuteWithReport();
 		}
 
