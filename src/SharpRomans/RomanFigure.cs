@@ -273,6 +273,16 @@ namespace SharpRomans
 			return Value.GetHashCode();
 		}
 
+		public static bool operator ==(RomanFigure left, RomanFigure right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(RomanFigure left, RomanFigure right)
+		{
+			return !Equals(left, right);
+		}
+
 		#endregion
 	}
 }
