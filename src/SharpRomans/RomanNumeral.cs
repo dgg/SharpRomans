@@ -213,5 +213,23 @@ namespace SharpRomans
 		}
 
 		#endregion
+
+		#region castings
+
+		public static explicit operator ushort(RomanNumeral numeral)
+		{
+			if (numeral == null) throw new ArgumentNullException("numeral");
+
+			return numeral.Value;
+		}
+
+		public static explicit operator string(RomanNumeral numeral)
+		{
+			if (numeral == null) return null;
+
+			return numeral._figures;
+		}
+
+		#endregion
 	}
 }

@@ -41,17 +41,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.AsA("library user")
 				.IWant("to be able to explicitely cast a roman figure")
 
-				.WithScenario("character of a figure")
+				.WithScenario("number of a figure")
 					.Given(aRomanFigure_, RomanFigure.N)
 					.When(theFigureIsCastedToNumber)
 					.Then(theNumberIs_, 0)
 
-				.WithScenario("character of a figure")
+				.WithScenario("number of a figure")
 					.Given(aRomanFigure_, RomanFigure.X)
 					.When(theFigureIsCastedToNumber)
 					.Then(theNumberIs_, 10)
 
-				.WithScenario("character of null")
+				.WithScenario("number of null")
 					.Given(aRomanFigure_, (RomanFigure)null)
 					.When(theFigureIsCastedToNumber)
 					.Then(throwsArgumentException)
