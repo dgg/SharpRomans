@@ -56,6 +56,7 @@
     <Compile Include="Spec\Roman_Figure\TryConvert.cs" />
     <Compile Include="Spec\Roman_Figure\TryParse.cs" />
     <Compile Include="Spec\Roman_Figure\Parse.cs" />
+    <Compile Include="Spec\Roman_Numeral\Creation.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpRomans\SharpRomans.csproj">
