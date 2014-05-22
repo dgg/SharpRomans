@@ -39,6 +39,32 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToChar()
+		{
+			new Story("convert to Char")
+				.InOrderTo("convert a roman numeral to a char whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
+				.Then(Is_, 'N')
+
+			.WithScenario("single figure")
+				.Given(TheRomanNumeral_, new RomanNumeral(500))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
+				.Then(Is_, 'D')
+
+			.WithScenario("multiple figure")
+				.Given(TheRomanNumeral_, new RomanNumeral(11))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
+				.Then(ThrowsException)
+
+			.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void TheRomanNumeral_(RomanNumeral subject)
 		{
@@ -54,6 +80,12 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		private void Is_<T>(T value)
 		{
 			Assert.That(_conversion(), Is.EqualTo(value));
+		}
+
+		private void ThrowsException()
+		{
+			TestDelegate conversion = () => _conversion();
+			Assert.That(conversion, Throws.InstanceOf<FormatException>());
 		}
 	}
 }

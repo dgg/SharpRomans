@@ -132,7 +132,7 @@ namespace SharpRomans
 
 		public char ToChar(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToChar(_figures, provider);
 		}
 
 		public sbyte ToSByte(IFormatProvider provider)
