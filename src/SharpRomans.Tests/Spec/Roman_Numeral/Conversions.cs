@@ -65,6 +65,58 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
+		[Test]
+		public void ConvertToSByte()
+		{
+			new Story("convert to SByte")
+				.InOrderTo("convert a roman numeral to a signed byte whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanNumeral_, new RomanNumeral(101))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
+				.Then(Is_, 101)
+
+			.WithScenario("max")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
+				.Then(Overflows)
+
+			.ExecuteWithReport();
+		}
+
+		[Test]
+		public void ConvertToByte()
+		{
+			new Story("convert to Byte")
+				.InOrderTo("convert a roman numeral to a byte whenever possible")
+				.AsA("library user")
+				.IWant("Convert() to a roman numeral")
+
+			.WithScenario("zero")
+				.Given(TheRomanNumeral_, RomanNumeral.Zero)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
+				.Then(Is_, 0)
+
+			.WithScenario("less than max")
+				.Given(TheRomanNumeral_, new RomanNumeral(100))
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
+				.Then(Is_, 100)
+
+			.WithScenario("max")
+				.Given(TheRomanNumeral_, RomanNumeral.Max)
+				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
+				.Then(Overflows)
+
+			.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void TheRomanNumeral_(RomanNumeral subject)
 		{
@@ -86,6 +138,12 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		{
 			TestDelegate conversion = () => _conversion();
 			Assert.That(conversion, Throws.InstanceOf<FormatException>());
+		}
+
+		private void Overflows()
+		{
+			TestDelegate conversion = () => _conversion();
+			Assert.That(conversion, Throws.InstanceOf<OverflowException>());
 		}
 	}
 }

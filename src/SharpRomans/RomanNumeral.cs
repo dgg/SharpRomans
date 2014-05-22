@@ -137,12 +137,12 @@ namespace SharpRomans
 
 		public sbyte ToSByte(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToSByte(Value, provider);
 		}
 
 		public byte ToByte(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToByte(Value, provider);
 		}
 
 		public short ToInt16(IFormatProvider provider)
