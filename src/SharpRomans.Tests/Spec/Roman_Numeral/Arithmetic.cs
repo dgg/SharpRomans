@@ -136,43 +136,76 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void Substraction()
+		{
+			new Story("arithmetic substraction")
+				.InOrderTo("calculate the value of substracting one roman numeral from another roman numeral")
+				.AsA("library user")
+				.IWant("to use an instance method on a roman numeral")
+
+				.WithScenario("bounded operation")
+					.Given(theRomanNumeral_, new RomanNumeral(20))
+					.When(minus_, new RomanNumeral(11))
+					.Then(theResultIs_, new RomanNumeral(9))
+					.And(isNotDestructive)
+
+				.WithScenario("overflowing operation")
+					.Given(theRomanNumeral_, RomanNumeral.Min)
+					.When(minus_, new RomanNumeral(1))
+					.Then(theResultOverflows)
+
+				.WithScenario("substracting NULL")
+					.Given(theRomanNumeral_, new RomanNumeral(13))
+					.When(minus_, (RomanNumeral)null)
+					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _subject))
+
+				.ExecuteWithReport();
+		}
+
 		RomanNumeral _subject;
 		private void theRomanNumeral_(RomanNumeral subject)
 		{
 			_subject = subject;
 		}
 
-		private Func<RomanNumeral> _addition;
+		private Func<RomanNumeral> _operation;
 		private IValuable _operand;
 		private void plus_(RomanNumeral operand)
 		{
 			_operand = operand;
-			_addition = () => _subject.Plus(operand);
+			_operation = () => _subject.Plus(operand);
 		}
 
 		private void added_(RomanNumeral operand)
 		{
 			_operand = operand;
-			_addition = () => _subject + operand;
+			_operation = () => _subject + operand;
 		}
 
 		private void plus_(RomanFigure operand)
 		{
 			_operand = operand;
-			_addition = () => _subject.Plus(operand);
+			_operation = () => _subject.Plus(operand);
 		}
 
 		private void added_(RomanFigure operand)
 		{
 			_operand = operand;
-			_addition = () => _subject + operand;
+			_operation = () => _subject + operand;
+		}
+
+		private void minus_(RomanNumeral operand)
+		{
+			_operand = operand;
+			_operation = () => _subject.Minus(operand);
 		}
 
 		private RomanNumeral _result;
 		private void theResultIs_(RomanNumeral result)
 		{
 			_result = result;
-			Assert.That(_addition(), Is.EqualTo(result));
+			Assert.That(_operation(), Is.EqualTo(result));
 		}
 
 		private void isNotDestructive()
@@ -183,7 +216,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void theResultOverflows()
 		{
-			TestDelegate operation = () => _addition();
+			TestDelegate operation = () => _operation();
 			Assert.That(operation, Throws.InstanceOf<NumeralOutOfRangeException>()
 				.And.Message.StringContaining(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture))
 				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture)));
@@ -192,7 +225,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		// TODO: implement pretty print of expression
 		private void theResultIsTheSameAs_(Func<IValuable> same)
 		{
-			Assert.That(_addition(), Is.SameAs(same()));
+			Assert.That(_operation(), Is.SameAs(same()));
 		}
 	}
 }
