@@ -62,6 +62,7 @@
     <Compile Include="Spec\Roman_Numeral\Instantiation.cs" />
     <Compile Include="Spec\Roman_Numeral\Support\Ins.cs" />
     <Compile Include="Spec\Roman_Numeral\Support\Op.cs" />
+    <Compile Include="Spec\Support\Op.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpRomans\SharpRomans.csproj">
