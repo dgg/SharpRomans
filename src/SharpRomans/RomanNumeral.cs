@@ -6,7 +6,7 @@ using SharpRomans.Support;
 
 namespace SharpRomans
 {
-	public sealed class RomanNumeral : IComparable<RomanNumeral>
+	public sealed class RomanNumeral : IComparable<RomanNumeral>, IEquatable<RomanNumeral>
 	{
 		public static readonly ushort MinValue = default(ushort);
 		public static readonly ushort MaxValue = 3999;
@@ -78,6 +78,43 @@ namespace SharpRomans
 		}
 
 		#endregion
+
+		#endregion
+
+		#region equality
+
+		public bool Equals(RomanNumeral other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return Value == other.Value;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+
+			var a = obj as RomanNumeral;
+			if (a != null) return Equals(a);
+
+			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return Value.GetHashCode();
+		}
+
+		public static bool operator ==(RomanNumeral left, RomanNumeral right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(RomanNumeral left, RomanNumeral right)
+		{
+			return !Equals(left, right);
+		}
 
 		#endregion
 	}

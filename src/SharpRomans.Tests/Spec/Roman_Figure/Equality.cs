@@ -9,7 +9,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		[Test]
 		public void NonGenericEquals()
 		{
-			new Story("non generic equatable")
+			new Story("non generic equaks")
 				.InOrderTo("say that an object is equal to a roman figure")
 				.AsA("library user")
 				.IWant("to use .Equals() against an object")

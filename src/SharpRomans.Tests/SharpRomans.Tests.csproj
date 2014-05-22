@@ -58,6 +58,7 @@
     <Compile Include="Spec\Roman_Figure\Parse.cs" />
     <Compile Include="Spec\Roman_Numeral\Boundaries.cs" />
     <Compile Include="Spec\Roman_Numeral\Comparisons.cs" />
+    <Compile Include="Spec\Roman_Numeral\Equality.cs" />
     <Compile Include="Spec\Roman_Numeral\Figures.cs" />
     <Compile Include="Spec\Roman_Numeral\Instantiation.cs" />
     <Compile Include="Spec\Roman_Numeral\Support\Ins.cs" />
