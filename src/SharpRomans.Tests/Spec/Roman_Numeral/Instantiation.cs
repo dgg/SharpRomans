@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using NUnit.Framework;
+using SharpRomans.Tests.Spec.Roman_Numeral.Support;
 using StoryQ;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
@@ -43,6 +44,32 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void Instances()
+		{
+			new Story("roman numerals instances")
+				.InOrderTo("have easy access to peculiar roman numerals")
+				.AsA("library user")
+				.IWant("to be able to obtain instances from the roman numeral itself")
+
+				.WithScenario("zero")
+					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Zero))
+					.When(itIsAccessed)
+					.Then(isARomanNumeralWithValue_, 0)
+
+				.WithScenario("min")
+					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Min))
+					.When(itIsAccessed)
+					.Then(isARomanNumeralWithValue_, (int)RomanNumeral.MinValue)
+
+				.WithScenario("max")
+					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Max))
+					.When(itIsAccessed)
+					.Then(isARomanNumeralWithValue_, (int)RomanNumeral.MaxValue)
+
+				.ExecuteWithReport();
+		}
+
 		ushort _number;
 		private void anArabicNumeral_(int number)
 		{
@@ -61,6 +88,13 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_subject = new RomanNumeral(_number);
 		}
 
+		private void the_RomanNumeral(Ins instance)
+		{
+			_subject = instance.Execute();
+		}
+
+		private void itIsAccessed() { }
+
 		private void aRangeExceptionIsThrown()
 		{
 			Assert.That(_instantiation, Throws.InstanceOf<NumeralOutOfRangeException>()
@@ -72,7 +106,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		private void isARomanNumeralWithValue_(int value)
 		{
 			Assert.That(_subject.Value, Is.EqualTo(value));
-			
+
 		}
 	}
 }

@@ -58,6 +58,7 @@
     <Compile Include="Spec\Roman_Figure\Parse.cs" />
     <Compile Include="Spec\Roman_Numeral\Boundaries.cs" />
     <Compile Include="Spec\Roman_Numeral\Instantiation.cs" />
+    <Compile Include="Spec\Roman_Numeral\Support\Ins.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpRomans\SharpRomans.csproj">

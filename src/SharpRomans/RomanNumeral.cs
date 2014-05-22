@@ -26,5 +26,9 @@ namespace SharpRomans
 		{
 			return _validity.Contains(value);
 		}
+
+		public static readonly RomanNumeral Min = new RomanNumeral(MinValue);
+		public static readonly RomanNumeral Max = new RomanNumeral(MaxValue);
+		public static readonly RomanNumeral Zero = new RomanNumeral(0);
 	}
 }
