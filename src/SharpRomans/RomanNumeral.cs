@@ -187,7 +187,7 @@ namespace SharpRomans
 
 		public decimal ToDecimal(IFormatProvider provider)
 		{
-			throw new NotImplementedException();
+			return Convert.ToDecimal(Value, provider);
 		}
 
 		public DateTime ToDateTime(IFormatProvider provider)
