@@ -245,6 +245,13 @@ namespace SharpRomans
 			return figure.Value;
 		}
 
+		public static explicit operator string(RomanFigure figure)
+		{
+			if (figure == null) return null;
+
+			return figure._string;
+		}
+
 		#endregion
 
 		#region equality

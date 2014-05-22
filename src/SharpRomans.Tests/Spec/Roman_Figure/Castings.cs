@@ -17,17 +17,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, RomanFigure.N)
-					.When(theFigureIsCastedToChar)
+					.When(isCastedToChar)
 					.Then(theCharacterIs_, 'N')
 
 				.WithScenario("character of a figure")
 					.Given(aRomanFigure_, RomanFigure.X)
-					.When(theFigureIsCastedToChar)
+					.When(isCastedToChar)
 					.Then(theCharacterIs_, 'X')
 
 				.WithScenario("character of null")
 					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(theFigureIsCastedToChar)
+					.When(isCastedToChar)
 					.Then(throwsArgumentException)
 
 				.ExecuteWithReport();
@@ -43,18 +43,44 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 				.WithScenario("number of a figure")
 					.Given(aRomanFigure_, RomanFigure.N)
-					.When(theFigureIsCastedToNumber)
+					.When(isCastedToNumber)
 					.Then(theNumberIs_, 0)
 
 				.WithScenario("number of a figure")
 					.Given(aRomanFigure_, RomanFigure.X)
-					.When(theFigureIsCastedToNumber)
+					.When(isCastedToNumber)
 					.Then(theNumberIs_, 10)
 
 				.WithScenario("number of null")
 					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(theFigureIsCastedToNumber)
+					.When(isCastedToNumber)
 					.Then(throwsArgumentException)
+
+				.ExecuteWithReport();
+		}
+
+		[Test]
+		public void CastToString()
+		{
+			new Story("casting to string")
+				.InOrderTo("get the text of individual figures")
+				.AsA("library user")
+				.IWant("to be able to explicitely cast a roman figure")
+
+				.WithScenario("string of a figure")
+					.Given(aRomanFigure_, RomanFigure.N)
+					.When(isCastedToString)
+					.Then(theStringIs_, "N")
+
+				.WithScenario("string of a figure")
+					.Given(aRomanFigure_, RomanFigure.X)
+					.When(isCastedToString)
+					.Then(theStringIs_, "X")
+
+				.WithScenario("number of null")
+					.Given(aRomanFigure_, (RomanFigure)null)
+					.When(isCastedToString)
+					.Then(theStringIs_, (string)null)
 
 				.ExecuteWithReport();
 		}
@@ -66,15 +92,21 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		}
 
 		Func<char> _character;
-		private void theFigureIsCastedToChar()
+		private void isCastedToChar()
 		{
 			_character = () => (char)_subject;
 		}
 
 		Func<ushort> _number;
-		private void theFigureIsCastedToNumber()
+		private void isCastedToNumber()
 		{
 			_number = () => (ushort)_subject;
+		}
+
+		Func<string> _string;
+		private void isCastedToString()
+		{
+			_string = () => (string)_subject;
 		}
 
 		private void theCharacterIs_(char character)
@@ -85,6 +117,11 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		private void theNumberIs_(int number)
 		{
 			Assert.That(_number(), Is.EqualTo(number));
+		}
+
+		private void theStringIs_(string numeral)
+		{
+			Assert.That(_string(), Is.EqualTo(numeral));
 		}
 
 		private void throwsArgumentException()

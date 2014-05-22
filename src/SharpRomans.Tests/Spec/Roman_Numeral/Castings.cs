@@ -17,17 +17,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 				.WithScenario("number of a numeral")
 					.Given(aRomanNumeral_, RomanNumeral.Zero)
-					.When(theFigureIsCastedToNumber)
+					.When(isCastedToNumber)
 					.Then(theNumberIs_, 0)
 
 				.WithScenario("number of a numeral")
 					.Given(aRomanNumeral_, new RomanNumeral(11))
-					.When(theFigureIsCastedToNumber)
+					.When(isCastedToNumber)
 					.Then(theNumberIs_, 11)
 
 				.WithScenario("number of null")
 					.Given(aRomanNumeral_, (RomanNumeral)null)
-					.When(theFigureIsCastedToNumber)
+					.When(isCastedToNumber)
 					.Then(throwsArgumentException)
 
 				.ExecuteWithReport();
@@ -43,17 +43,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 				.WithScenario("string of a numeral")
 					.Given(aRomanNumeral_, RomanNumeral.Zero)
-					.When(theFigureIsCastedToString)
+					.When(isCastedToString)
 					.Then(theStringIs_, "N")
 
 				.WithScenario("string of a numeral")
 					.Given(aRomanNumeral_, new RomanNumeral(11))
-					.When(theFigureIsCastedToString)
+					.When(isCastedToString)
 					.Then(theStringIs_, "XI")
 
 				.WithScenario("string of null")
 					.Given(aRomanNumeral_, (RomanNumeral)null)
-					.When(theFigureIsCastedToString)
+					.When(isCastedToString)
 					.Then(theStringIs_, (string)null)
 
 				.ExecuteWithReport();
@@ -66,13 +66,13 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		}
 
 		Func<ushort> _number;
-		private void theFigureIsCastedToNumber()
+		private void isCastedToNumber()
 		{
 			_number = () => (ushort)_subject;
 		}
 
 		Func<string> _string;
-		private void theFigureIsCastedToString()
+		private void isCastedToString()
 		{
 			_string = () => (string)_subject;
 		}
