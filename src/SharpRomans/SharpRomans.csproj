@@ -46,6 +46,7 @@
     <Compile Include="Parsing\OneExpression.cs" />
     <Compile Include="Parsing\TenExpression.cs" />
     <Compile Include="Parsing\ThousandExpression.cs" />
+    <Compile Include="Parsing\ZeroExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RomanFigure.cs" />
     <Compile Include="RomanNumeral.cs" />

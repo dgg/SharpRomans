@@ -22,7 +22,7 @@ namespace SharpRomans.Parsing
 			}
 
 			int repetition = 0;
-			while (context.StartsWith(One) && (repetition++ < 3))
+			while (context.StartsWith(One) && (repetition++ < MaxRepetitions))
 			{
 				context.Plus(1, this).Trim(1);
 			}
@@ -37,5 +37,7 @@ namespace SharpRomans.Parsing
 		public abstract string Nine { get; }
 
 		public abstract ushort Multiplier { get; }
+
+		public virtual byte MaxRepetitions { get { return 3; } }
 	}
 }

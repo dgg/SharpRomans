@@ -7,6 +7,7 @@
 		{
 			_elements = new Expression[]
 			{
+				new ZeroExpression(),
 				new ThousandExpression(),
 				new HundredExpression(),
 				new TenExpression(),

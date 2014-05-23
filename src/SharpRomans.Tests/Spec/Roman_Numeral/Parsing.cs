@@ -17,18 +17,44 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 				.WithScenario("null")
 					.Given(theInput_, (string) null)
-					.When(theInputIsBeingParsed)
+					.When(theInputIsParsing)
 					.Then(anExceptionIsThrown<ArgumentNullException>)
 
 				.WithScenario("empty")
 					.Given(theInput_, string.Empty)
-					.When(theInputIsBeingParsed)
+					.When(theInputIsParsing)
 					.Then(anExceptionIsThrown<ArgumentException>)
 
 				.WithScenario("only spaces")
 					.Given(theInput_, " ")
-					.When(theInputIsBeingParsed)
+					.When(theInputIsParsing)
 					.Then(anExceptionIsThrown<ArgumentException>)
+
+				.ExecuteWithReport();
+		}
+
+		[Test]
+		public void Zero()
+		{
+			new Story("parse zero roman numeral")
+				.InOrderTo("obtain the zero roman numeral")
+				.AsA("library user")
+				.IWant("parse the zero string.")
+
+				.WithScenario("uppercase zero")
+					.Given(theInput_, "N")
+					.When(theInputIsParsed)
+					.Then(theNumeral_IsObtained, RomanNumeral.Zero)
+
+				.WithScenario("lowercase zero")
+					.Given(theInput_, "n")
+					.When(theInputIsParsed)
+					.Then(theNumeral_IsObtained, RomanNumeral.Zero)
+
+				.WithScenario("zero repeated")
+					.Given(theInput_, "NN")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
 
 				.ExecuteWithReport();
 		}
@@ -39,16 +65,27 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_input = input;
 		}
 
-		Func<RomanNumeral> _parse;
-		private void theInputIsBeingParsed()
+		Func<RomanNumeral> _parsing;
+		private void theInputIsParsing()
 		{
-			_parse = ()=> RomanNumeral.Parse(_input);
+			_parsing = ()=> RomanNumeral.Parse(_input);
+		}
+
+		RomanNumeral _parsed;
+		private void theInputIsParsed()
+		{
+			_parsed = RomanNumeral.Parse(_input);
 		}
 
 		private void anExceptionIsThrown<T>() where T : Exception
 		{
-			TestDelegate del = () => _parse();
+			TestDelegate del = () => _parsing();
 			Assert.That(del, Throws.InstanceOf<T>());
+		}
+
+		private void theNumeral_IsObtained(RomanNumeral numeral)
+		{
+			Assert.That(_parsed, Is.EqualTo(numeral));
 		}
 
 		/*[Test]
