@@ -152,6 +152,32 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void Repeat_Single_Figures()
+		{
+			new Story("parse zero roman numeral")
+				.InOrderTo("prevent invalid roman numeral to be parsed")
+				.AsA("library user")
+				.IWant("unparseable strings to throw.")
+
+				.WithScenario("too many V")
+					.Given(theInput_, "VIV")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.WithScenario("too many L")
+					.Given(theInput_, "LXL")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.WithScenario("too many D")
+					.Given(theInput_, "DDII")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.ExecuteWithReport();
+		}
+
 		private string _input;
 		private void theInput_(string input)
 		{
