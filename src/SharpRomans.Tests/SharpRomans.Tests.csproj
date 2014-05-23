@@ -51,7 +51,8 @@
     <Compile Include="Spec\Roman_Figure\Roles.cs" />
     <Compile Include="Spec\Roman_Numeral\Castings.cs" />
     <Compile Include="Spec\Roman_Numeral\Arithmetic.cs" />
-    <Compile Include="Spec\Roman_Numeral\Parsing.cs" />
+    <Compile Include="Spec\Roman_Numeral\TryParse.cs" />
+    <Compile Include="Spec\Roman_Numeral\Parse.cs" />
     <Compile Include="Spec\Roman_Numeral\Support\Conv.cs" />
     <Compile Include="Spec\Roman_Figure\Support\Conv.cs" />
     <Compile Include="Spec\Roman_Figure\Support\Op.cs" />

@@ -312,6 +312,11 @@ namespace SharpRomans
 			if (string.IsNullOrWhiteSpace(numeral)) throw new ArgumentException(null, "numeral");
 		}
 
+		private static bool checkInput(string numeral)
+		{
+			return !string.IsNullOrWhiteSpace(numeral);
+		}
+
 		private static void assertParsing(string numeral, ushort? parsed)
 		{
 			if (!parsed.HasValue)
@@ -323,7 +328,20 @@ namespace SharpRomans
 		public static bool TryParse(string numeral, out RomanNumeral result)
 		{
 			result = null;
-			return false;
+			bool success = false;
+
+			if (checkInput(numeral))
+			{
+				ushort? parsed = ExpressionComposite.Parse(numeral);
+
+				if (parsed.HasValue)
+				{
+					result = new RomanNumeral(parsed.Value);
+					success = true;
+				}
+			}
+
+			return success;
 		}
 	}
 }

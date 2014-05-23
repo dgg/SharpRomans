@@ -1,34 +1,36 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using StoryQ;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Parsing")]
-	public class ParsingTester
+	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("TryParse")]
+	public class TryParseTester
 	{
 		[Test]
 		public void NoString()
 		{
-			new Story("parse no string as roman numeral")
+			new Story("try parse no string as roman numeral")
 				.InOrderTo("not be surprised with unexpected results")
 				.AsA("library user")
-				.IWant("unparseable strings to throw.")
+				.IWant("unparseable strings to not parse.")
 
 				.WithScenario("null")
 					.Given(theInput_, (string) null)
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<ArgumentNullException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("empty")
 					.Given(theInput_, string.Empty)
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<ArgumentException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("only spaces")
 					.Given(theInput_, " ")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<ArgumentException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.ExecuteWithReport();
 		}
@@ -36,7 +38,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		[Test]
 		public void Zero()
 		{
-			new Story("parse zero roman numeral")
+			new Story("try parse zero roman numeral")
 				.InOrderTo("obtain the zero roman numeral from a string")
 				.AsA("library user")
 				.IWant("parse the zero string.")
@@ -44,17 +46,20 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.WithScenario("uppercase zero")
 					.Given(theInput_, "N")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, RomanNumeral.Zero)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, RomanNumeral.Zero)
 
 				.WithScenario("lowercase zero")
 					.Given(theInput_, "n")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, RomanNumeral.Zero)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, RomanNumeral.Zero)
 
 				.WithScenario("zero repeated")
 					.Given(theInput_, "NN")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.ExecuteWithReport();
 		}
@@ -62,35 +67,40 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		[Test]
 		public void Repetition()
 		{
-			new Story("parse zero roman numeral")
+			new Story("try parse zero roman numeral")
 				.InOrderTo("prevent invalid roman numeral to be parsed")
 				.AsA("library user")
-				.IWant("unparseable strings to throw.")
+				.IWant("unparseable strings to not parse.")
 
 				.WithScenario("too many I")
 					.Given(theInput_, "IIII")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("too many X")
 					.Given(theInput_, "XXXX")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("too many C")
 					.Given(theInput_, "CCCC")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("too many M")
 					.Given(theInput_, "MMMM")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("interleaved offenders")
 					.Given(theInput_, "CCCXXXXV")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.ExecuteWithReport();
 		}
@@ -98,20 +108,22 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		[Test]
 		public void AdditiveCombination()
 		{
-			new Story("parse zero roman numeral")
+			new Story("try parse zero roman numeral")
 				.InOrderTo("obtain the valid roman numeral from a string")
 				.AsA("library user")
-				.IWant("parse strings that contain lower figures to the right of bigger figures.")
+				.IWant("try parse strings that contain lower figures to the right of bigger figures.")
 
 				.WithScenario("six")
 					.Given(theInput_, "VI")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 6u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 6u)
 
 				.WithScenario("1661")
 					.Given(theInput_, "MDCLXI")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 1661u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 1661u)
 
 				.ExecuteWithReport();
 		}
@@ -119,35 +131,40 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		[Test]
 		public void SubstractiveCombination()
 		{
-			new Story("parse zero roman numeral")
+			new Story("try parse zero roman numeral")
 				.InOrderTo("obtain the valid roman numeral from a string")
 				.AsA("library user")
-				.IWant("parse strings that contain lower figures to the left of bigger figures.")
+				.IWant("try parse strings that contain lower figures to the left of bigger figures.")
 
 				.WithScenario("four")
 					.Given(theInput_, "IV")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 4u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 4u)
 
 				.WithScenario("nine")
 					.Given(theInput_, "IX")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 9u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 9u)
 
 				.WithScenario("ninety-nine")
 					.Given(theInput_, "XCIX")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 99u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 99u)
 
 				.WithScenario("substract once")
 					.Given(theInput_, "MCMD")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("substract once")
 					.Given(theInput_, "CMC")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.ExecuteWithReport();
 		}
@@ -155,25 +172,28 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		[Test]
 		public void RepeatSingleFigures()
 		{
-			new Story("parse zero roman numeral")
+			new Story("try parse zero roman numeral")
 				.InOrderTo("prevent invalid roman numeral to be parsed")
 				.AsA("library user")
-				.IWant("unparseable strings to throw.")
+				.IWant("unparseable strings to not parse.")
 
 				.WithScenario("too many V")
 					.Given(theInput_, "VIV")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("too many L")
 					.Given(theInput_, "LXL")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("too many D")
 					.Given(theInput_, "DDII")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.ExecuteWithReport();
 		}
@@ -181,25 +201,28 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		[Test]
 		public void ReducingValues()
 		{
-			new Story("parse zero roman numeral")
+			new Story("try parse zero roman numeral")
 				.InOrderTo("obtain the valid roman numeral from a string")
 				.AsA("library user")
-				.IWant("parse strings that numbers increase from left to right.")
+				.IWant("try parse strings that numbers increase from left to right.")
 
 				.WithScenario("ninteen")
 					.Given(theInput_, "XIX")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 19u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 19u)
 
 				.WithScenario("wrong 899")
 					.Given(theInput_, "XIM")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.WithScenario("wrong 3")
 					.Given(theInput_, "IIV")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+					.When(theInputIsParsed)
+					.Then(theResultIs_, false)
+					.And(theNumeral_IsObtained, (RomanNumeral)null)
 
 				.ExecuteWithReport();
 		}
@@ -215,22 +238,26 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.WithScenario("1928")
 					.Given(theInput_, "MCMXXVIII")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 1928u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 1928u)
 
 				.WithScenario("2009")
 					.Given(theInput_, "MMIX")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 2009u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 2009u)
 
 				.WithScenario("1990")
 					.Given(theInput_, "MCMXC")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 1990u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 1990u)
 
 				.WithScenario("1666")
 					.Given(theInput_, "MDCLXVI")
 					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 1666u)
+					.Then(theResultIs_, true)
+					.And(theNumeral_IsObtained, 1666u)
 
 				.ExecuteWithReport();
 		}
@@ -241,22 +268,16 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_input = input;
 		}
 
-		Func<RomanNumeral> _parsing;
-		private void theInputIsParsing()
-		{
-			_parsing = ()=> RomanNumeral.Parse(_input);
-		}
-
 		RomanNumeral _parsed;
+		private bool _result;
 		private void theInputIsParsed()
 		{
-			_parsed = RomanNumeral.Parse(_input);
+			_result = RomanNumeral.TryParse(_input, out _parsed);
 		}
 
-		private void anExceptionIsThrown<T>() where T : Exception
+		private void theResultIs_(bool obj)
 		{
-			TestDelegate del = () => _parsing();
-			Assert.That(del, Throws.InstanceOf<T>());
+			Assert.That(_result, Is.EqualTo(obj));
 		}
 
 		private void theNumeral_IsObtained(RomanNumeral numeral)
