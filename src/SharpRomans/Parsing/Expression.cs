@@ -6,9 +6,11 @@ namespace SharpRomans.Parsing
 		{
 			if (context.IsEmpty) return;
 
+			bool alreadyApplied = false;
 			if (context.StartsWith(Nine))
 			{
 				context.Plus(9, this).Trim(2);
+				alreadyApplied = true;
 			}
 
 			else if (context.StartsWith(Four))
@@ -21,8 +23,8 @@ namespace SharpRomans.Parsing
 				context.Plus(5, this).Trim(1);
 			}
 
-			int repetition = 0;
-			while (context.StartsWith(One) && (repetition++ < MaxRepetitions))
+			byte repetition = 0;
+			while (context.StartsWith(One) && (repetition++ < MaxRepetitions) && !alreadyApplied)
 			{
 				context.Plus(1, this).Trim(1);
 			}

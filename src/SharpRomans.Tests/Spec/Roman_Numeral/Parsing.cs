@@ -37,7 +37,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		public void Zero()
 		{
 			new Story("parse zero roman numeral")
-				.InOrderTo("obtain the zero roman numeral")
+				.InOrderTo("obtain the zero roman numeral from a string")
 				.AsA("library user")
 				.IWant("parse the zero string.")
 
@@ -95,6 +95,63 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void Additive_Combination()
+		{
+			new Story("parse zero roman numeral")
+				.InOrderTo("obtain the valid roman numeral from a string")
+				.AsA("library user")
+				.IWant("parse strings that contain lower figures to the right of bigger figures.")
+
+				.WithScenario("six")
+					.Given(theInput_, "VI")
+					.When(theInputIsParsed)
+					.Then(theNumeral_IsObtained, 6u)
+
+				.WithScenario("1661")
+					.Given(theInput_, "MDCLXI")
+					.When(theInputIsParsed)
+					.Then(theNumeral_IsObtained, 1661u)
+
+				.ExecuteWithReport();
+		}
+
+		[Test]
+		public void Substractive_Combination()
+		{
+			new Story("parse zero roman numeral")
+				.InOrderTo("obtain the valid roman numeral from a string")
+				.AsA("library user")
+				.IWant("parse strings that contain lower figures to the left of bigger figures.")
+
+				.WithScenario("four")
+					.Given(theInput_, "IV")
+					.When(theInputIsParsed)
+					.Then(theNumeral_IsObtained, 4u)
+
+				.WithScenario("nine")
+					.Given(theInput_, "IX")
+					.When(theInputIsParsed)
+					.Then(theNumeral_IsObtained, 9u)
+
+				.WithScenario("ninety-nine")
+					.Given(theInput_, "XCIX")
+					.When(theInputIsParsed)
+					.Then(theNumeral_IsObtained, 99u)
+
+				.WithScenario("substract once")
+					.Given(theInput_, "MCMD")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.WithScenario("substract once")
+					.Given(theInput_, "CMC")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.ExecuteWithReport();
+		}
+
 		private string _input;
 		private void theInput_(string input)
 		{
@@ -122,6 +179,11 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		private void theNumeral_IsObtained(RomanNumeral numeral)
 		{
 			Assert.That(_parsed, Is.EqualTo(numeral));
+		}
+
+		private void theNumeral_IsObtained(uint numeral)
+		{
+			Assert.That(_parsed, Is.EqualTo(new RomanNumeral((ushort)numeral)));
 		}
 
 		/*[Test]
