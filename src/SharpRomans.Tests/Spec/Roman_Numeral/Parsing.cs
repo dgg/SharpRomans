@@ -178,6 +178,32 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void Reducing_Values()
+		{
+			new Story("parse zero roman numeral")
+				.InOrderTo("obtain the valid roman numeral from a string")
+				.AsA("library user")
+				.IWant("parse strings that numbers increase from left to right.")
+
+				.WithScenario("ninteen")
+					.Given(theInput_, "XIX")
+					.When(theInputIsParsed)
+					.Then(theNumeral_IsObtained, 19u)
+
+				.WithScenario("wrong 899")
+					.Given(theInput_, "XIM")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.WithScenario("wrong 3")
+					.Given(theInput_, "IIV")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.ExecuteWithReport();
+		}
+
 		private string _input;
 		private void theInput_(string input)
 		{
