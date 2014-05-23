@@ -299,7 +299,7 @@ namespace SharpRomans
 		{
 			assertInput(numeral);
 
-			ushort? parsed = ExpressionComposite.Parse(numeral);
+			ushort? parsed = new ExpressionComposite().Parse(numeral);
 
 			assertParsing(numeral, parsed);
 
@@ -332,7 +332,7 @@ namespace SharpRomans
 
 			if (checkInput(numeral))
 			{
-				ushort? parsed = ExpressionComposite.Parse(numeral);
+				ushort? parsed = new ExpressionComposite().Parse(numeral);
 
 				if (parsed.HasValue)
 				{

@@ -1,9 +1,10 @@
 ﻿namespace SharpRomans.Parsing
 {
-	internal static class ExpressionComposite
+	// to prevent concurrency problems, make it transient since expression hold state
+	internal class ExpressionComposite
 	{
-		private static readonly Expression[] _elements;
-		static ExpressionComposite()
+		private readonly Expression[] _elements;
+		internal ExpressionComposite()
 		{
 			_elements = new Expression[]
 			{
@@ -15,7 +16,7 @@
 			};
 		}
 
-		public static ushort? Parse(string toBeParsed)
+		public ushort? Parse(string toBeParsed)
 		{
 			var context = new Context(toBeParsed);
 			foreach (Expression exp in _elements)
