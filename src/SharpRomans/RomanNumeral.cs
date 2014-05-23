@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using SharpRomans.Parsing;
 using SharpRomans.Support;
 
 namespace SharpRomans
@@ -31,7 +32,7 @@ namespace SharpRomans
 
 		public static void AssertRange(ushort value)
 		{
-			if (!CheckRange(value)) throw new NumeralOutOfRangeException("value", value, _validity);
+			if (!CheckRange(value)) throw NumeralOutOfRangeException.Build("value", value, _validity);
 		}
 
 		public static bool CheckRange(ushort value)
@@ -293,5 +294,36 @@ namespace SharpRomans
 		#endregion
 
 		#endregion
+
+		public static RomanNumeral Parse(string numeral)
+		{
+			assertInput(numeral);
+
+			ushort? parsed = ExpressionComposite.Parse(numeral);
+
+			assertParsing(numeral, parsed);
+
+			return new RomanNumeral(parsed.GetValueOrDefault());
+		}
+
+		private static void assertInput(string numeral)
+		{
+			if (numeral == null) throw new ArgumentNullException("numeral");
+			if (string.IsNullOrWhiteSpace(numeral)) throw new ArgumentException(null, "numeral");
+		}
+
+		private static void assertParsing(string numeral, ushort? parsed)
+		{
+			if (!parsed.HasValue)
+			{
+				throw NumeralParseException.Build(numeral);
+			}
+		}
+
+		public static bool TryParse(string numeral, out RomanNumeral result)
+		{
+			result = null;
+			return false;
+		}
 	}
 }

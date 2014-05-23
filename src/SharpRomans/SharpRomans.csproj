@@ -38,12 +38,21 @@
     <Compile Include="IValuable.cs" />
     <Compile Include="NumeralFigures.cs" />
     <Compile Include="NumeralOutOfRangeException.cs" />
+    <Compile Include="NumeralParseException.cs" />
+    <Compile Include="Parsing\Context.cs" />
+    <Compile Include="Parsing\Expression.cs" />
+    <Compile Include="Parsing\ExpressionComposite.cs" />
+    <Compile Include="Parsing\HundredExpression.cs" />
+    <Compile Include="Parsing\OneExpression.cs" />
+    <Compile Include="Parsing\TenExpression.cs" />
+    <Compile Include="Parsing\ThousandExpression.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RomanFigure.cs" />
     <Compile Include="RomanNumeral.cs" />
     <Compile Include="Support\IComparableExtensions.cs" />
     <Compile Include="Support\Range.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

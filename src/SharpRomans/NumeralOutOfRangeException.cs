@@ -15,7 +15,13 @@ namespace SharpRomans
 
 		protected NumeralOutOfRangeException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
-		internal NumeralOutOfRangeException(string paramName, ushort value, Range<ushort> validity) :
-			base(paramName, value, string.Format("Only numbers contained within {0} are allowed.", validity)) { }
+		private NumeralOutOfRangeException(string paramName, ushort value, string message) : base(paramName, value, message) { }
+
+		internal static NumeralOutOfRangeException Build(string paramName, ushort value, Range<ushort> validity)
+		{
+			string message = string.Format("Only numbers contained within {0} are allowed.", validity);
+			var ex = new NumeralOutOfRangeException(paramName, value, message);
+			return ex;
+		}
 	}
 }
