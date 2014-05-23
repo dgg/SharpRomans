@@ -4,7 +4,7 @@ using StoryQ;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Figures")]
+	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Comparisons")]
 	public class ComparisonsTester
 	{
 		[Test]

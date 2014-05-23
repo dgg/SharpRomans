@@ -3,7 +3,7 @@ using StoryQ;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure")]
+	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("TryConvert")]
 	public class TryConvertTester
 	{
 		[Test]
