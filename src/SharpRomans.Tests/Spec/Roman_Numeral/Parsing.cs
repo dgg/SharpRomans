@@ -59,6 +59,42 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
+		[Test]
+		public void Repetition()
+		{
+			new Story("parse zero roman numeral")
+				.InOrderTo("prevent invalid roman numeral to be parsed")
+				.AsA("library user")
+				.IWant("unparseable strings to throw.")
+
+				.WithScenario("too many I")
+					.Given(theInput_, "IIII")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.WithScenario("too many X")
+					.Given(theInput_, "XXXX")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.WithScenario("too many C")
+					.Given(theInput_, "CCCC")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.WithScenario("too many M")
+					.Given(theInput_, "MMMM")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.WithScenario("interleaved offenders")
+					.Given(theInput_, "CCCXXXXV")
+					.When(theInputIsParsing)
+					.Then(anExceptionIsThrown<NumeralParseException>)
+
+				.ExecuteWithReport();
+		}
+
 		private string _input;
 		private void theInput_(string input)
 		{
