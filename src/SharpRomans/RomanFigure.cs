@@ -27,7 +27,7 @@ namespace SharpRomans
 
 		public static readonly RomanFigure N = new RomanFigure('N', 0, "nulla", false, false);
 		public static readonly RomanFigure I = new RomanFigure('I', 1, "unus", true, true);
-		public static readonly RomanFigure V = new RomanFigure('V', 5, "quique", false, false);
+		public static readonly RomanFigure V = new RomanFigure('V', 5, "quinque", false, false);
 		public static readonly RomanFigure X = new RomanFigure('X', 10, "decem", true, true);
 		public static readonly RomanFigure L = new RomanFigure('L', 50, "quinquaginta", false, false);
 		public static readonly RomanFigure C = new RomanFigure('C', 100, "centum", true, true);
