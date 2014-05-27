@@ -13,4 +13,8 @@
 		<iconUrl>http://i3.codeplex.com/Download?ProjectName=sharpromans&amp;DownloadId=321511</iconUrl>
 		<dependencies />
 	</metadata>
+	<files>
+		<file src="lib\**\SharpRomans.dll" target="lib" />
+		<file src="lib\**\SharpRomans.XML" target="lib" />
+	</files>
 </package>

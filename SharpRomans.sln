@@ -9,7 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpRomans.Tests", "src\Sh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17765643-9606-44C2-B338-369C55AED6B0}"
 	ProjectSection(SolutionItems) = preProject
+		Build-Stories.ps1 = Build-Stories.ps1
+		build.ps1 = build.ps1
+		SharpRomans.build.ps1 = SharpRomans.build.ps1
 		SharpRomans.nuspec = SharpRomans.nuspec
+		StoryQ-md.xslt = StoryQ-md.xslt
 	EndProjectSection
 EndProject
 Global
