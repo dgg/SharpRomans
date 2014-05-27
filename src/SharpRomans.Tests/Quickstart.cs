@@ -38,6 +38,13 @@ namespace SharpRomans.Tests
 			// conversions
 			_1928 = Convert.ToUInt16(nineteenTwentyEight);
 			XXX = Convert.ToString(thirty);
+
+			// arithmetic
+			RomanNumeral sixty = thirty.Plus(thirty);
+			thirty = sixty.Minus(thirty);
+
+			sixty = thirty + thirty;
+			thirty = sixty - thirty;
 		}
 
 		[Test]
