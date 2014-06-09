@@ -88,7 +88,7 @@ function Report-On-Test-Results($base)
 
 function Ensure-Release-Folders($base)
 {
-	$release_folders = ($base, "$base\lib\net40-client")
+	$release_folders = ($base, "$base\lib\portable-net40+sl50+wp80+win")
 
 	foreach ($f in $release_folders) { md $f -Force | Out-Null }
 

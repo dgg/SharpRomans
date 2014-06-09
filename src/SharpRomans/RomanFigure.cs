@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace SharpRomans
@@ -18,7 +17,7 @@ namespace SharpRomans
 		private RomanFigure(char literal, ushort value, string name, bool isSubstractive, bool isRepeteable)
 		{
 			Literal = literal;
-			_string = literal.ToString(CultureInfo.InvariantCulture);
+			_string = literal.ToString();
 			Value = value;
 			Name = name;
 			IsSubstractive = isSubstractive;
@@ -55,7 +54,7 @@ namespace SharpRomans
 
 		public static RomanFigure Parse(string figure)
 		{
-			return Parse(char.Parse(figure));
+			return Parse(System.Convert.ToChar(figure));
 		}
 
 		public static bool TryParse(char figure, out RomanFigure parsed)
@@ -86,9 +85,9 @@ namespace SharpRomans
 			{
 				return All.Single(f => f.Value.Equals(value));
 			}
-			catch (InvalidOperationException ex)
+			catch (InvalidOperationException)
 			{
-				throw new ArgumentException(string.Format("Requested value '{0}' was not found", value), "value", ex);
+				throw new ArgumentException(string.Format("Requested value '{0}' was not found", value), "value");
 			}
 		}
 

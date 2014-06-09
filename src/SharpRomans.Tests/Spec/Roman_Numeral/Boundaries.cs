@@ -78,7 +78,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		private void aRangeExceptionIsThrown()
 		{
 			Assert.That(_assertion, Throws.InstanceOf<NumeralOutOfRangeException>()
-				.With.Property("ActualValue").EqualTo(_number)
+				.With.Message.StringContaining(_number.ToString(CultureInfo.InvariantCulture))
 				.And.Message.StringContaining(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture))
 				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture)));
 		}

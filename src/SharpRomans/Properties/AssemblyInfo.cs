@@ -7,21 +7,13 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SharpRomans")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Implementation of Roman Numerals for the .Net platform. Allows conversion between integers and their roman numeral representations as well as parsing roman numerals.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Daniel González García, Niels Jorck Ellegaard")]
 [assembly: AssemblyProduct("SharpRomans")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c938cb37-2f09-4397-ad79-4544c7c1c1f9")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -33,8 +25,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.1.0")]
-[assembly: AssemblyFileVersion("2.0.1.0")]
+[assembly: AssemblyVersion("2.1.0.0")]
+[assembly: AssemblyFileVersion("2.1.0.0")]
 [assembly: CLSCompliant(true)]
 
 [assembly: InternalsVisibleTo("SharpRomans.Tests")]

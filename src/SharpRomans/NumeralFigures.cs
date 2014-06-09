@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 
 namespace SharpRomans
 {
@@ -11,15 +10,7 @@ namespace SharpRomans
 		{
 			return new Tuple<RomanFigure[], ushort>(new[] { figure }, figure.Value);
 		}
-
-		internal static void AddRange(this ReadOnlyCollectionBuilder<RomanFigure> builder, IEnumerable<RomanFigure> figures)
-		{
-			foreach (var figure in figures)
-			{
-				builder.Add(figure);
-			}
-		}
-
+		
 		private static readonly Tuple<RomanFigure[], ushort>[] _calculationTable;
 		public static readonly ReadOnlyCollection<RomanFigure> _zero;
 		internal static ReadOnlyCollection<RomanFigure> Zero { get { return _zero; } }
@@ -53,9 +44,9 @@ namespace SharpRomans
 
 		internal static ReadOnlyCollection<RomanFigure> Calculate(ushort number)
 		{
-			if (number == 0) throw new ArgumentOutOfRangeException("number", number, "only > 0");
+			if (number == 0) throw new ArgumentOutOfRangeException("number", "only > 0");
 
-			var figures = new ReadOnlyCollectionBuilder<RomanFigure>(MaxLength);
+			var figures = new List<RomanFigure>(MaxLength);
 			for (int i = 0; i < _calculationTable.Length; i++)
 			{
 				while (number >= _calculationTable[i].Item2)
@@ -65,7 +56,7 @@ namespace SharpRomans
 				}
 			}
 
-			var collection = figures.ToReadOnlyCollection();
+			var collection = new ReadOnlyCollection<RomanFigure>(figures);
 			return collection;
 		}
 	}

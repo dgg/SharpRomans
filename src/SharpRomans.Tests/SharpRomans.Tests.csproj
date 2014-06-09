@@ -75,13 +75,13 @@
     <Compile Include="Spec\Support\Op.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpRomans\SharpRomans.csproj">
-      <Project>{498a05a0-6ea3-456f-8154-2c1acf168c5b}</Project>
-      <Name>SharpRomans</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\SharpRomans\SharpRomans.csproj">
+      <Project>{6d6a2df9-d389-4fad-a937-748d729f3c0a}</Project>
+      <Name>SharpRomans</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

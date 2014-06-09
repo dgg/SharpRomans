@@ -11,7 +11,7 @@ namespace SharpRomans.Support
 
 		public Range(T lowerBound, T upperBound)
 		{
-			if (lowerBound.IsMoreThan(upperBound)) throw new ArgumentOutOfRangeException("upperBound", upperBound, "The start value of the range must not be greater than its end value.");
+			if (lowerBound.IsMoreThan(upperBound)) throw new ArgumentOutOfRangeException("upperBound", string.Format("The start value of the range must not be greater than its end value.\nActual value was: {0}", upperBound));
 
 			_lowerBound = lowerBound;
 			_upperBound = upperBound;
