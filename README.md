@@ -1,5 +1,6 @@
-SharpRomans
-===========
+# SharpRomans
+
+![logo](https://raw.githubusercontent.com/wiki/dgg/SharpRomans/img/SharpRomans_logo.png)
 
 Implementation of Roman Numerals for the .Net platform.
 
