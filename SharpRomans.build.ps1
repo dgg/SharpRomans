@@ -38,9 +38,6 @@ task Deploy {
 
 	Get-ChildItem -Path ($bin) -Filter 'SharpRomans*.xml' |
 		Copy-To $release_folders
-
-	 Get-ChildItem $base_dir -Filter '*.nuspec' |
-		Copy-Item -Destination $release_path
 }
 
 task Pack {
@@ -48,8 +45,8 @@ task Pack {
 
 	$nuget = "$base_dir\tools\nuget\nuget.exe"
 
-	Get-ChildItem -File -Filter '*.nuspec' -Path $release_path  | 
-		ForEach-Object { exec { & $nuget pack $_.FullName /o $release_path } }
+	Get-ChildItem -File -Filter '*.nuspec' -Path $base_dir  | 
+		ForEach-Object { exec { & $nuget pack $_.FullName -OutputDirectory $release_path -BasePath $release_path } }
 }
 
 function Test-Assembly($base, $config, $name)

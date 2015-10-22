@@ -1,16 +1,16 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 		<id>SharpRomans</id>
 		<title>SharpRomans</title>
-		<version>2.1.0.0</version>
+		<version>2.1.0.20151022</version>
 		<authors>Daniel González García, Niels Jorck Ellegaard</authors>
 		<licenseUrl>http://www.opensource.org/licenses/bsd-license.php</licenseUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Implementation of Roman Numerals for the .Net platform. Allows conversion between integers and their roman numeral representations as well as parsing roman numerals.</description>
 		<summary>Implementation of Roman Numerals for the .Net platform.</summary>
 		<projectUrl>https://github.com/dgg/SharpRomans</projectUrl>
-		<iconUrl>http://i3.codeplex.com/Download?ProjectName=sharpromans&amp;DownloadId=321511</iconUrl>
+		<iconUrl>https://raw.githubusercontent.com/wiki/dgg/SharpRomans/img/SharpRomans_logo.png</iconUrl>
 		<dependencies />
 	</metadata>
 	<files>
