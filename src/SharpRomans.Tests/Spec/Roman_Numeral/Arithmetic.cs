@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Globalization;
-using NUnit.Framework;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Arithmetic")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Arithmetic")]
 	public class ArithmeticTester
 	{
-		[Test]
+		[Fact]
 		public void Addition()
 		{
 			new Story("arithmetic addition")
@@ -35,7 +36,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void AdditionOperation()
 		{
 			new Story("arithmetic addition")
@@ -72,7 +73,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void RomanFigureAddition()
 		{
 			new Story("arithmetic addition")
@@ -99,7 +100,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void RomanFigureAdditionOperation()
 		{
 			new Story("arithmetic addition")
@@ -136,7 +137,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void Substraction()
 		{
 			new Story("arithmetic substraction")
@@ -163,7 +164,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void SubstractionOperation()
 		{
 			new Story("arithmetic substraction")
@@ -200,7 +201,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void RomanFigureSubstraction()
 		{
 			new Story("arithmetic addition")
@@ -227,7 +228,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void RomanFigureSubstractionOperation()
 		{
 			new Story("arithmetic addition")
@@ -324,27 +325,29 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		private void theResultIs_(RomanNumeral result)
 		{
 			_result = result;
-			Assert.That(_operation(), Is.EqualTo(result));
+			Assert.Equal(result, _operation());
 		}
 
 		private void isNotDestructive()
 		{
-			Assert.That(_subject, Is.Not.SameAs(_result).And.Not.EqualTo(_result));
-			Assert.That(_operand, Is.Not.SameAs(_result).And.Not.EqualTo(_result));
+			Assert.NotSame(_result, _subject);
+			Assert.NotEqual(_result, _subject);
+
+			Assert.NotSame(_result, _operand);
+			Assert.NotEqual(_result, _operand);
 		}
 
 		private void theResultOverflows()
 		{
-			TestDelegate operation = () => _operation();
-			Assert.That(operation, Throws.InstanceOf<NumeralOutOfRangeException>()
-				.And.Message.StringContaining(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture))
-				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture)));
+			var ex = Assert.ThrowsAny<NumeralOutOfRangeException>(_operation);
+			Assert.Contains(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture), ex.Message);
+			Assert.Contains(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture), ex.Message);
 		}
 
 		// TODO: implement pretty print of expression
 		private void theResultIsTheSameAs_(Func<IValuable> same)
 		{
-			Assert.That(_operation(), Is.SameAs(same()));
+			Assert.Same(same(), _operation());
 		}
 	}
 }

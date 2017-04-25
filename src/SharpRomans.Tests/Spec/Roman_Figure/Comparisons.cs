@@ -1,13 +1,14 @@
-﻿using NUnit.Framework;
-using SharpRomans.Tests.Spec.Roman_Figure.Support;
+﻿using SharpRomans.Tests.Spec.Roman_Figure.Support;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Comparisons")]
+	[Category("Spec"), Category("RomanFigure"), Category("Comparisons")]
 	public class ComparisonsTester
 	{
-		[Test]
+		[Fact]
 		public void CompareToRomanFigure()
 		{
 			new Story("compare to roman figure")
@@ -38,7 +39,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void GreaterThanRomanFigure()
 		{
 			new Story("greater than roman figure")
@@ -74,7 +75,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void GreaterThanOrEqualToRomanFigure()
 		{
 			new Story("greater than or equal to roman figure")
@@ -110,7 +111,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void LessThanRomanFigure()
 		{
 			new Story("less than roman figure")
@@ -151,7 +152,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void LessThanOrEqualToRomanFigure()
 		{
 			new Story("less than or equal to roman figure")
@@ -208,22 +209,22 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		
 		private void TheResultIsZero()
 		{
-			Assert.That(_comparison, Is.EqualTo(0));
+			Assert.Equal(0, _comparison);
 		}
 
 		private void TheResultIsLessThanZero()
 		{
-			Assert.That(_comparison, Is.LessThan(0));
+			Assert.True(_comparison < 0);
 		}
 
 		private void TheResultIsGreaterThanZero()
 		{
-			Assert.That(_comparison, Is.GreaterThan(0));
+			Assert.True(_comparison > 0);
 		}
 
 		private void Is_(bool value)
 		{
-			Assert.That(_operation, Is.EqualTo(value));
+			Assert.Equal(value, _operation);
 		}
 	}
 

@@ -1,13 +1,14 @@
-﻿using NUnit.Framework;
-using SharpRomans.Tests.Spec.Roman_Numeral.Support;
+﻿using SharpRomans.Tests.Spec.Roman_Numeral.Support;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Comparisons")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Comparisons")]
 	public class ComparisonsTester
 	{
-		[Test]
+		[Fact]
 		public void CompareToRomanNumeral()
 		{
 			new Story("compare to roman numeral")
@@ -38,7 +39,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void GreaterThanRomanNumeral()
 		{
 			new Story("greater than roman numeral")
@@ -74,7 +75,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void GreaterThanOrEqualRomanNumeral()
 		{
 			new Story("greater than or equal to roman numeral")
@@ -110,7 +111,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void LessThanRomanNumeral()
 		{
 			new Story("less than roman numeral")
@@ -146,7 +147,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void LessThanOrEqualToRomanNumeral()
 		{
 			new Story("Lless than or equal to roman numeral")
@@ -202,22 +203,22 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void IsGreaterThanZero()
 		{
-			Assert.That(_comparison, Is.GreaterThan(0));
+			Assert.True(_comparison > 0);
 		}
 
 		private void IsZero()
 		{
-			Assert.That(_comparison, Is.EqualTo(0));
+			Assert.Equal(0, _comparison);
 		}
 
 		private void IsLessThanZero()
 		{
-			Assert.That(_comparison, Is.LessThan(0));
+			Assert.True(_comparison < 0);
 		}
 
 		private void Is_(bool value)
 		{
-			Assert.That(_operation, Is.EqualTo(value));
+			Assert.Equal(value, _operation);
 		}
 	}
 }

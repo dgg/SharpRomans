@@ -1,13 +1,14 @@
 ﻿using System;
-using NUnit.Framework;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Castings")]
+	[Category("Spec"), Category("RomanFigure"), Category("Castings")]
 	public class CastingsTester
 	{
-		[Test]
+		[Fact]
 		public void CastToChar()
 		{
 			new Story("casting to char")
@@ -33,7 +34,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void CastToNumber()
 		{
 			new Story("casting to number")
@@ -59,7 +60,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void CastToString()
 		{
 			new Story("casting to string")
@@ -111,23 +112,23 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void theCharacterIs_(char character)
 		{
-			Assert.That(_character(), Is.EqualTo(character));
+			Assert.Equal(character, _character());
 		}
 
 		private void theNumberIs_(int number)
 		{
-			Assert.That(_number(), Is.EqualTo(number));
+			Assert.Equal(number, _number());
 		}
 
 		private void theStringIs_(string numeral)
 		{
-			Assert.That(_string(), Is.EqualTo(numeral));
+			Assert.Equal(numeral, _string());
 		}
 
 		private void throwsArgumentException()
 		{
-			TestDelegate cast = () => _character();
-			Assert.That(cast, Throws.InstanceOf<ArgumentNullException>());
+			Action cast = () => _character();
+			Assert.ThrowsAny<ArgumentNullException>(cast);
 		}
 	}
 }

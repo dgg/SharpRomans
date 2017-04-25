@@ -1,13 +1,14 @@
 ﻿using System;
-using NUnit.Framework;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Castings")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Castings")]
 	public class CastingsTester
 	{
-		[Test]
+		[Fact]
 		public void CastToNumber()
 		{
 			new Story("casting to number")
@@ -33,7 +34,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void CastToString()
 		{
 			new Story("casting to string")
@@ -79,18 +80,18 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void theNumberIs_(int number)
 		{
-			Assert.That(_number(), Is.EqualTo(number));
+			Assert.Equal(number, _number());
 		}
 
 		private void theStringIs_(string numeral)
 		{
-			Assert.That(_string(), Is.EqualTo(numeral));
+			Assert.Equal(numeral, _string());
 		}
 
 		private void throwsArgumentException()
 		{
-			TestDelegate cast = () => _number();
-			Assert.That(cast, Throws.InstanceOf<ArgumentNullException>());
+			Action cast = () =>_number();
+			Assert.ThrowsAny<ArgumentNullException>(cast);
 		}
 	}
 }

@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
+﻿using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("TryConvert")]
+	[Category("Spec"), Category("RomanFigure"), Category("TryConvert")]
 	public class TryConvertTester
 	{
-		[Test]
+		[Fact]
 		public void TryConvertNumber()
 		{
 			new Story("try convert a number").Tag("RomanFigure")
@@ -56,17 +57,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void theResultIs_(bool obj)
 		{
-			Assert.That(_result, Is.EqualTo(obj));
+			Assert.Equal(obj, _result);
 		}
 
 		private void theFigureIs_(RomanFigure figure)
 		{
-			Assert.That(_parsed, Is.EqualTo(figure));
+			Assert.Equal(figure, _parsed);
 		}
 
 		private void isTheSameFigure()
 		{
-			Assert.That(_parsed, Is.SameAs(_anotherFigure));
+			Assert.Same(_anotherFigure, _parsed);
 		}
 	}
 }

@@ -1,14 +1,15 @@
 ﻿using System;
-using NUnit.Framework;
 using SharpRomans.Tests.Spec.Roman_Figure.Support;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Conversions")]
+	[Category("Spec"), Category("RomanFigure"), Category("Conversions")]
 	public class ConversionsTester
 	{
-		[Test]
+		[Fact]
 		public void ConvertToBoolean()
 		{
 			new Story("convert to Boolean")
@@ -39,7 +40,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToChar()
 		{
 			new Story("convert to Char")
@@ -65,7 +66,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToSByte()
 		{
 			new Story("convert to SByte")
@@ -91,7 +92,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToByte()
 		{
 			new Story("convert to Byte")
@@ -117,7 +118,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToShort()
 		{
 			new Story("convert to short")
@@ -143,7 +144,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToUShort()
 		{
 			new Story("convert to UShort")
@@ -169,7 +170,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToInt()
 		{
 			new Story("convert to Int")
@@ -195,7 +196,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToUInt()
 		{
 			new Story("convert to UInt")
@@ -221,7 +222,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToLong()
 		{
 			new Story("convert to Long")
@@ -247,7 +248,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToULong()
 		{
 			new Story("convert to ULong")
@@ -273,7 +274,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToFloat()
 		{
 			new Story("convert to Float")
@@ -299,7 +300,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToDouble()
 		{
 			new Story("convert to Double")
@@ -325,7 +326,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToDecimal()
 		{
 			new Story("convert to Decimal")
@@ -351,7 +352,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToDateTime()
 		{
 			new Story("convert to DateTime")
@@ -377,7 +378,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToString()
 		{
 			new Story("convert to String")
@@ -403,7 +404,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ChangeType()
 		{
 			new Story("ChangeType")
@@ -458,20 +459,20 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void Is_<T>(T value)
 		{
-			Assert.That(_conversion(), Is.EqualTo(value));
+			Assert.Equal(value, _conversion());
 		}
 
 		private void Overflows()
 		{
-			TestDelegate conversion = () => _conversion();
-			Assert.That(conversion, Throws.InstanceOf<OverflowException>());
+			Action conversion = () => _conversion();
+			Assert.ThrowsAny<OverflowException>(conversion);
 		}
 
 		private void CannotCast()
 		{
-			TestDelegate conversion = () => _conversion();
-			Assert.That(conversion, Throws.InstanceOf<InvalidCastException>()
-				.With.Message.StringContaining(typeof(RomanFigure).Name));
+			Action conversion = () => _conversion();
+			var ex = Assert.ThrowsAny<InvalidCastException>(conversion);
+			Assert.Contains(typeof(RomanFigure).Name, ex.Message);
 		}
 	}
 }

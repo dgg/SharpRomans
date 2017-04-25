@@ -1,13 +1,15 @@
-﻿using System.Globalization;
-using NUnit.Framework;
+﻿using System;
+using System.Globalization;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Boundaries")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Boundaries")]
 	public class BoundariesTester
 	{
-		[Test]
+		[Fact]
 		public void Boundaries()
 		{
 			new Story("roman numerals boundaries")
@@ -59,7 +61,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_check = RomanNumeral.CheckRange(_number);
 		}
 
-		TestDelegate _assertion;
+		Action _assertion;
 		private void theNumeralIsAsserted()
 		{
 			_assertion = () => RomanNumeral.AssertRange(_number);
@@ -67,20 +69,21 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void theResultIs_(bool check)
 		{
-			Assert.That(_check, Is.EqualTo(check));
+			Assert.Equal(check, _check);
 		}
 
 		private void noExceptionIsRaised()
 		{
-			Assert.That(_assertion, Throws.Nothing);
+			Exception ex = Record.Exception(_assertion);
+			Assert.Null(ex);
 		}
 
 		private void aRangeExceptionIsThrown()
 		{
-			Assert.That(_assertion, Throws.InstanceOf<NumeralOutOfRangeException>()
-				.With.Message.StringContaining(_number.ToString(CultureInfo.InvariantCulture))
-				.And.Message.StringContaining(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture))
-				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture)));
+			var ex = Assert.ThrowsAny<NumeralOutOfRangeException>(_assertion);
+			Assert.Contains(_number.ToString(CultureInfo.InvariantCulture), ex.Message);
+			Assert.Contains(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture), ex.Message);
+			Assert.Contains(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture), ex.Message);
 		}
 	}
 }

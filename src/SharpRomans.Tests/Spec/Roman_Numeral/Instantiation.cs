@@ -1,14 +1,16 @@
-﻿using System.Globalization;
-using NUnit.Framework;
+﻿using System;
+using System.Globalization;
 using SharpRomans.Tests.Spec.Roman_Numeral.Support;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Instantiation")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Instantiation")]
 	public class InstantiationTester
 	{
-		[Test]
+		[Fact]
 		public void Instantiation()
 		{
 			new Story("roman numerals creation")
@@ -44,7 +46,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void Instances()
 		{
 			new Story("roman numerals instances")
@@ -76,7 +78,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_number = (ushort)number;
 		}
 
-		TestDelegate _instantiation;
+		Action _instantiation;
 		private void theRomanNumeralIsInstantiating()
 		{
 			_instantiation = () => new RomanNumeral(_number);
@@ -97,15 +99,15 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void aRangeExceptionIsThrown()
 		{
-			Assert.That(_instantiation, Throws.InstanceOf<NumeralOutOfRangeException>()
-				.With.Message.StringContaining(_number.ToString(CultureInfo.InvariantCulture))
-				.And.Message.StringContaining(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture))
-				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture)));
+			var ex = Assert.ThrowsAny<NumeralOutOfRangeException>(_instantiation);
+			Assert.Contains(_number.ToString(CultureInfo.InvariantCulture), ex.Message);
+			Assert.Contains(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture), ex.Message);
+			Assert.Contains(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture), ex.Message);
 		}
 
 		private void isARomanNumeralWithValue_(int value)
 		{
-			Assert.That(_subject.Value, Is.EqualTo(value));
+			Assert.Equal(value, _subject.Value);
 
 		}
 	}

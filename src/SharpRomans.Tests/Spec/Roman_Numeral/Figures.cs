@@ -1,13 +1,14 @@
 ﻿using System.Linq;
-using NUnit.Framework;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Figures")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Figures")]
 	public class FiguresTester
 	{
-		[Test]
+		[Fact]
 		public void Figures()
 		{
 			new Story("roman numeral figures")
@@ -51,8 +52,8 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.Select(RomanFigure.Parse)
 				.ToArray();
 
-			Assert.That(_subject.Figures, Is.EqualTo(list));
-			Assert.That(_subject.ToString(), Is.EqualTo(figures));
+			Assert.Equal(list, _subject.Figures);
+			Assert.Equal(figures, _subject.ToString());
 		}
 	}
 }

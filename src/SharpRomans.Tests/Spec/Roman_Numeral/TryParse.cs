@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
+﻿using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("TryParse")]
+	[Category("Spec"), Category("RomanNumeral"), Category("TryParse")]
 	public class TryParseTester
 	{
-		[Test]
+		[Fact]
 		public void NoString()
 		{
 			new Story("try parse no string as roman numeral")
@@ -35,7 +36,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void Zero()
 		{
 			new Story("try parse zero roman numeral")
@@ -64,7 +65,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[FactAttribute]
 		public void Repetition()
 		{
 			new Story("try parse zero roman numeral")
@@ -105,7 +106,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[FactAttribute]
 		public void AdditiveCombination()
 		{
 			new Story("try parse zero roman numeral")
@@ -128,7 +129,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[FactAttribute]
 		public void SubstractiveCombination()
 		{
 			new Story("try parse zero roman numeral")
@@ -169,7 +170,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[FactAttribute]
 		public void RepeatSingleFigures()
 		{
 			new Story("try parse zero roman numeral")
@@ -198,7 +199,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[FactAttribute]
 		public void ReducingValues()
 		{
 			new Story("try parse zero roman numeral")
@@ -227,7 +228,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[FactAttribute]
 		public void SomeBigNumbers()
 		{
 			new Story("parse zero roman numeral")
@@ -277,17 +278,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void theResultIs_(bool obj)
 		{
-			Assert.That(_result, Is.EqualTo(obj));
+			Assert.Equal(obj, _result);
 		}
 
 		private void theNumeral_IsObtained(RomanNumeral numeral)
 		{
-			Assert.That(_parsed, Is.EqualTo(numeral));
+			Assert.Equal(numeral, _parsed);
 		}
 
 		private void theNumeral_IsObtained(uint numeral)
 		{
-			Assert.That(_parsed, Is.EqualTo(new RomanNumeral((ushort)numeral)));
+			Assert.Equal(new RomanNumeral((ushort)numeral), _parsed);
 		}
 	}
 }

@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
+﻿using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Roles")]
+	[Category("Spec"), Category("RomanFigure"), Category("Roles")]
 	public class RolesTester
 	{
-		[Test]
+		[Fact]
 		public void Substractiveness()
 		{
 			new Story("substractiveness")
@@ -27,7 +28,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void Repeteability()
 		{
 			new Story("repeteability")
@@ -83,12 +84,12 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void substractivenessIs_(bool substractiveness)
 		{
-			Assert.That(_substractiveness, Is.EqualTo(substractiveness));
+			Assert.Equal(substractiveness, _substractiveness);
 		}
 
 		private void repeteabilityIs_(bool repeteability)
 		{
-			Assert.That(_repeteability, Is.EqualTo(repeteability));
+			Assert.Equal(repeteability, _repeteability);
 		}
 	}
 }

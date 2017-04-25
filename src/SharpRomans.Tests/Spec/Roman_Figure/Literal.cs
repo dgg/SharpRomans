@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
+﻿using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Literal")]
+	[Category("Spec"), Category("RomanFigure"), Category("Literal")]
 	public class LiteralTester
 	{
-		[Test]
+		[Fact]
 		public void Literals()
 		{
 			new Story("literals")
@@ -66,7 +67,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void theLiteralIs_(char character)
 		{
-			Assert.That(_literal, Is.EqualTo(character));
+			Assert.Equal(character, _literal);
 		}
 	}
 }

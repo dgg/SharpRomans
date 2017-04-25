@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
+﻿using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Value")]
+	[Category("Spec"), Category("RomanFigure"), Category("Value")]
 	public class ValueTester
 	{
-		[Test]
+		[Fact]
 		public void Value()
 		{
 			new Story("values").Tag("RomanFigure")
@@ -66,7 +67,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void theValueIs_(uint value)
 		{
-			Assert.That(_value, Is.EqualTo(value));
+			Assert.Equal(value, _value);
 		}
 	}
 }

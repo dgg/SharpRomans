@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
+﻿using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("TryParse")]
+	[Category("Spec"), Category("RomanFigure"), Category("TryParse")]
 	public class TryParseTester
 	{
-		[Test]
+		[Fact]
 		public void TryParseChar()
 		{
 			new Story("try parse a char").Tag("RomanFigure")
@@ -35,7 +36,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void TryParseString()
 		{
 			new Story("try parse a string").Tag("RomanFigure")
@@ -101,17 +102,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void theResultIs_(bool obj)
 		{
-			Assert.That(_result, Is.EqualTo(obj));
+			Assert.Equal(obj, _result);
 		}
 
 		private void theFigureIs_(RomanFigure figure)
 		{
-			Assert.That(_parsed, Is.EqualTo(figure));
+			Assert.Equal(figure, _parsed);
 		}
 
 		private void isTheSameFigure()
 		{
-			Assert.That(_parsed, Is.SameAs(_anotherFigure));
+			Assert.Same(_anotherFigure, _parsed);
 		}
 	}
 }

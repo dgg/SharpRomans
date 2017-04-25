@@ -1,13 +1,14 @@
 ﻿using System;
-using NUnit.Framework;
+using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Parse")]
+	[Category("Spec"), Category("RomanFigure"), Category("Parse")]
 	public class ParseTester
 	{
-		[Test]
+		[Fact]
 		public void ParseChar()
 		{
 			new Story("parse a char")
@@ -33,7 +34,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void ParseString()
 		{
 			new Story("parse a string")
@@ -89,19 +90,19 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void theFigureIs_(RomanFigure figure)
 		{
-			Assert.That(_figure(), Is.EqualTo(figure));
+			Assert.Equal(figure, _figure());
 		}
 
 		private void throwsArgumentException()
 		{
-			TestDelegate cast = () => _figure();
-			Assert.That(cast, Throws.ArgumentException);
+			Action cast = () => _figure();
+			Assert.ThrowsAny<ArgumentException>(cast);
 		}
 
 		private void throwsFormatException()
 		{
-			TestDelegate cast = () => _figure();
-			Assert.That(cast, Throws.InstanceOf<FormatException>());
+			Action cast = () => _figure();
+			Assert.ThrowsAny<FormatException>(cast);
 		}
 
 		private RomanFigure _anotherFigure;
@@ -117,7 +118,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void isTheSameFigure()
 		{
-			Assert.That(_figure(), Is.SameAs(_anotherFigure));
+			Assert.Same(_anotherFigure, _figure());
 		}
 	}
 }

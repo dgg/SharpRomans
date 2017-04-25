@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
+﻿using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Name")]
+	[Category("Spec"), Category("RomanFigure"), Category("Name")]
 	public class NameTester
 	{
-		[Test]
+		[Fact]
 		public void Name()
 		{
 			new Story("names").Tag("RomanFigure")
@@ -70,7 +71,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void theNameIsNotEmpty()
 		{
-			Assert.That(_name, Is.Not.Empty);
+			Assert.NotEqual(string.Empty, _name);
 		}
 	}
 }

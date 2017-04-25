@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
+﻿using SharpRomans.Tests.Support;
 using StoryQ;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Equality")]
+	[Category("Spec"), Category("RomanFigure"), Category("Equality")]
 	public class EqualityTester
 	{
-		[Test]
+		[Fact]
 		public void NonGenericEquals()
 		{
 			new Story("non generic equaks")
@@ -62,7 +63,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void EquatableToRomanFigure()
 		{
 			new Story("equatable to roman figure")
@@ -88,7 +89,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void EqualToRomanFigure()
 		{
 			new Story("equality to roman figure")
@@ -124,7 +125,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void NotEqualToRomanFigure()
 		{
 			new Story("inequality to roman figure")
@@ -189,7 +190,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void Is_(bool result)
 		{
-			Assert.That(_operation, Is.EqualTo(result));
+			Assert.Equal(result, _operation);
 		}
 	}
 }
