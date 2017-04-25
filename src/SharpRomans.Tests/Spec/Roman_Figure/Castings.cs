@@ -127,7 +127,16 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void throwsArgumentException()
 		{
-			Action cast = () => _character();
+			// using the same method for two scenarios
+			Action cast;
+			if (_character != null)
+			{
+				cast = () => _character();
+			}
+			else
+			{
+				cast = () => _number();
+			}
 			Assert.ThrowsAny<ArgumentNullException>(cast);
 		}
 	}

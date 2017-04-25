@@ -77,12 +77,12 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
-				.Then(Is_, 0)
+				.Then(Is_, (sbyte)0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
-				.Then(Is_, 100)
+				.Then(Is_, (sbyte)100)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
@@ -103,12 +103,12 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
-				.Then(Is_, 0)
+				.Then(Is_, (byte)0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
-				.Then(Is_, 100)
+				.Then(Is_, (byte)100)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
@@ -129,17 +129,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 0)
+				.Then(Is_, (short)0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 100)
+				.Then(Is_, (short)100)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 1000)
+				.Then(Is_, (short)1000)
 
 			.ExecuteWithReport();
 		}
@@ -155,17 +155,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 0)
+				.Then(Is_, (ushort)0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 100)
+				.Then(Is_, (ushort)100)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 1000)
+				.Then(Is_, (ushort)1000)
 
 			.ExecuteWithReport();
 		}
@@ -207,17 +207,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0u)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100u)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 1000)
+				.Then(Is_, 1000u)
 
 			.ExecuteWithReport();
 		}
@@ -233,17 +233,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0L)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100L)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 1000)
+				.Then(Is_, 1000L)
 
 			.ExecuteWithReport();
 		}
@@ -259,17 +259,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0uL)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100uL)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 1000)
+				.Then(Is_, 1000uL)
 
 			.ExecuteWithReport();
 		}
@@ -285,17 +285,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0f)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100f)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 1000)
+				.Then(Is_, 1000f)
 
 			.ExecuteWithReport();
 		}
@@ -311,17 +311,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0d)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100d)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 1000)
+				.Then(Is_, 1000d)
 
 			.ExecuteWithReport();
 		}
@@ -337,17 +337,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("zero")
 				.Given(TheRomanFigure_, RomanFigure.N)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0m)
 
 			.WithScenario("less than max")
 				.Given(TheRomanFigure_, RomanFigure.C)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100m)
 
 			.WithScenario("max")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 1000)
+				.Then(Is_, 1000m)
 
 			.ExecuteWithReport();
 		}
@@ -415,7 +415,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			.WithScenario("supported type")
 				.Given(TheRomanFigure_, RomanFigure.M)
 				.When(ConvertedTo_, typeof(long))
-				.Then(Is_, 1000)
+				.Then(Is_, 1000L)
 
 			.WithScenario("overflowing type")
 				.Given(TheRomanFigure_, RomanFigure.M)

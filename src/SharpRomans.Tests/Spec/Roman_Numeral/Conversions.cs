@@ -77,12 +77,12 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
-				.Then(Is_, 0)
+				.Then(Is_, (sbyte)0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(101))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
-				.Then(Is_, 101)
+				.Then(Is_, (sbyte)101)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
@@ -103,12 +103,12 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
-				.Then(Is_, 0)
+				.Then(Is_, (byte)0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
-				.Then(Is_, 100)
+				.Then(Is_, (byte)100)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
@@ -129,17 +129,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 0)
+				.Then(Is_, (short)0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 100)
+				.Then(Is_, (short)100)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 3999)
+				.Then(Is_, (short)3999)
 
 			.ExecuteWithReport();
 		}
@@ -155,17 +155,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 0)
+				.Then(Is_, (ushort)0)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 100)
+				.Then(Is_, (ushort)100)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 3999)
+				.Then(Is_, (ushort)3999)
 
 			.ExecuteWithReport();
 		}
@@ -207,17 +207,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0u)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100u)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 3999)
+				.Then(Is_, 3999u)
 
 			.ExecuteWithReport();
 		}
@@ -233,17 +233,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0L)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100L)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 3999)
+				.Then(Is_, 3999L)
 
 			.ExecuteWithReport();
 		}
@@ -259,17 +259,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0uL)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100uL)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 3999)
+				.Then(Is_, 3999uL)
 
 			.ExecuteWithReport();
 		}
@@ -285,17 +285,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0f)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100f)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 3999)
+				.Then(Is_, 3999f)
 
 			.ExecuteWithReport();
 		}
@@ -311,17 +311,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0d)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100d)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 3999)
+				.Then(Is_, 3999d)
 
 			.ExecuteWithReport();
 		}
@@ -337,17 +337,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("zero")
 				.Given(TheRomanNumeral_, RomanNumeral.Zero)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 0)
+				.Then(Is_, 0m)
 
 			.WithScenario("less than max")
 				.Given(TheRomanNumeral_, new RomanNumeral(100))
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 100)
+				.Then(Is_, 100m)
 
 			.WithScenario("max")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 3999)
+				.Then(Is_, 3999m)
 
 			.ExecuteWithReport();
 		}
@@ -415,7 +415,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			.WithScenario("supported type")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)
 				.When(ConvertedTo_, typeof(long))
-				.Then(Is_, 3999)
+				.Then(Is_, 3999L)
 
 			.WithScenario("overflowing type")
 				.Given(TheRomanNumeral_, RomanNumeral.Max)

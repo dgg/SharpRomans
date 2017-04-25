@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <Version>3.0.0</Version>
+    <Authors>Daniel González García, Niels Jorck Ellegaard</Authors>
+    <Company />
+    <Description>Implementation of Roman Numerals for the .Net platform. Allows conversion between integers and their roman numeral representations as well as parsing roman numerals.</Description>
+  </PropertyGroup>
+
+</Project>
