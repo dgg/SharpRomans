@@ -6,6 +6,13 @@
     <Authors>Daniel González García, Niels Jorck Ellegaard</Authors>
     <Company />
     <Description>Implementation of Roman Numerals for the .Net platform. Allows conversion between integers and their roman numeral representations as well as parsing roman numerals.</Description>
+    <PackageProjectUrl>https://github.com/dgg/SharpRomans</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/wiki/dgg/SharpRomans/img/SharpRomans_logo.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dgg/SharpRomans.git</RepositoryUrl>
+    <PackageTags>roman numeral figure</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseUrl>http://www.opensource.org/licenses/bsd-license.php</PackageLicenseUrl>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
