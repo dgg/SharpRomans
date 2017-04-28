@@ -1,89 +1,83 @@
 ﻿using System;
 using SharpRomans.Tests.Support;
-using StoryQ;
+using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[Category("Spec"), Category("RomanFigure"), Category("Castings")]
+	[Story(
+		Title = "explicit casting",
+		AsA = "library user",
+		IWant = "to be able to explicitely cast a roman figure",
+		SoThat = "I can extract information of individual figures"
+	)]
 	public class CastingsTester
 	{
 		[Fact]
 		public void CastToChar()
 		{
-			new Story("casting to char")
-				.InOrderTo("get the character of individual figures")
-				.AsA("library user")
-				.IWant("to be able to explicitely cast a roman figure")
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_(RomanFigure.N))
+				.When(_ => _.isCastedToChar())
+				.Then(_ => _.theCharacterIs_('N'))
+				.BDDfy("character of a figure");
 
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.N)
-					.When(isCastedToChar)
-					.Then(theCharacterIs_, 'N')
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_(RomanFigure.X))
+				.When(_ => _.isCastedToChar())
+				.Then(_ => _.theCharacterIs_('X'))
+				.BDDfy("character of a figure");
 
-				.WithScenario("character of a figure")
-					.Given(aRomanFigure_, RomanFigure.X)
-					.When(isCastedToChar)
-					.Then(theCharacterIs_, 'X')
-
-				.WithScenario("character of null")
-					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(isCastedToChar)
-					.Then(throwsArgumentException)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_((RomanFigure)null))
+					.When(_ => _.isCastedToChar())
+					.Then(_ => _.throwsArgumentException())
+				.BDDfy("character of null");
 		}
 
 		[Fact]
 		public void CastToNumber()
 		{
-			new Story("casting to number")
-				.InOrderTo("get the value of individual figures")
-				.AsA("library user")
-				.IWant("to be able to explicitely cast a roman figure")
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_(RomanFigure.N))
+				.When(_ => _.isCastedToNumber())
+				.Then(_ => _.theNumberIs_(0))
+				.BDDfy("number of a figure");
 
-				.WithScenario("number of a figure")
-					.Given(aRomanFigure_, RomanFigure.N)
-					.When(isCastedToNumber)
-					.Then(theNumberIs_, 0)
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_(RomanFigure.X))
+				.When(_ => _.isCastedToNumber())
+				.Then(_ => _.theNumberIs_(10))
+				.BDDfy("number of a figure");
 
-				.WithScenario("number of a figure")
-					.Given(aRomanFigure_, RomanFigure.X)
-					.When(isCastedToNumber)
-					.Then(theNumberIs_, 10)
-
-				.WithScenario("number of null")
-					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(isCastedToNumber)
-					.Then(throwsArgumentException)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_((RomanFigure)null))
+				.When(_ => _.isCastedToNumber())
+				.Then(_ => _.throwsArgumentException())
+				.BDDfy("number of null");
 		}
 
 		[Fact]
 		public void CastToString()
 		{
-			new Story("casting to string")
-				.InOrderTo("get the text of individual figures")
-				.AsA("library user")
-				.IWant("to be able to explicitely cast a roman figure")
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_(RomanFigure.N))
+				.When(_ => _.isCastedToString())
+				.Then(_ => _.theStringIs_("N"))
+				.BDDfy("string of a figure");
 
-				.WithScenario("string of a figure")
-					.Given(aRomanFigure_, RomanFigure.N)
-					.When(isCastedToString)
-					.Then(theStringIs_, "N")
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_(RomanFigure.X))
+				.When(_ => _.isCastedToString())
+				.Then(_ => _.theStringIs_("X"))
+				.BDDfy("string of a figure");
 
-				.WithScenario("string of a figure")
-					.Given(aRomanFigure_, RomanFigure.X)
-					.When(isCastedToString)
-					.Then(theStringIs_, "X")
-
-				.WithScenario("number of null")
-					.Given(aRomanFigure_, (RomanFigure)null)
-					.When(isCastedToString)
-					.Then(theStringIs_, (string)null)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Castings")
+				.Given(_ => _.aRomanFigure_((RomanFigure)null))
+				.When(_ => _.isCastedToString())
+				.Then(_ => _.theStringIs_((string)null))
+				.BDDfy("number of null");
 		}
 
 		RomanFigure _subject;

@@ -16,17 +16,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.AsA("library user")
 				.IWant("to be able to explicitely cast a roman numeral")
 
-				.WithScenario("number of a numeral")
+				.BDDfy("number of a numeral")
 					.Given(aRomanNumeral_, RomanNumeral.Zero)
 					.When(isCastedToNumber)
 					.Then(theNumberIs_, 0)
 
-				.WithScenario("number of a numeral")
+				.BDDfy("number of a numeral")
 					.Given(aRomanNumeral_, new RomanNumeral(11))
 					.When(isCastedToNumber)
 					.Then(theNumberIs_, 11)
 
-				.WithScenario("number of null")
+				.BDDfy("number of null")
 					.Given(aRomanNumeral_, (RomanNumeral)null)
 					.When(isCastedToNumber)
 					.Then(throwsArgumentException)
@@ -42,17 +42,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.AsA("library user")
 				.IWant("to be able to explicitely cast a roman numeral")
 
-				.WithScenario("string of a numeral")
+				.BDDfy("string of a numeral")
 					.Given(aRomanNumeral_, RomanNumeral.Zero)
 					.When(isCastedToString)
 					.Then(theStringIs_, "N")
 
-				.WithScenario("string of a numeral")
+				.BDDfy("string of a numeral")
 					.Given(aRomanNumeral_, new RomanNumeral(11))
 					.When(isCastedToString)
 					.Then(theStringIs_, "XI")
 
-				.WithScenario("string of null")
+				.BDDfy("string of null")
 					.Given(aRomanNumeral_, (RomanNumeral)null)
 					.When(isCastedToString)
 					.Then(theStringIs_, (string)null)

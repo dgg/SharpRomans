@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Build-Stories.ps1 = Build-Stories.ps1
 		build.ps1 = build.ps1
 		SharpRomans.build.ps1 = SharpRomans.build.ps1
-		SharpRomans.nuspec = SharpRomans.nuspec
 		StoryQ-md.xslt = StoryQ-md.xslt
 	EndProjectSection
 EndProject

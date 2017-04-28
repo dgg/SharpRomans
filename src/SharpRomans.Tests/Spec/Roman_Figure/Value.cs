@@ -1,56 +1,61 @@
 ﻿using SharpRomans.Tests.Support;
-using StoryQ;
+using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[Category("Spec"), Category("RomanFigure"), Category("Value")]
+	[Story(
+		SoThat = "I can get the integral values of individual figures",
+		AsA = "library user",
+		IWant = "to be able to invoke a property on a roman figure")]
 	public class ValueTester
 	{
 		[Fact]
+		
 		public void Value()
 		{
-			new Story("values").Tag("RomanFigure")
-				.InOrderTo("get the integral values of individual figures")
-				.AsA("library user")
-				.IWant("to be able to invoke a method on a roman figure")
+			this.WithTags("RomanFigure", "Value")
+				.Given(_ => _.aRomanFigure_(RomanFigure.I))
+				.When(_ => _.theValueIsObtained())
+				.Then(_ => _.theValueIs_(1u))
+				.BDDfy("value of a figure");
 
-				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, RomanFigure.I)
-					.When(theValueIsObtained)
-					.Then(theValueIs_, 1u)
+			this.WithTags("RomanFigure", "Value")
+				.Given(_ => _.aRomanFigure_(RomanFigure.V))
+				.When(_ => _.theValueIsObtained())
+				.Then(_ => _.theValueIs_(5u))
+				.BDDfy("value of a figure");
 
-				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, RomanFigure.V)
-					.When(theValueIsObtained)
-					.Then(theValueIs_, 5u)
+			this.WithTags("RomanFigure", "Value")
+				.Given(_ => _.aRomanFigure_(RomanFigure.X))
+				.When(_ => _.theValueIsObtained())
+				.Then(_ => _.theValueIs_(10u))
+				.BDDfy("value of a figure");
 
-				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, RomanFigure.X)
-					.When(theValueIsObtained)
-					.Then(theValueIs_, 10u)
+			this.WithTags("RomanFigure", "Value")
+				.Given(_ => _.aRomanFigure_(RomanFigure.L))
+				.When(_ => _.theValueIsObtained())
+				.Then(_ => _.theValueIs_(50u))
+				.BDDfy("value of a figure");
 
-				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, RomanFigure.L)
-					.When(theValueIsObtained)
-					.Then(theValueIs_, 50u)
+			this.WithTags("RomanFigure", "Value")
+				.Given(_ => _.aRomanFigure_(RomanFigure.C))
+				.When(_ => _.theValueIsObtained())
+				.Then(_ => _.theValueIs_(100u))
+				.BDDfy("value of a figure");
 
-				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, RomanFigure.C)
-					.When(theValueIsObtained)
-					.Then(theValueIs_, 100u)
+			this.WithTags("RomanFigure", "Value")
+				.Given(_ => _.aRomanFigure_(RomanFigure.D))
+				.When(_ => _.theValueIsObtained())
+				.Then(_ => _.theValueIs_(500u))
+				.BDDfy("value of a figure");
 
-				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, RomanFigure.D)
-					.When(theValueIsObtained)
-					.Then(theValueIs_, 500u)
-
-				.WithScenario("value of a figure")
-					.Given(aRomanFigure_, RomanFigure.M)
-					.When(theValueIsObtained)
-					.Then(theValueIs_, 1000u)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Value")
+				.Given(_ => _.aRomanFigure_(RomanFigure.M))
+				.When(_ => _.theValueIsObtained())
+				.Then(_ => _.theValueIs_(1000u))
+				.BDDfy("value of a figure");
 		}
 
 		RomanFigure _subject;

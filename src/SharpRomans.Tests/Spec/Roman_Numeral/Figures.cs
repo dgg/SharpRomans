@@ -16,17 +16,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.AsA("library user")
 				.IWant("to access a list of the figures that make up the roman numeral.")
 
-				.WithScenario("zero")
+				.BDDfy("zero")
 					.Given(anArabicNumeral_, 0)
 					.When(theRomanNumeralIsInstantiated)
 					.Then(isARomanNumeralWithFigures_, "N")
 
-				.WithScenario("single-figure")
+				.BDDfy("single-figure")
 					.Given(anArabicNumeral_, 50)
 					.When(theRomanNumeralIsInstantiated)
 					.Then(isARomanNumeralWithFigures_, "L")
 
-				.WithScenario("multiple-figures")
+				.BDDfy("multiple-figures")
 					.Given(anArabicNumeral_, 75)
 					.When(theRomanNumeralIsInstantiated)
 					.Then(isARomanNumeralWithFigures_, "LXXV")

@@ -18,27 +18,27 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.AsA("library user")
 				.IWant("to be able to create an instance of a roman numeral from an arabic number")
 
-				.WithScenario("negative number")
+				.BDDfy("negative number")
 					.Given(anArabicNumeral_, -20)
 					.When(theRomanNumeralIsInstantiating)
 					.Then(aRangeExceptionIsThrown)
 
-				.WithScenario("overflowing number")
+				.BDDfy("overflowing number")
 					.Given(anArabicNumeral_, 4001)
 					.When(theRomanNumeralIsInstantiating)
 					.Then(aRangeExceptionIsThrown)
 
-				.WithScenario("zero")
+				.BDDfy("zero")
 					.Given(anArabicNumeral_, 0)
 					.When(theRomanNumeralIsInstantiated)
 					.Then(isARomanNumeralWithValue_, 0)
 
-				.WithScenario("single-figure")
+				.BDDfy("single-figure")
 					.Given(anArabicNumeral_, 50)
 					.When(theRomanNumeralIsInstantiated)
 					.Then(isARomanNumeralWithValue_, 50)
 
-				.WithScenario("multiple-figures")
+				.BDDfy("multiple-figures")
 					.Given(anArabicNumeral_, 75)
 					.When(theRomanNumeralIsInstantiated)
 					.Then(isARomanNumeralWithValue_, 75)
@@ -54,17 +54,17 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.AsA("library user")
 				.IWant("to be able to obtain instances from the roman numeral itself")
 
-				.WithScenario("zero")
+				.BDDfy("zero")
 					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Zero))
 					.When(itIsAccessed)
 					.Then(isARomanNumeralWithValue_, 0)
 
-				.WithScenario("min")
+				.BDDfy("min")
 					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Min))
 					.When(itIsAccessed)
 					.Then(isARomanNumeralWithValue_, (int)RomanNumeral.MinValue)
 
-				.WithScenario("max")
+				.BDDfy("max")
 					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Max))
 					.When(itIsAccessed)
 					.Then(isARomanNumeralWithValue_, (int)RomanNumeral.MaxValue)

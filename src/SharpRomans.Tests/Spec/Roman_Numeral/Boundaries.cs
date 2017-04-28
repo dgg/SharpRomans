@@ -17,32 +17,32 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.AsA("library user")
 				.IWant("to be able to invoke methods taking the arabic number a argument")
 
-				.WithScenario("check a number in range")
+				.BDDfy("check a number in range")
 					.Given(anArabicNumeral_, 20)
 					.When(theNumeralIsChecked)
 					.Then(theResultIs_, true)
 
-				.WithScenario("check a negative number")
+				.BDDfy("check a negative number")
 					.Given(anArabicNumeral_, -1)
 					.When(theNumeralIsChecked)
 					.Then(theResultIs_, false)
 
-				.WithScenario("check an overflowing number")
+				.BDDfy("check an overflowing number")
 					.Given(anArabicNumeral_, 4001)
 					.When(theNumeralIsChecked)
 					.Then(theResultIs_, false)
 
-				.WithScenario("assert a number in range")
+				.BDDfy("assert a number in range")
 					.Given(anArabicNumeral_, 20)
 					.When(theNumeralIsAsserted)
 					.Then(noExceptionIsRaised)
 
-				.WithScenario("assert a negative number")
+				.BDDfy("assert a negative number")
 					.Given(anArabicNumeral_, -1)
 					.When(theNumeralIsAsserted)
 					.Then(aRangeExceptionIsThrown)
 
-				.WithScenario("assert an overflowing number")
+				.BDDfy("assert an overflowing number")
 					.Given(anArabicNumeral_, 4001)
 					.When(theNumeralIsAsserted)
 					.Then(aRangeExceptionIsThrown)
