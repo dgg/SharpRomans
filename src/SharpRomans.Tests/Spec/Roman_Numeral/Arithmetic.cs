@@ -1,268 +1,250 @@
 ﻿using System;
 using System.Globalization;
 using SharpRomans.Tests.Support;
-using StoryQ;
+using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Arithmetic")]
+	[Story(
+		Title = "try parse a string",
+		AsA = "library user",
+		IWant = "use methods and operands on roman numeral instances",
+		SoThat = "I can perform simple arithmetic operations"
+	)]
 	public class ArithmeticTester
 	{
 		[Fact]
 		public void Addition()
 		{
-			new Story("arithmetic addition")
-				.InOrderTo("calculate the value of adding one roman numeral to another roman numeral")
-				.AsA("library user")
-				.IWant("to use an instance method on a roman numeral")
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "plus")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(20)))
+				.When(_ => _.plus_(new RomanNumeral(11)))
+				.Then(_ => _.theResultIs_(new RomanNumeral(31)))
+				.And(_ => _.isNotDestructive())
+				.BDDfy("bounded operation");
 
-				.BDDfy("bounded operation")
-					.Given(theRomanNumeral_, new RomanNumeral(20))
-					.When(plus_, new RomanNumeral(11))
-					.Then(theResultIs_, new RomanNumeral(31))
-					.And(isNotDestructive)
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "plus")
+				.Given(_ => _.theRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.plus_(new RomanNumeral(1)))
+				.Then(_ => _.theResultOverflows())
+				.BDDfy("overflowing operation");
 
-				.BDDfy("overflowing operation")
-					.Given(theRomanNumeral_, RomanNumeral.Max)
-					.When(plus_, new RomanNumeral(1))
-					.Then(theResultOverflows)
-
-				.BDDfy("adding NULL")
-					.Given(theRomanNumeral_, new RomanNumeral(13))
-					.When(plus_, (RomanNumeral)null)
-					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _subject))
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "plus")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(13)))
+				.When(_ => _.plus_((RomanNumeral) null))
+				.Then(_ => _.theResultIsTheSameAs_(_subject))
+				.BDDfy("adding NULL");
 		}
 
 		[Fact]
 		public void AdditionOperation()
 		{
-			new Story("arithmetic addition")
-				.InOrderTo("calculate the value of adding one roman numeral to another roman numeral")
-				.AsA("library user")
-				.IWant("to use an operator")
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(20)))
+				.When(_ => _.added_(new RomanNumeral(11)))
+				.Then(_ => _.theResultIs_(new RomanNumeral(31)))
+				.And(_ => _.isNotDestructive())
+				.BDDfy("bounded operation");
 
-				.BDDfy("bounded operation")
-					.Given(theRomanNumeral_, new RomanNumeral(20))
-					.When(added_, new RomanNumeral(11))
-					.Then(theResultIs_, new RomanNumeral(31))
-					.And(isNotDestructive)
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add")
+				.Given(_ => _.theRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.added_(new RomanNumeral(1)))
+				.Then(_ => _.theResultOverflows())
+				.BDDfy("overflowing operation");
 
-				.BDDfy("overflowing operation")
-					.Given(theRomanNumeral_, RomanNumeral.Max)
-					.When(added_, new RomanNumeral(1))
-					.Then(theResultOverflows)
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(13)))
+				.When(_ => _.added_((RomanNumeral)null))
+				.Then(_ => _.theResultIsTheSameAs_(_subject))
+				.BDDfy("adding NULL to not NULL");
 
-				.BDDfy("adding NULL to not NULL")
-					.Given(theRomanNumeral_, new RomanNumeral(13))
-					.When(added_, (RomanNumeral)null)
-					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _subject))
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add")
+				.Given(_ => _.theRomanNumeral_(null))
+				.When(_ => _.added_(new RomanNumeral(13)))
+				.Then(_ => _.theResultIsTheSameAs_(_operand))
+				.BDDfy("adding not NULL to NULL");
 
-				.BDDfy("adding not NULL to NULL")
-					.Given(theRomanNumeral_, (RomanNumeral)null)
-					.When(added_, new RomanNumeral(13))
-					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _operand))
-
-				.BDDfy("adding NULL to NULL")
-					.Given(theRomanNumeral_, (RomanNumeral)null)
-					.When(added_, (RomanNumeral)null)
-					.Then(theResultIs_, (RomanNumeral)null)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add")
+				.Given(_ => _.theRomanNumeral_(null))
+				.When(_ => _.added_((RomanNumeral)null))
+				.Then(_ => _.theResultIs_(null))
+				.BDDfy("adding NULL to NULL");
 		}
 
 		[Fact]
 		public void RomanFigureAddition()
 		{
-			new Story("arithmetic addition")
-				.InOrderTo("calculate the value of adding a roman figure to a roman numeral")
-				.AsA("library user")
-				.IWant("to use an instance method on a roman numeral")
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "plus figure")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(20)))
+				.When(_ => _.plus_(RomanFigure.V))
+				.Then(_ => _.theResultIs_(new RomanNumeral(25)))
+				.And(_ => _.isNotDestructive())
+				.BDDfy("bounded operation");
 
-				.BDDfy("bounded operation")
-					.Given(theRomanNumeral_, new RomanNumeral(20))
-					.When(plus_, RomanFigure.V)
-					.Then(theResultIs_, new RomanNumeral(25))
-					.And(isNotDestructive)
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "plus figure")
+				.Given(_ => _.theRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.plus_(RomanFigure.I))
+				.Then(_ => _.theResultOverflows())
+				.BDDfy("overflowing operation");
 
-				.BDDfy("overflowing operation")
-					.Given(theRomanNumeral_, RomanNumeral.Max)
-					.When(plus_, RomanFigure.I)
-					.Then(theResultOverflows)
-
-				.BDDfy("adding NULL")
-					.Given(theRomanNumeral_, new RomanNumeral(13))
-					.When(plus_, (RomanFigure)null)
-					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _subject))
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "plus figure")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(13)))
+				.When(_ => _.plus_((RomanFigure)null))
+				.Then(_ => _.theResultIsTheSameAs_(_subject))
+				.BDDfy("adding NULL");
 		}
 
 		[Fact]
 		public void RomanFigureAdditionOperation()
 		{
-			new Story("arithmetic addition")
-				.InOrderTo("calculate the value of adding a roman figure to a roman numeral")
-				.AsA("library user")
-				.IWant("to use an operator")
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add figure")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(20)))
+				.When(_ => _.added_(RomanFigure.V))
+				.Then(_ => _.theResultIs_(new RomanNumeral(25)))
+				.And(_ => _.isNotDestructive())
+				.BDDfy("bounded operation");
 
-				.BDDfy("bounded operation")
-					.Given(theRomanNumeral_, new RomanNumeral(20))
-					.When(added_, RomanFigure.V)
-					.Then(theResultIs_, new RomanNumeral(25))
-					.And(isNotDestructive)
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add figure")
+				.Given(_ => _.theRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.added_(RomanFigure.I))
+				.Then(_ => _.theResultOverflows())
+				.BDDfy("overflowing operation");
 
-				.BDDfy("overflowing operation")
-					.Given(theRomanNumeral_, RomanNumeral.Max)
-					.When(added_, RomanFigure.I)
-					.Then(theResultOverflows)
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add figure")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(13)))
+				.When(_ => _.added_((RomanFigure)null))
+				.Then(_ => _.theResultIsTheSameAs_(_subject))
+				.BDDfy("adding NULL to not NULL");
 
-				.BDDfy("adding NULL to not NULL")
-					.Given(theRomanNumeral_, new RomanNumeral(13))
-					.When(added_, (RomanFigure)null)
-					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _subject))
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add figure")
+				.Given(_ => _.theRomanNumeral_(null))
+				.When(_ => _.added_(RomanFigure.V))
+				.Then(_ => _.theResultIs_(new RomanNumeral(5)))
+				.BDDfy("adding not NULL to NULL");
 
-				.BDDfy("adding not NULL to NULL")
-					.Given(theRomanNumeral_, (RomanNumeral)null)
-					.When(added_, RomanFigure.V)
-					.Then(theResultIs_, new RomanNumeral(5))
-
-				.BDDfy("adding NULL to NULL")
-					.Given(theRomanNumeral_, (RomanNumeral)null)
-					.When(added_, (RomanFigure)null)
-					.Then(theResultIs_, (RomanNumeral)null)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Arithmetic", "Addition", "add figure")
+				.Given(_ => _.theRomanNumeral_(null))
+				.When(_ => _.added_((RomanFigure)null))
+				.Then(_ => _.theResultIs_(null))
+				.BDDfy("adding NULL to NULL");
 		}
 
 		[Fact]
 		public void Substraction()
 		{
-			new Story("arithmetic substraction")
-				.InOrderTo("calculate the value of substracting one roman numeral from another roman numeral")
-				.AsA("library user")
-				.IWant("to use an instance method on a roman numeral")
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "minus")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(20)))
+				.When(_ => _.minus_(new RomanNumeral(11)))
+				.Then(_ => _.theResultIs_(new RomanNumeral(9)))
+				.And(_ => _.isNotDestructive())
+				.BDDfy("bounded operation");
 
-				.BDDfy("bounded operation")
-					.Given(theRomanNumeral_, new RomanNumeral(20))
-					.When(minus_, new RomanNumeral(11))
-					.Then(theResultIs_, new RomanNumeral(9))
-					.And(isNotDestructive)
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "minus")
+				.Given(_ => _.theRomanNumeral_(RomanNumeral.Min))
+				.When(_ => _.minus_(new RomanNumeral(1)))
+				.Then(_ => _.theResultOverflows())
+				.BDDfy("overflowing operation");
 
-				.BDDfy("overflowing operation")
-					.Given(theRomanNumeral_, RomanNumeral.Min)
-					.When(minus_, new RomanNumeral(1))
-					.Then(theResultOverflows)
-
-				.BDDfy("substracting NULL")
-					.Given(theRomanNumeral_, new RomanNumeral(13))
-					.When(minus_, (RomanNumeral)null)
-					.Then(theResultIsTheSameAs_, new Func<RomanNumeral>(() => _subject))
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "minus")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(13)))
+				.When(_ => _.minus_((RomanNumeral)null))
+				.Then(_ => _.theResultIsTheSameAs_(_subject))
+				.BDDfy("substracting NULL");
 		}
 
 		[Fact]
 		public void SubstractionOperation()
 		{
-			new Story("arithmetic substraction")
-				.InOrderTo("calculate the value of substracting one roman numeral from another roman numeral")
-				.AsA("library user")
-				.IWant("to use an operator")
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(20)))
+				.When(_ => _.substracted_(new RomanNumeral(11)))
+				.Then(_ => _.theResultIs_(new RomanNumeral(9)))
+				.And(_ => _.isNotDestructive())
+				.BDDfy("bounded operation");
 
-				.BDDfy("bounded operation")
-					.Given(theRomanNumeral_, new RomanNumeral(20))
-					.When(substracted_, new RomanNumeral(11))
-					.Then(theResultIs_, new RomanNumeral(9))
-					.And(isNotDestructive)
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract")
+				.Given(_ => _.theRomanNumeral_(RomanNumeral.Min))
+				.When(_ => _.substracted_(new RomanNumeral(1)))
+				.Then(_ => _.theResultOverflows())
+				.BDDfy("overflowing operation");
 
-				.BDDfy("overflowing operation")
-					.Given(theRomanNumeral_, RomanNumeral.Min)
-					.When(substracted_, new RomanNumeral(1))
-					.Then(theResultOverflows)
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(13)))
+				.When(_ => _.substracted_((RomanNumeral)null))
+				.Then(_ => _.theResultIsTheSameAs_(_subject))
+				.BDDfy("substracting NULL to not NULL");
 
-				.BDDfy("substracting NULL to not NULL")
-					.Given(theRomanNumeral_, new RomanNumeral(13))
-					.When(substracted_, (RomanNumeral)null)
-					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _subject))
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract")
+				.Given(_ => _.theRomanNumeral_(null))
+				.When(_ => _.substracted_(new RomanNumeral(13)))
+				.Then(_ => _.theResultIsTheSameAs_(_operand))
+				.BDDfy("substracting not NULL to NULL");
 
-				.BDDfy("substracting not NULL to NULL")
-					.Given(theRomanNumeral_, (RomanNumeral)null)
-					.When(substracted_, new RomanNumeral(13))
-					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _operand))
-
-				.BDDfy("substracting NULL to NULL")
-					.Given(theRomanNumeral_, (RomanNumeral)null)
-					.When(substracted_, (RomanNumeral)null)
-					.Then(theResultIs_, (RomanNumeral)null)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract")
+				.Given(_ => _.theRomanNumeral_(null))
+				.When(_ => _.substracted_((RomanNumeral)null))
+				.Then(_ => _.theResultIs_(null))
+				.BDDfy("substracting NULL to NULL");
 		}
 
 		[Fact]
 		public void RomanFigureSubstraction()
 		{
-			new Story("arithmetic addition")
-				.InOrderTo("calculate the value of substracting a roman figure from a roman numeral")
-				.AsA("library user")
-				.IWant("to use an instance method on a roman numeral")
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "minus figure")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(20)))
+				.When(_ => _.minus_(RomanFigure.V))
+				.Then(_ => _.theResultIs_(new RomanNumeral(15)))
+				.And(_ => _.isNotDestructive())
+				.BDDfy("bounded operation");
 
-				.BDDfy("bounded operation")
-					.Given(theRomanNumeral_, new RomanNumeral(20))
-					.When(minus_, RomanFigure.V)
-					.Then(theResultIs_, new RomanNumeral(15))
-					.And(isNotDestructive)
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "minus figure")
+				.Given(_ => _.theRomanNumeral_(RomanNumeral.Min))
+				.When(_ => _.minus_(RomanFigure.I))
+				.Then(_ => _.theResultOverflows())
+				.BDDfy("overflowing operation");
 
-				.BDDfy("overflowing operation")
-					.Given(theRomanNumeral_, RomanNumeral.Min)
-					.When(minus_, RomanFigure.I)
-					.Then(theResultOverflows)
-
-				.BDDfy("substracting NULL")
-					.Given(theRomanNumeral_, new RomanNumeral(13))
-					.When(minus_, (RomanFigure)null)
-					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _subject))
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "minus figure")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(13)))
+				.When(_ => _.minus_((RomanFigure)null))
+				.Then(_ => _.theResultIsTheSameAs_(_subject))
+				.BDDfy("substracting NULL");
 		}
 
 		[Fact]
 		public void RomanFigureSubstractionOperation()
 		{
-			new Story("arithmetic addition")
-				.InOrderTo("calculate the value of substracting a roman figure from a roman numeral")
-				.AsA("library user")
-				.IWant("to use an operator")
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract figure")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(20)))
+				.When(_ => _.substracted_(RomanFigure.V))
+				.Then(_ => _.theResultIs_(new RomanNumeral(15)))
+				.And(_ => _.isNotDestructive())
+				.BDDfy("bounded operation");
 
-				.BDDfy("bounded operation")
-					.Given(theRomanNumeral_, new RomanNumeral(20))
-					.When(substracted_, RomanFigure.V)
-					.Then(theResultIs_, new RomanNumeral(15))
-					.And(isNotDestructive)
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract figure")
+				.Given(_ => _.theRomanNumeral_(RomanNumeral.Min))
+				.When(_ => _.substracted_(RomanFigure.I))
+				.Then(_ => _.theResultOverflows())
+				.BDDfy("overflowing operation");
 
-				.BDDfy("overflowing operation")
-					.Given(theRomanNumeral_, RomanNumeral.Min)
-					.When(substracted_, RomanFigure.I)
-					.Then(theResultOverflows)
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract figure")
+				.Given(_ => _.theRomanNumeral_(new RomanNumeral(13)))
+				.When(_ => _.substracted_((RomanFigure)null))
+				.Then(_ => _.theResultIsTheSameAs_(_subject))
+				.BDDfy("substracting NULL from not NULL");
 
-				.BDDfy("substracting NULL from not NULL")
-					.Given(theRomanNumeral_, new RomanNumeral(13))
-					.When(substracted_, (RomanFigure)null)
-					.Then(theResultIsTheSameAs_, new Func<IValuable>(() => _subject))
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract figure")
+				.Given(_ => _.theRomanNumeral_(null))
+				.When(_ => _.substracted_(RomanFigure.V))
+				.Then(_ => _.theResultIs_(new RomanNumeral(5)))
+				.BDDfy("substracting not NULL to NULL");
 
-				.BDDfy("substracting not NULL to NULL")
-					.Given(theRomanNumeral_, (RomanNumeral)null)
-					.When(substracted_, RomanFigure.V)
-					.Then(theResultIs_, new RomanNumeral(5))
-
-				.BDDfy("substracting NULL to NULL")
-					.Given(theRomanNumeral_, (RomanNumeral)null)
-					.When(substracted_, (RomanFigure)null)
-					.Then(theResultIs_, (RomanNumeral)null)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Arithmetic", "Substraction", "substract figure")
+				.Given(_ => _.theRomanNumeral_(null))
+				.When(_ => _.substracted_((RomanFigure)null))
+				.Then(_ => _.theResultIs_(null))
+				.BDDfy("substracting NULL to NULL");
 		}
 
 		RomanNumeral _subject;
@@ -344,10 +326,9 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			Assert.Contains(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture), ex.Message);
 		}
 
-		// TODO: implement pretty print of expression
-		private void theResultIsTheSameAs_(Func<IValuable> same)
+		private void theResultIsTheSameAs_(IValuable same)
 		{
-			Assert.Same(same(), _operation());
+			Assert.Same(same, _operation());
 		}
 	}
 }

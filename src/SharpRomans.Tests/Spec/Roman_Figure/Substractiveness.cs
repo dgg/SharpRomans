@@ -17,7 +17,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void Role()
 		{
 			this.WithTags("RomanFigure", "Roles")
-				.Given(_=>_.aSubstractiveRomanFigure_(RomanFigure.I))
+				.Given(_ => _.aSubstractiveRomanFigure_(RomanFigure.I))
 				.When(_ => _.substractivenessIsChecked())
 				.Then(_ => _.substractivenessIs_(true))
 				.BDDfy("substractive figure");

@@ -17,7 +17,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void Name()
 		{
 			this.WithTags("RomanFigure", "Name")
-				.Given(_=>_.theFigure_DoesHaveAName(RomanFigure.N))
+				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.N))
 				.When(_=>_.theNameIsObtained())
 				.Then(_ => _.theNameIsNotEmpty())
 				.BDDfy("zero");

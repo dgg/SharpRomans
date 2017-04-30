@@ -1,37 +1,39 @@
 ﻿using System.Linq;
 using SharpRomans.Tests.Support;
-using StoryQ;
+using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Figures")]
+	[Story(
+		Title = "creation of roman numerals",
+		AsA = "library user",
+		IWant = "to access a list of the figures that make up the roman numeral.",
+		SoThat = "I can convert an arabic numeral to a roman numeral"
+	)]
 	public class FiguresTester
 	{
 		[Fact]
 		public void Figures()
 		{
-			new Story("roman numeral figures")
-				.InOrderTo("convert an arabic numeral to a roman numeral")
-				.AsA("library user")
-				.IWant("to access a list of the figures that make up the roman numeral.")
+			this.WithTags("RomanNumeral", "Figures")
+				.Given(_ => _.anArabicNumeral_(0))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithFigures_("N"))
+				.BDDfy("zero");
 
-				.BDDfy("zero")
-					.Given(anArabicNumeral_, 0)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithFigures_, "N")
+			this.WithTags("RomanNumeral", "Figures")
+				.Given(_ => _.anArabicNumeral_(50))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithFigures_("L"))
+				.BDDfy("single-figure");
 
-				.BDDfy("single-figure")
-					.Given(anArabicNumeral_, 50)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithFigures_, "L")
-
-				.BDDfy("multiple-figures")
-					.Given(anArabicNumeral_, 75)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithFigures_, "LXXV")
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Figures")
+				.Given(_ => _.anArabicNumeral_(75))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithFigures_("LXXV"))
+				.BDDfy("multiple-figures");
 		}
 
 		ushort _number;

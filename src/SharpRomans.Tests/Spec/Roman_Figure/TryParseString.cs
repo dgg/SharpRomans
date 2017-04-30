@@ -19,7 +19,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		{
 
 			this.WithTags("RomanFigure", "TryParse")
-				.Given(_=> theString("I"))
+				.Given(_ => _.theString("I"))
 				.When(_=> _.theStringIsParsed())
 				.Then(_ => _.theResultIs(true))
 				.And(_ => _.theFigureIs(RomanFigure.I))

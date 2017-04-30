@@ -13,6 +13,6 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<Compile Remove="Spec\Roman_Numeral\\**\*.cs" />
+		<!--Compile Remove="Spec\Roman_Numeral\\**\*.cs" /-->
 	</ItemGroup>
 </Project>

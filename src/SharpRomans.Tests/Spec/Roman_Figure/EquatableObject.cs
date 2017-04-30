@@ -18,7 +18,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		{
 
 			this.WithTags("RomanFigure", "Equality")
-				.Given(_=>_.TheRomanFigure(RomanFigure.V))
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_=>_.comparedTo((object)'V'))
 				.Then(_ => _.Is(false))
 				.BDDfy("a roman figure is compared against a boxed char with the same value");

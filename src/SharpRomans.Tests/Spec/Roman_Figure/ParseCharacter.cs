@@ -18,7 +18,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void Parse()
 		{
 			this.WithTags("RomanFigure", "Parse")
-				.Given(_=>_.theCharacter('I'))
+				.Given(_ => _.theCharacter('I'))
 				.When(_ => _.theCharIsParsed())
 				.Then(_ => _.theFigureIs(RomanFigure.I))
 				.BDDfy("parse a defined figure");

@@ -1,63 +1,61 @@
 ﻿using System;
 using SharpRomans.Tests.Support;
-using StoryQ;
+using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Castings")]
+	[Story(
+		Title = "explicit casting",
+		AsA = "library user",
+		IWant = "to be able to explicitely cast a roman numeral",
+		SoThat = "I can get information about the numeral"
+	)]
 	public class CastingsTester
 	{
 		[Fact]
 		public void CastToNumber()
 		{
-			new Story("casting to number")
-				.InOrderTo("get the value of numerals")
-				.AsA("library user")
-				.IWant("to be able to explicitely cast a roman numeral")
+			this.WithTags("RomanNumeral", "Castings", "to number")
+				.Given(_ => _.aRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.isCastedToNumber())
+				.Then(_ => _.theNumberIs_(0))
+				.BDDfy("number of a numeral");
 
-				.BDDfy("number of a numeral")
-					.Given(aRomanNumeral_, RomanNumeral.Zero)
-					.When(isCastedToNumber)
-					.Then(theNumberIs_, 0)
+			this.WithTags("RomanNumeral", "Castings", "to number")
+				.Given(_ => _.aRomanNumeral_(new RomanNumeral(11)))
+				.When(_ => _.isCastedToNumber())
+				.Then(_ => _.theNumberIs_(11))
+				.BDDfy("number of a numeral");
 
-				.BDDfy("number of a numeral")
-					.Given(aRomanNumeral_, new RomanNumeral(11))
-					.When(isCastedToNumber)
-					.Then(theNumberIs_, 11)
-
-				.BDDfy("number of null")
-					.Given(aRomanNumeral_, (RomanNumeral)null)
-					.When(isCastedToNumber)
-					.Then(throwsArgumentException)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Castings", "to number")
+				.Given(_ => _.aRomanNumeral_((RomanNumeral) null))
+				.When(_ => _.isCastedToNumber())
+				.Then(_ => _.throwsArgumentException())
+				.BDDfy("number of null");
 		}
 
 		[Fact]
 		public void CastToString()
 		{
-			new Story("casting to string")
-				.InOrderTo("get the figures of numerals")
-				.AsA("library user")
-				.IWant("to be able to explicitely cast a roman numeral")
+			this.WithTags("RomanNumeral", "Castings", "to string")
+				.Given(_ => _.aRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.isCastedToString())
+				.Then(_ => _.theStringIs_("N"))
+				.BDDfy("string of a numeral");
 
-				.BDDfy("string of a numeral")
-					.Given(aRomanNumeral_, RomanNumeral.Zero)
-					.When(isCastedToString)
-					.Then(theStringIs_, "N")
+			this.WithTags("RomanNumeral", "Castings", "to string")
+				.Given(_ => _.aRomanNumeral_(new RomanNumeral(11)))
+				.When(_ => _.isCastedToString())
+				.Then(_ => _.theStringIs_("XI"))
+				.BDDfy("string of a numeral");
 
-				.BDDfy("string of a numeral")
-					.Given(aRomanNumeral_, new RomanNumeral(11))
-					.When(isCastedToString)
-					.Then(theStringIs_, "XI")
-
-				.BDDfy("string of null")
-					.Given(aRomanNumeral_, (RomanNumeral)null)
-					.When(isCastedToString)
-					.Then(theStringIs_, (string)null)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Castings", "to string")
+				.Given(_ => _.aRomanNumeral_((RomanNumeral) null))
+				.When(_ => _.isCastedToString())
+				.Then(_ => _.theStringIs_((string) null))
+				.BDDfy("string of null");
 		}
 
 		RomanNumeral _subject;

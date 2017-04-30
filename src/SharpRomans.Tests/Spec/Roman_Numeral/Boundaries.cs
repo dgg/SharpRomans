@@ -1,54 +1,60 @@
 ﻿using System;
 using System.Globalization;
 using SharpRomans.Tests.Support;
-using StoryQ;
+using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Boundaries")]
+	[Story(
+		Title = "roman numerals boundaries",
+		AsA = "library user",
+		IWant = "to be able to invoke methods taking the arabic number a argument",
+		SoThat = "I can verify whether an arabic numeral can be converted into a roman numeral"
+	)]
 	public class BoundariesTester
 	{
 		[Fact]
 		public void Boundaries()
 		{
-			new Story("roman numerals boundaries")
-				.InOrderTo("verify whether an arabic numeral can be converted into a roman numeral")
-				.AsA("library user")
-				.IWant("to be able to invoke methods taking the arabic number a argument")
+			this.WithTags("RomanNumeral", "Boundaries")
+				.Given(_ => _.anArabicNumeral_(20))
+				.When(_ => _.theNumeralIsChecked())
+				.Then(_ => _.theResultIs_(true))
+				.BDDfy("check a number in range");
 
-				.BDDfy("check a number in range")
-					.Given(anArabicNumeral_, 20)
-					.When(theNumeralIsChecked)
-					.Then(theResultIs_, true)
+			this.WithTags("RomanNumeral", "Boundaries")
+				.Given(_ => _.anArabicNumeral_(-1))
+				.When(_ => _.theNumeralIsChecked())
+				.Then(_ => _.theResultIs_(false))
+				.BDDfy("check a negative number");
 
-				.BDDfy("check a negative number")
-					.Given(anArabicNumeral_, -1)
-					.When(theNumeralIsChecked)
-					.Then(theResultIs_, false)
+			this.WithTags("RomanNumeral", "Boundaries")
+				.Given(_ => _.anArabicNumeral_(4001))
+				.When(_ => _.theNumeralIsChecked())
+				.Then(_ => _.theResultIs_(false))
+				.BDDfy("check an overflowing number");
 
-				.BDDfy("check an overflowing number")
-					.Given(anArabicNumeral_, 4001)
-					.When(theNumeralIsChecked)
-					.Then(theResultIs_, false)
+			this.WithTags("RomanNumeral", "Boundaries")
+				.Given(_ => _.anArabicNumeral_(20))
+				.When(_ => _.theNumeralIsAsserted())
+				.Then(_ => _.noExceptionIsRaised())
+				.BDDfy("assert a number in range");
 
-				.BDDfy("assert a number in range")
-					.Given(anArabicNumeral_, 20)
-					.When(theNumeralIsAsserted)
-					.Then(noExceptionIsRaised)
+			this.WithTags("RomanNumeral", "Boundaries")
+				.Given(_ => _.anArabicNumeral_(-1))
+				.When(_ => _.theNumeralIsAsserted())
+				.Then(_ => _.aRangeExceptionIsThrown())
+				.BDDfy("assert a negative number");
 
-				.BDDfy("assert a negative number")
-					.Given(anArabicNumeral_, -1)
-					.When(theNumeralIsAsserted)
-					.Then(aRangeExceptionIsThrown)
-
-				.BDDfy("assert an overflowing number")
-					.Given(anArabicNumeral_, 4001)
-					.When(theNumeralIsAsserted)
-					.Then(aRangeExceptionIsThrown)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Boundaries")
+				.Given(_ => _.anArabicNumeral_(4001))
+				.When(_ => _.theNumeralIsAsserted())
+				.Then(_ => _.aRangeExceptionIsThrown())
+				.BDDfy("assert an overflowing number");
 		}
+
 		ushort _number;
 		private void anArabicNumeral_(int number)
 		{
