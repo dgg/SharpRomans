@@ -6,6 +6,7 @@ using Xunit;
 namespace SharpRomans.Tests
 {
 	[Category("Exploration")]
+	[Collection("bddfy")]
 	public class Quickstart
 	{
 		[Fact]

@@ -7,6 +7,7 @@ using Xunit;
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Arithmetic")]
+	[Collection("bddfy")]
 	[Story(
 		Title = "try parse a string",
 		AsA = "library user",

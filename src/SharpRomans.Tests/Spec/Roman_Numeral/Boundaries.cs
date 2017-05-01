@@ -7,6 +7,7 @@ using Xunit;
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Boundaries")]
+	[Collection("bddfy")]
 	[Story(
 		Title = "roman numerals boundaries",
 		AsA = "library user",

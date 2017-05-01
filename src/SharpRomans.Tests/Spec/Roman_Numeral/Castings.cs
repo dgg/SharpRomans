@@ -6,6 +6,7 @@ using Xunit;
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Castings")]
+	[Collection("bddfy")]
 	[Story(
 		Title = "explicit casting",
 		AsA = "library user",

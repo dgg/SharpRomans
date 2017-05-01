@@ -5,6 +5,7 @@ using Xunit;
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Equality")]
+	[Collection("bddfy")]
 	[Story(
 		Title = "roman numeral equality",
 		AsA = "library user",

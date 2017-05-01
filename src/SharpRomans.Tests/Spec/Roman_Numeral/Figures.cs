@@ -6,6 +6,7 @@ using Xunit;
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Figures")]
+	[Collection("bddfy")]
 	[Story(
 		Title = "creation of roman numerals",
 		AsA = "library user",

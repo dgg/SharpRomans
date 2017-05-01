@@ -5,6 +5,7 @@ using Xunit;
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[Category("Spec"), Category("RomanFigure"), Category("Name")]
+	[Collection("bddfy")]
 	[Story(
 		Title = "names",
 		AsA = "library user",

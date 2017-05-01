@@ -5,6 +5,7 @@ using Xunit;
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[Category("Spec"), Category("RomanFigure"), Category("Value")]
+	[Collection("bddfy")]
 	[Story(
 		SoThat = "I can get the integral values of individual figures",
 		AsA = "library user",

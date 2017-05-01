@@ -6,6 +6,7 @@ using TestStack.BDDfy;
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
 	[Category("Spec"), Category("RomanFigure"), Category("TryParse")]
+	[Collection("bddfy")]
 	[Story(
 		Title = "try parse",
 		AsA = "library user",

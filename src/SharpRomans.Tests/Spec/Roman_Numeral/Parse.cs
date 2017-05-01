@@ -6,6 +6,7 @@ using System;
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
 	[Category("Spec"), Category("RomanNumeral"), Category("Parse")]
+	[Collection("bddfy")]
 	[Story(
 		Title = "parse",
 		AsA = "library user",
