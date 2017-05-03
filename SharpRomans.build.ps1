@@ -1,98 +1,41 @@
-properties {
-	$configuration = 'Debug'
-	$base_dir  = resolve-path .	
-	$release_path = "$base_dir\release"
-}
-
-task default -depends Clean, Compile, Test, Deploy, Pack
+param(
+	[ValidateSet('Debug', 'Release')]
+	$Configuration = 'Release'
+)
+$release_dir = Join-Path $BuildRoot release
+$solution_file = Join-Path $BuildRoot SharpRomans.sln 
 
 task Clean {
-	exec { msbuild .\SharpRomans.sln /t:clean /p:configuration=$configuration /m }
-	Remove-Item $base_dir\*.htm -Force
-	Remove-Item $base_dir\*.xml -Force
-	Remove-Item $release_path -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
+	exec { dotnet clean $solution_file -c $Configuration -v m }
+
+	Remove-Item -Path $release_dir -Force -Recurse | Out-Null
+	New-Item -ItemType Directory $release_dir -Force | Out-Null
 }
 
-task Compile {
-	exec { msbuild .\SharpRomans.sln /p:configuration=$configuration /m }
+task Compile Clean, {
+	exec { dotnet restore $solution_file }
+	exec { dotnet build $solution_file -c $Configuration -v m }
 }
 
-task Test {
-	Ensure-Release-Folders $release_path
+task Test Clean, {
+	$test_dir = Join-Path $BuildRoot src\SharpRomans.Tests
+	$html_report = Join-Path $release_dir TestResult.html
+	cd $test_dir
+	exec { dotnet xunit -configuration $Configuration -nologo -html $html_report }
+	cd $BuildRoot
 
-	$test = Test-Assembly $base_dir $configuration 'SharpRomans'
+	$bin_dir = Join-Path $test_dir "bin\$Configuration\net46"
+	$html_report = Join-Path $bin_dir BDDfy.html
+	$markdown_report = Join-Path $bin_dir BDDfy.md
+	Copy-Item -Path ($html_report, $markdown_report) -Destination $release_dir
+}
+
+task Pack Test, {
+	$proj_dir = Join-Path $BuildRoot src\SharpRomans
+	exec { dotnet pack  (Join-Path $proj_dir SharpRomans.csproj) --no-build -c $Configuration }
 	
-	Run-Tests $base_dir $release_path ($test)
-	Report-On-Test-Results $base_dir
+	$bin_dir = Join-Path $proj_dir "bin\$Configuration"
+	Copy-Item (Join-Path $bin_dir '*.nupkg') -Destination $release_dir
 }
 
-task Deploy {
-	$release_folders = Ensure-Release-Folders  $release_path
-	$bin = Bin-Folder $base_dir $configuration "SharpRomans"
-		
-	Get-ChildItem -Path $bin -Filter 'SharpRomans*.dll' |
-		Copy-To $release_folders
-
-	Get-ChildItem -Path ($bin) -Filter 'SharpRomans*.pdb' |
-		Copy-Item -Destination $release_path
-
-	Get-ChildItem -Path ($bin) -Filter 'SharpRomans*.xml' |
-		Copy-To $release_folders
-}
-
-task Pack {
-	Ensure-Release-Folders $release_path
-
-	$nuget = "$base_dir\tools\nuget\nuget.exe"
-
-	Get-ChildItem -File -Filter '*.nuspec' -Path $base_dir  | 
-		ForEach-Object { exec { & $nuget pack $_.FullName -OutputDirectory $release_path -BasePath $release_path } }
-}
-
-function Test-Assembly($base, $config, $name)
-{
-	return "$base\src\$name.Tests\bin\$config\$name.Tests.dll"
-}
-
-function Bin-Folder($base, $config, $name)
-{
-	$project = Src-Folder $base $name
-	return Join-Path $project "bin\$config\"
-}
-
-function Src-Folder($base, $name)
-{
-	return "$base\src\$name\"
-}
-
-function Run-Tests($base, $release, $test_assemblies){
-	$nunit_console = "$base\tools\NUnit.Runners.lite.2.6.3.20131019\nunit-console.exe"
-
-	exec { & $nunit_console $test_assemblies /nologo /nodots /result="$release\TestResult.xml"  }
-}
-
-function Report-On-Test-Results($base)
-{
-	$nunit_summary_path = "$base\tools\NUnitSummary"
-	$nunit_summary = Join-Path $nunit_summary_path "nunit-summary.exe"
-
-	$alternative_details = Join-Path $nunit_summary_path "AlternativeNUnitDetails.xsl"
-	$alternative_details = "-xsl=" + $alternative_details
-
-	exec { & $nunit_summary $release_path\TestResult.xml -html -o="release\TestSummary.htm" }
-	exec { & $nunit_summary $release_path\TestResult.xml -html -o="release\TestDetails.htm" $alternative_details -noheader }
-}
-
-function Ensure-Release-Folders($base)
-{
-	$release_folders = ($base, "$base\lib\portable-net40+sl50+wp80+win")
-
-	foreach ($f in $release_folders) { md $f -Force | Out-Null }
-
-	return $release_folders
-}
-
-function Copy-To($destinations)
-{
-	Process { foreach ($d in $destinations) { Copy-Item -Path $_.FullName -Destination $d } }
-}
+task . Pack

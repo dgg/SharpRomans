@@ -11,8 +11,4 @@
   <ItemGroup>
     <ProjectReference Include="..\SharpRomans\SharpRomans.csproj" />
   </ItemGroup>
-
-	<ItemGroup>
-		<!--Compile Remove="Spec\Roman_Numeral\\**\*.cs" /-->
-	</ItemGroup>
 </Project>
