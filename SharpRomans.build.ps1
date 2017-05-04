@@ -38,4 +38,12 @@ task Pack Test, {
 	Copy-Item (Join-Path $bin_dir '*.nupkg') -Destination $release_dir
 }
 
+task Publish {
+	$package_file = Join-Path $release_dir SharpRomans.*.nupkg
+
+	assert(Test-Path $package_file) 'There is no package to push. Please run build.ps1' 
+	
+	exec { dotnet nuget push (Get-Item $package_file) }
+}
+
 task . Pack
