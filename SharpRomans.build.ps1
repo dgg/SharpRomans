@@ -17,7 +17,7 @@ task Compile Clean, {
 	exec { dotnet build $solution_file -c $Configuration -v m }
 }
 
-task Test Clean, {
+task Test Compile, {
 	$test_dir = Join-Path $BuildRoot src\SharpRomans.Tests
 	$html_report = Join-Path $release_dir TestResult.html
 	cd $test_dir
