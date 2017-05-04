@@ -19,6 +19,11 @@ namespace SharpRomans.Tests.Support
 		}
 
 		public const string AssemblyName = nameof(SharpRomans) + "." +
-		                                   nameof(Tests);
+			nameof(Tests);
+
+		public const string ClassName = nameof(SharpRomans) + "." + 
+			nameof(Tests) + "." + 
+			nameof(Support) + "." +
+			nameof(CategoryDiscoverer);
 	}
 }
