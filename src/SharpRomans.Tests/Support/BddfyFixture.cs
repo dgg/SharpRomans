@@ -12,6 +12,7 @@ namespace SharpRomans.Tests.Support
 			Configurator.BatchProcessors.HtmlReport.Disable();
 			Configurator.BatchProcessors.HtmlMetroReport.Enable();
 			Configurator.BatchProcessors.MarkDownReport.Enable();
+			Configurator.BatchProcessors.Add(new CustomMarkdownProcessor());
 		}
 	}
 
