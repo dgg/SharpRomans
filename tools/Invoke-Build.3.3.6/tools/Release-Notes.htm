@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1>Invoke-Build Release Notes</h1>
+<h2>v3.3.6</h2>
+<p>Retire obsolete events defined as functions, see <a href="https://github.com/nightroman/Invoke-Build/issues/66">#66</a>.</p>
+<h2>v3.3.5</h2>
+<p>Use less cryptic names for internal functions (#63).</p>
+<h2>v3.3.4</h2>
+<p>Adjust <code>property</code> behaviour to PowerShell and MSBuild (#60):</p>
+<ul>
+<li>get the session variable value if it is not $null or ''</li>
+<li>get the environment value if it is not $null or ''</li>
+<li>get the specified default if it is not $null</li>
+<li>throw an error</li>
+</ul>
+<h2>v3.3.3</h2>
+<p><code>Resolve-MSBuild</code> supports the <em>BuildTools</em> installation (#57).</p>
+<h2>v3.3.2</h2>
+<p>Improve info on typical mistakes:</p>
+<ul>
+<li>missing comma in job lists</li>
+<li>unexpected build output</li>
+<li>dangling script blocks</li>
+</ul>
+<h2>v3.3.1</h2>
+<p>Improve errors on invalid script syntax (#56).</p>
+<h2>v3.3.0</h2>
+<p>New <em>Resolve-MSBuild.ps1</em> for finding MSBuild 2.0-15.0, specified or the latest. It may be used directly. Build scripts use it via the alias <code>Resolve-MSBuild</code>. NuGet and PSGallery packages include this script.</p>
+<p>The old way <code>use &lt;version&gt; MSBuild</code> is supported and works with all versions. But the new script is used internally, <em>Invoke-Build.ps1</em> alone is not enough.</p>
+<h2>v3.2.4</h2>
+<p>Fix #54, <code>exec</code> should use <code>$global:LastExitCode</code>.</p>
+<h2>v3.2.3</h2>
+<p>Use <code>exit /B</code> in <em>ib.cmd</em> (#52).</p>
+<h2>v3.2.2</h2>
+<ul>
+<li>Incremental tasks print some more info (#49)</li>
+<li>Outputs block receives piped Inputs (#50)</li>
+</ul>
+<h2>v3.2.1</h2>
+<p>Module help tweaks.</p>
+<h2>v3.2.0</h2>
+<p><code>use</code>: The conventional path <code>VisualStudio\&lt;version&gt;</code> is resolved via the registry to the Visual Studio tools directory (<code>devenv</code>, <code>mstest</code>, <code>tf</code>).</p>
+<h2>v3.1.0</h2>
+<p>Event blocks instead of functions, see #36.</p>
+<h2>v3.0.2</h2>
+<p>Use <code>exit 0</code> on success (#34).</p>
+<h2>v3.0.1</h2>
+<p>Invoke-Build is cross-platform with PowerShell v6.0.0-alpha.</p>
+<h2>v3.0.0</h2>
+<p>Build script parameters are specified as Invoke-Build dynamic parameters. The parameter <code>Parameters</code> was removed. This change is breaking in some cases, see <a href="https://github.com/nightroman/Invoke-Build/issues/29">#29</a>.</p>
+<p>Avoided cryptic errors on invoking scripts with invalid syntax and on resuming builds with an invalid checkpoint file.</p>
+<h2>v2 releases</h2>
+<p>Previous release notes: <a href="https://github.com/nightroman/Invoke-Build/wiki/V2-Release-Notes">V2 Release Notes</a></p>
+</body>
+</html>

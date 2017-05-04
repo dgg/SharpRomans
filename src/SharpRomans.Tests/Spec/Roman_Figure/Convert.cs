@@ -1,40 +1,44 @@
 ﻿using System;
-using NUnit.Framework;
-using StoryQ;
+using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Convert")]
+	[Category("Spec"), Category("RomanFigure"), Category("Convert")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "convert a number",
+		AsA = "library user",
+		IWant = "to be able to convert a number",
+		SoThat = "I can get a figure instance"
+	)]
 	public class ConvertTester
 	{
-		[Test]
+		[Fact]
 		public void ConvertNumber()
 		{
-			new Story("convert a number")
-				.InOrderTo("get a figure instance")
-				.AsA("library user")
-				.IWant("to be able to convert a number")
+			this.WithTags("RomanFigure", "Equality")
+				.Given(_ => _.theNumber(1))
+				.When(_ => _.theNumberIsConverted())
+				.Then(_ => _.theFigureIs(RomanFigure.I))
+				.BDDfy("convert a defined figure");
 
-				.WithScenario("convert a defined figure")
-					.Given(aNumber_, 1)
-					.When(theNumberIsConverted)
-					.Then(theFigureIs_, RomanFigure.I)
+			this.WithTags("RomanFigure", "Equality")
+				.Given(_ => _.theNumber(3))
+				.When(_ => _.theNumberIsConverted())
+				.Then(_ => _.throwsArgumentException())
+				.BDDfy("convert an undefined figure");
 
-				.WithScenario("convert an undefined figure")
-					.Given(aNumber_, 3)
-					.When(theNumberIsConverted)
-					.Then(throwsArgumentException)
-
-				.WithScenario("figures are unique")
-					.Given(aNumber_, 10)
-					.When(theNumber_IsConvertedAgain, 10)
-					.Then(isTheSameFigure)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Equality")
+				.Given(_ => _.theNumber(10))
+				.When(_ => _.theNumber_IsConvertedAgain(10))
+				.Then(_ => _.isTheSameFigure())
+				.BDDfy("figures are unique");
 		}
 
 		ushort _number;
-		private void aNumber_(int number)
+		private void theNumber(int number)
 		{
 			_number = (ushort)number;
 		}
@@ -46,15 +50,15 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			_figure = () => RomanFigure.Convert(_number);
 		}
 
-		private void theFigureIs_(RomanFigure figure)
+		private void theFigureIs(RomanFigure figure)
 		{
-			Assert.That(_figure(), Is.EqualTo(figure));
+			Assert.Equal(figure, _figure());
 		}
 
 		private void throwsArgumentException()
 		{
-			TestDelegate cast = () => _figure();
-			Assert.That(cast, Throws.ArgumentException);
+			Action cast = () => _figure();
+			Assert.ThrowsAny<ArgumentException>(cast);
 		}
 
 		private RomanFigure _anotherFigure;
@@ -65,7 +69,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 		private void isTheSameFigure()
 		{
-			Assert.That(_figure(), Is.SameAs(_anotherFigure));
+			Assert.Same(_anotherFigure, _figure());
 		}
 	}
 }

@@ -1,36 +1,40 @@
 ﻿using System.Linq;
-using NUnit.Framework;
-using StoryQ;
+using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Figures")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Figures")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "creation of roman numerals",
+		AsA = "library user",
+		IWant = "to access a list of the figures that make up the roman numeral.",
+		SoThat = "I can convert an arabic numeral to a roman numeral"
+	)]
 	public class FiguresTester
 	{
-		[Test]
+		[Fact]
 		public void Figures()
 		{
-			new Story("roman numeral figures")
-				.InOrderTo("convert an arabic numeral to a roman numeral")
-				.AsA("library user")
-				.IWant("to access a list of the figures that make up the roman numeral.")
+			this.WithTags("RomanNumeral", "Figures")
+				.Given(_ => _.anArabicNumeral_(0))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithFigures_("N"))
+				.BDDfy("zero");
 
-				.WithScenario("zero")
-					.Given(anArabicNumeral_, 0)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithFigures_, "N")
+			this.WithTags("RomanNumeral", "Figures")
+				.Given(_ => _.anArabicNumeral_(50))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithFigures_("L"))
+				.BDDfy("single-figure");
 
-				.WithScenario("single-figure")
-					.Given(anArabicNumeral_, 50)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithFigures_, "L")
-
-				.WithScenario("multiple-figures")
-					.Given(anArabicNumeral_, 75)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithFigures_, "LXXV")
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Figures")
+				.Given(_ => _.anArabicNumeral_(75))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithFigures_("LXXV"))
+				.BDDfy("multiple-figures");
 		}
 
 		ushort _number;
@@ -51,8 +55,8 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 				.Select(RomanFigure.Parse)
 				.ToArray();
 
-			Assert.That(_subject.Figures, Is.EqualTo(list));
-			Assert.That(_subject.ToString(), Is.EqualTo(figures));
+			Assert.Equal(list, _subject.Figures);
+			Assert.Equal(figures, _subject.ToString());
 		}
 	}
 }

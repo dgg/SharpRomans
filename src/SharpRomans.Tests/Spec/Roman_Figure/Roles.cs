@@ -1,60 +1,58 @@
-﻿using NUnit.Framework;
-using StoryQ;
+﻿using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Roles")]
-	public class RolesTester
+	[Category("Spec"), Category("RomanFigure"), Category("Roles")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "roles",
+		AsA = "library user",
+		IWant = "to be able to invoke a property on a roman figure",
+		SoThat = "I am able to know what the role of the figure is in a roman numeral"
+	)]
+	public class Roles
 	{
-		[Test]
+		[Fact]
+		public void Repeatibility()
+		{
+			this.WithTags("RomanFigure", "Roles", "Repeatibility")
+				.Given(_ => _.aRepeteableRomanFigure_(RomanFigure.I))
+				.When(_ => _.repeteabilityIsChecked())
+				.Then(_ => _.repeteabilityIs_(true))
+				.BDDfy("repeteable figure");
+
+			this.WithTags("RomanFigure", "Roles", "Repeatibility")
+				.Given(_ => _.aNonRepeteableRomanFigure_(RomanFigure.V))
+				.When(_ => _.repeteabilityIsChecked())
+				.Then(_ => _.repeteabilityIs_(false))
+				.BDDfy("non-repeteable figure");
+		}
+
+		[Fact]
 		public void Substractiveness()
 		{
-			new Story("substractiveness")
-				.InOrderTo("know whether a figure is substractive or not")
-				.AsA("library user")
-				.IWant("to be able to invoke a method on a roman figure")
+			this.WithTags("RomanFigure", "Roles", "Substractiveness")
+				.Given(_ => _.aSubstractiveRomanFigure_(RomanFigure.I))
+				.When(_ => _.substractivenessIsChecked())
+				.Then(_ => _.substractivenessIs_(true))
+				.BDDfy("substractive figure");
 
-				.WithScenario("substractive figure")
-					.Given(aSubstractiveRomanFigure_, RomanFigure.I)
-					.When(substractivenessIsChecked)
-					.Then(substractivenessIs_, true)
-
-				.WithScenario("non-substractive figure")
-					.Given(aNonSubstractiveRomanFigure_, RomanFigure.V)
-					.When(substractivenessIsChecked)
-					.Then(substractivenessIs_, false)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Roles", "Substractiveness")
+				.Given(_ => _.aNonSubstractiveRomanFigure_(RomanFigure.V))
+				.When(_ => _.substractivenessIsChecked())
+				.Then(_ => _.substractivenessIs_(false))
+				.BDDfy("non-substractive figure");
 		}
 
-		[Test]
-		public void Repeteability()
-		{
-			new Story("repeteability")
-				.InOrderTo("know whether a figure can be repeated or not")
-				.AsA("library user")
-				.IWant("to be able to invoke a method on a roman figure")
-
-				.WithScenario("repeteable figure")
-					.Given(aRepeteableRomanFigure_, RomanFigure.I)
-					.When(repeteabilityIsChecked)
-					.Then(repeteabilityIs_, true)
-
-				.WithScenario("non-repeteable figure")
-					.Given(aNonRepeteableRomanFigure_, RomanFigure.V)
-					.When(repeteabilityIsChecked)
-					.Then(repeteabilityIs_, false)
-
-				.ExecuteWithReport();
-		}
-
-		RomanFigure _subject;
-		private void aSubstractiveRomanFigure_(RomanFigure figure)
+		private RomanFigure _subject;
+		private void aRepeteableRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}
-
-		private void aRepeteableRomanFigure_(RomanFigure figure)
+		
+		private void aNonRepeteableRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}
@@ -64,7 +62,18 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			_subject = figure;
 		}
 
-		private void aNonRepeteableRomanFigure_(RomanFigure figure)
+		bool _repeteability;
+		private void repeteabilityIsChecked()
+		{
+			_repeteability = _subject.IsRepeteable;
+		}
+		
+		private void repeteabilityIs_(bool repeteability)
+		{
+			Assert.Equal(repeteability, _repeteability);
+		}
+
+		private void aSubstractiveRomanFigure_(RomanFigure figure)
 		{
 			_subject = figure;
 		}
@@ -74,21 +83,10 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		{
 			_substractiveness = _subject.IsSubstractive;
 		}
-
-		bool _repeteability;
-		private void repeteabilityIsChecked()
-		{
-			_repeteability = _subject.IsRepeteable;
-		}
-
+		
 		private void substractivenessIs_(bool substractiveness)
 		{
-			Assert.That(_substractiveness, Is.EqualTo(substractiveness));
-		}
-
-		private void repeteabilityIs_(bool repeteability)
-		{
-			Assert.That(_repeteability, Is.EqualTo(repeteability));
+			Assert.Equal(substractiveness, _substractiveness);
 		}
 	}
 }

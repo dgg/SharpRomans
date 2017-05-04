@@ -1,195 +1,198 @@
-﻿using NUnit.Framework;
-using StoryQ;
+﻿using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Equality")]
-	public class EqualityTester
+	[Category("Spec"), Category("RomanFigure"), Category("Equality")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "equality",
+		AsA = "library user",
+		IWant = "to use methods and operators on roman figures",
+		SoThat = "I can say that two roman figures are equal"
+	)]
+	public class Equality
 	{
-		[Test]
-		public void NonGenericEquals()
+		[Fact]
+		public void EqualsObject()
 		{
-			new Story("non generic equaks")
-				.InOrderTo("say that an object is equal to a roman figure")
-				.AsA("library user")
-				.IWant("to use .Equals() against an object")
 
-			.WithScenario("a roman figure is compared against a boxed char with the same value")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)'V')
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_=>_.equals('V'))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against a boxed char with the same value");
 
-			.WithScenario("a roman figure is compared against a boxed char with a different value")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)'X')
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals('X'))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against a boxed char with a different value");
 
-			.WithScenario("a roman figure is compared against a boxed number with the same value")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)((ushort)5))
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals((ushort) 5))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against a boxed number with the same value");
 
-			.WithScenario("a roman figure is compared against a boxed number with a different value")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)((ushort)10))
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals((ushort) 10))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against a boxed number with a different value");
 
-			.WithScenario("a roman figure is compared against the same objectified figure")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)RomanFigure.V)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals((object) RomanFigure.V))
+				.Then(_ => _.Is(true))
+				.BDDfy("a roman figure is compared against the same objectified figure");
 
-			.WithScenario("a roman figure is compared against another objectified figure")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)RomanFigure.X)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals((object) RomanFigure.X))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against another objectified figure");
 
-			.WithScenario("a roman figure is compared against null")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)null)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals((object) null))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against null");
 
-			.WithScenario("a roman figure is compared against a boxed lowercase char with the same value")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)'v')
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals('v'))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against a boxed lowercase char with the same value");
 
-			.WithScenario("a roman figure is compared against a boxed int with the same value")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (object)5)
-				.Then(Is_, false)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Equality", "non-generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals(5))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against a boxed int with the same value");
 		}
 
-		[Test]
-		public void EquatableToRomanFigure()
+		[Fact]
+		public void EqualsRomanFigure()
 		{
-			new Story("equatable to roman figure")
-				.InOrderTo("say that a figure is equal to another figure")
-				.AsA("library user")
-				.IWant("to use IEquatable<RomanFigure> methods against a roman figure")
+			this.WithTags("RomanFigure", "Equality", "generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals(RomanFigure.V))
+				.Then(_ => _.Is(true))
+				.BDDfy("a roman figure is compared against the same roman figure");
 
-			.WithScenario("a roman figure is compared against the same roman figure")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, RomanFigure.V)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Equality", "generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals(RomanFigure.X))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against not the same roman figure");
 
-			.WithScenario("a roman figure is compared against not the same roman figure")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, RomanFigure.X)
-				.Then(Is_, false)
-
-			.WithScenario("a roman figure is compared against null")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, (RomanFigure)null)
-				.Then(Is_, false)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Equality", "generic")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equals(null))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against null");
 		}
 
-		[Test]
+		[Fact]
 		public void EqualToRomanFigure()
 		{
-			new Story("equality to roman figure")
-				.InOrderTo("say that a figure is equal to another figure")
-				.AsA("library user")
-				.IWant("to use the equality operator against a roman figure")
+			this.WithTags("RomanFigure", "Equality", "equality operator")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equalTo(RomanFigure.Convert(5)))
+				.Then(_ => _.Is(true))
+				.BDDfy("a roman figure is compared against the same roman figure");
 
-			.WithScenario("a roman figure is compared against the same roman figure")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(EqualTo_, RomanFigure.Convert(5))
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Equality", "equality operator")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equalTo(RomanFigure.X))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against not the same roman figure");
 
-			.WithScenario("a roman figure is compared against not the same roman figure")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(EqualTo_, RomanFigure.X)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "equality operator")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.equalTo(null))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against null");
 
-			.WithScenario("a roman figure is compared against null")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(EqualTo_, (RomanFigure)null)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "equality operator")
+				.Given(_ => _.TheRomanFigure(null))
+				.When(_ => _.equalTo(RomanFigure.X))
+				.Then(_ => _.Is(false))
+				.BDDfy("null is compared against a roman figure");
 
-			.WithScenario("null is compared against a roman figure")
-				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(EqualTo_, RomanFigure.X)
-				.Then(Is_, false)
-
-			.WithScenario("null is compared against null")
-				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(EqualTo_, (RomanFigure)null)
-				.Then(Is_, true)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Equality", "equality operator")
+				.Given(_ => _.TheRomanFigure(null))
+				.When(_ => _.equalTo(null))
+				.Then(_ => _.Is(true))
+				.BDDfy("null is compared against null");
 		}
 
-		[Test]
+		[Fact]
 		public void NotEqualToRomanFigure()
 		{
-			new Story("inequality to roman figure")
-				.InOrderTo("say that a figure is not equal to another figure")
-				.AsA("library user")
-				.IWant("to use the inequality operator against a roman figure")
 
-			.WithScenario("a roman figure is compared against the same roman figure")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(NotEqualTo_, RomanFigure.V)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.notEqualTo(RomanFigure.V))
+				.Then(_ => _.Is(false))
+				.BDDfy("a roman figure is compared against the same roman figure");
 
-			.WithScenario("a roman figure is compared against not the same roman figure")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(NotEqualTo_, RomanFigure.X)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.notEqualTo(RomanFigure.X))
+				.Then(_ => _.Is(true))
+				.BDDfy("a roman figure is compared against not the same roman figure");
 
-			.WithScenario("a roman figure is compared against null")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(NotEqualTo_, (RomanFigure)null)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanFigure(RomanFigure.V))
+				.When(_ => _.notEqualTo(null))
+				.Then(_ => _.Is(true))
+				.BDDfy("a roman figure is compared against null");
 
-			.WithScenario("null is compared against a roman figure")
-				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(NotEqualTo_, RomanFigure.X)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanFigure(null))
+				.When(_ => _.notEqualTo(RomanFigure.X))
+				.Then(_ => _.Is(true))
+				.BDDfy("null is compared against a roman figure");
 
-			.WithScenario("null is compared against null")
-				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(NotEqualTo_, (RomanFigure)null)
-				.Then(Is_, false)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanFigure(null))
+				.When(_ => _.notEqualTo(null))
+				.Then(_ => _.Is(false))
+				.BDDfy("null is compared against null");
 		}
 
 		private RomanFigure _subject;
-		private void TheRomanFigure_(RomanFigure figure)
+		private void TheRomanFigure(RomanFigure figure)
 		{
 			_subject = figure;
 		}
-
 		private bool _operation;
-		private void ComparedTo_(object o)
+		private void Is(bool result)
+		{
+			Assert.Equal(result, _operation);
+		}
+
+		private void equals(object o)
 		{
 			_operation = _subject.Equals(o);
 		}
 
-		private void ComparedTo_(RomanFigure anotherFigure)
+		private void equals(RomanFigure anotherFigure)
 		{
 			_operation = _subject.Equals(anotherFigure);
 		}
 
-		private void EqualTo_(RomanFigure anotherFigure)
+		private void equalTo(RomanFigure anotherFigure)
 		{
 			_operation = _subject == anotherFigure;
 		}
 
-		private void NotEqualTo_(RomanFigure anotherFigure)
+		private void notEqualTo(RomanFigure anotherFigure)
 		{
 			_operation = _subject != anotherFigure;
-		}
-
-		private void Is_(bool result)
-		{
-			Assert.That(_operation, Is.EqualTo(result));
 		}
 	}
 }

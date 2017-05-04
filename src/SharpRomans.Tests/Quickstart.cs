@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using NUnit.Framework;
+using SharpRomans.Tests.Support;
+using Xunit;
 
 namespace SharpRomans.Tests
 {
-	[TestFixture, Category("Exploration")]
+	[Category("Exploration")]
+	[Collection("bddfy")]
 	public class Quickstart
 	{
-		[Test]
+		[Fact]
 		public void RomanNumeral_()
 		{
 			// from arabic to roman numeral
@@ -47,7 +49,7 @@ namespace SharpRomans.Tests
 			thirty = sixty - thirty;
 		}
 
-		[Test]
+		[Fact]
 		public void RomanFigure_()
 		{
 			// getting and instance from a shortcut

@@ -1,238 +1,221 @@
-﻿using System;
-using NUnit.Framework;
-using StoryQ;
+﻿using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
+using System;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Parse")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Parse")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "parse",
+		AsA = "library user",
+		IWant = "to be able to parse a string",
+		SoThat = "I can get a roman numeral instance",
+		Narrative1 = "lower figures to the right of bigger figures",
+		Narrative2 = "lower figures to the left of bigger figures",
+		Narrative3 = "numbers increase from left to right"
+	)]
 	public class ParseTester
 	{
-		[Test]
+		[Fact]
 		public void NoString()
 		{
-			new Story("parse no string as roman numeral")
-				.InOrderTo("not be surprised with unexpected results")
-				.AsA("library user")
-				.IWant("unparseable strings to throw.")
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "NoString")
+				.Given(_ => _.theInput_((string) null))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<ArgumentNullException>())
+				.BDDfy("null");
 
-				.WithScenario("null")
-					.Given(theInput_, (string) null)
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<ArgumentNullException>)
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "NoString")
+				.Given(_ => _.theInput_(string.Empty))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<ArgumentException>())
+				.BDDfy("empty");
 
-				.WithScenario("empty")
-					.Given(theInput_, string.Empty)
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<ArgumentException>)
-
-				.WithScenario("only spaces")
-					.Given(theInput_, " ")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<ArgumentException>)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "NoString")
+				.Given(_ => _.theInput_(" "))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<ArgumentException>())
+				.BDDfy("only spaces");
 		}
 
-		[Test]
+		[Fact]
 		public void Zero()
 		{
-			new Story("parse zero roman numeral")
-				.InOrderTo("obtain the zero roman numeral from a string")
-				.AsA("library user")
-				.IWant("parse the zero string.")
+			this.WithTags("RomanNumeral", "Parse", "Zero")
+				.Given(_ => _.theInput_("N"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(RomanNumeral.Zero))
+				.BDDfy("uppercase zero");
 
-				.WithScenario("uppercase zero")
-					.Given(theInput_, "N")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, RomanNumeral.Zero)
-
-				.WithScenario("lowercase zero")
-					.Given(theInput_, "n")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, RomanNumeral.Zero)
-
-				.WithScenario("zero repeated")
-					.Given(theInput_, "NN")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Parse", "Zero")
+				.Given(_ => _.theInput_("n"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(RomanNumeral.Zero))
+				.BDDfy("lowercase zero");
 		}
 
-		[Test]
+		[Fact]
 		public void Repetition()
 		{
-			new Story("parse zero roman numeral")
-				.InOrderTo("prevent invalid roman numeral to be parsed")
-				.AsA("library user")
-				.IWant("unparseable strings to throw.")
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Repetition")
+				.Given(_ => _.theInput_("NN"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("zero repeated");
 
-				.WithScenario("too many I")
-					.Given(theInput_, "IIII")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+			this.WithTags("RomanNumeral", "TryParse", "Unparseable", "Repetition")
+				.Given(_ => _.theInput_("IIII"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("too many I");
 
-				.WithScenario("too many X")
-					.Given(theInput_, "XXXX")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Repetition")
+				.Given(_ => _.theInput_("XXXX"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("too many X");
 
-				.WithScenario("too many C")
-					.Given(theInput_, "CCCC")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Repetition")
+				.Given(_ => _.theInput_("CCCC"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("too many C");
 
-				.WithScenario("too many M")
-					.Given(theInput_, "MMMM")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Repetition")
+				.Given(_ => _.theInput_("MMMM"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("too many M");
 
-				.WithScenario("interleaved offenders")
-					.Given(theInput_, "CCCXXXXV")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Repetition")
+				.Given(_ => _.theInput_("CCCXXXXV"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("interleaved offenders");
 		}
 
-		[Test]
+		[Fact]
 		public void AdditiveCombination()
 		{
-			new Story("parse zero roman numeral")
-				.InOrderTo("obtain the valid roman numeral from a string")
-				.AsA("library user")
-				.IWant("parse strings that contain lower figures to the right of bigger figures.")
+			this.WithTags("RomanNumeral", "Parse", "Additive combination")
+				.Given(_ => _.theInput_("VI"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(6u))
+				.BDDfy("six");
 
-				.WithScenario("six")
-					.Given(theInput_, "VI")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 6u)
-
-				.WithScenario("1661")
-					.Given(theInput_, "MDCLXI")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 1661u)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Parse", "Additive combination")
+				.Given(_ => _.theInput_("MDCLXI"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(1661u))
+				.BDDfy("1661");
 		}
 
-		[Test]
+		[Fact]
 		public void SubstractiveCombination()
 		{
-			new Story("parse zero roman numeral")
-				.InOrderTo("obtain the valid roman numeral from a string")
-				.AsA("library user")
-				.IWant("parse strings that contain lower figures to the left of bigger figures.")
+			this.WithTags("RomanNumeral", "Parse", "Substractive combination")
+				.Given(_ => _.theInput_("IV"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(4u))
+				.BDDfy("four");
 
-				.WithScenario("four")
-					.Given(theInput_, "IV")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 4u)
+			this.WithTags("RomanNumeral", "Parse", "Substractive combination")
+				.Given(_ => _.theInput_("IX"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(9u))
+				.BDDfy("nine");
 
-				.WithScenario("nine")
-					.Given(theInput_, "IX")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 9u)
+			this.WithTags("RomanNumeral", "Parse", "Substractive combination")
+				.Given(_ => _.theInput_("XCIX"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(99u))
+				.BDDfy("ninety-nine");
 
-				.WithScenario("ninety-nine")
-					.Given(theInput_, "XCIX")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 99u)
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Substractive combination")
+				.Given(_ => _.theInput_("MCMD"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("substract once");
 
-				.WithScenario("substract once")
-					.Given(theInput_, "MCMD")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
-
-				.WithScenario("substract once")
-					.Given(theInput_, "CMC")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Substractive combination")
+				.Given(_ => _.theInput_("CMC"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("substract once");
 		}
 
-		[Test]
+		[Fact]
 		public void RepeatSingleFigures()
 		{
-			new Story("parse zero roman numeral")
-				.InOrderTo("prevent invalid roman numeral to be parsed")
-				.AsA("library user")
-				.IWant("unparseable strings to throw.")
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Repeat single figures")
+				.Given(_ => _.theInput_("VIV"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("too many V");
 
-				.WithScenario("too many V")
-					.Given(theInput_, "VIV")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Repeat single figures")
+				.Given(_ => _.theInput_("LXL"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("too many L");
 
-				.WithScenario("too many L")
-					.Given(theInput_, "LXL")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
-
-				.WithScenario("too many D")
-					.Given(theInput_, "DDII")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Repeat single figures")
+				.Given(_ => _.theInput_("DDII"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("too many D");
 		}
 
-		[Test]
+		[Fact]
 		public void ReducingValues()
 		{
-			new Story("parse zero roman numeral")
-				.InOrderTo("obtain the valid roman numeral from a string")
-				.AsA("library user")
-				.IWant("parse strings that numbers increase from left to right.")
+			this.WithTags("RomanNumeral", "Parse", "Reducing values")
+				.Given(_ => _.theInput_("XIX"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(19u))
+				.BDDfy("ninteen");
 
-				.WithScenario("ninteen")
-					.Given(theInput_, "XIX")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 19u)
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Reducing values")
+				.Given(_ => _.theInput_("XIM"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("wrong 899");
 
-				.WithScenario("wrong 899")
-					.Given(theInput_, "XIM")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
-
-				.WithScenario("wrong 3")
-					.Given(theInput_, "IIV")
-					.When(theInputIsParsing)
-					.Then(anExceptionIsThrown<NumeralParseException>)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Parse", "Unparseable", "Reducing values")
+				.Given(_ => _.theInput_("IIV"))
+				.When(_ => _.theInputIsParsing())
+				.Then(_ => _.anExceptionIsThrown<NumeralParseException>())
+				.BDDfy("wrong 3");
 		}
 
-		[Test]
+		[Fact]
 		public void SomeBigNumbers()
 		{
-			new Story("parse zero roman numeral")
-				.InOrderTo("obtain the valid roman numeral from a string")
-				.AsA("library user")
-				.IWant("parse strings that numbers increase from left to right.")
+			this.WithTags("RomanNumeral", "Parse", "Larger numbers")
+				.Given(_ => _.theInput_("MCMXXVIII"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(1928u))
+				.BDDfy("1928");
 
-				.WithScenario("1928")
-					.Given(theInput_, "MCMXXVIII")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 1928u)
+			this.WithTags("RomanNumeral", "Parse", "Larger numbers")
+				.Given(_ => _.theInput_("MMIX"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(2009u))
+				.BDDfy("2009");
 
-				.WithScenario("2009")
-					.Given(theInput_, "MMIX")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 2009u)
+			this.WithTags("RomanNumeral", "Parse", "Larger numbers")
+				.Given(_ => _.theInput_("MCMXC"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(1990u))
+				.BDDfy("1990");
 
-				.WithScenario("1990")
-					.Given(theInput_, "MCMXC")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 1990u)
-
-				.WithScenario("1666")
-					.Given(theInput_, "MDCLXVI")
-					.When(theInputIsParsed)
-					.Then(theNumeral_IsObtained, 1666u)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Parse", "Larger numbers")
+				.Given(_ => _.theInput_("MDCLXVI"))
+				.When(_ => _.theInputIsParsed())
+				.Then(_ => _.theNumeral_IsObtained(1666u))
+				.BDDfy("1666");
 		}
 
 		private string _input;
@@ -244,7 +227,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		Func<RomanNumeral> _parsing;
 		private void theInputIsParsing()
 		{
-			_parsing = ()=> RomanNumeral.Parse(_input);
+			_parsing = () => RomanNumeral.Parse(_input);
 		}
 
 		RomanNumeral _parsed;
@@ -255,18 +238,18 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void anExceptionIsThrown<T>() where T : Exception
 		{
-			TestDelegate del = () => _parsing();
-			Assert.That(del, Throws.InstanceOf<T>());
+			Action del = () => _parsing();
+			Assert.ThrowsAny<T>(del);
 		}
 
 		private void theNumeral_IsObtained(RomanNumeral numeral)
 		{
-			Assert.That(_parsed, Is.EqualTo(numeral));
+			Assert.Equal(numeral, _parsed);
 		}
 
 		private void theNumeral_IsObtained(uint numeral)
 		{
-			Assert.That(_parsed, Is.EqualTo(new RomanNumeral((ushort)numeral)));
+			Assert.Equal(new RomanNumeral((ushort)numeral), _parsed);
 		}
 	}
 }

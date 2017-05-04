@@ -1,158 +1,159 @@
-﻿using NUnit.Framework;
-using StoryQ;
+﻿using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Equality")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Equality")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "roman numeral equality",
+		AsA = "library user",
+		IWant = "to use equality methods and operands",
+		SoThat = "I can check the equality of two roman numerals"
+	)]
 	public class EqualityTester
 	{
-		[Test]
+		[Fact]
 		public void NonGenericEquals()
 		{
-			new Story("non generic equals")
-				.InOrderTo("say that an object is equal to a roman numeral")
-				.AsA("library user")
-				.IWant("to use .Equals() against an object")
+			this.WithTags("RomanNumeral", "Equality", "Non-generic")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_((short)5))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against a boxed short with the same value");
 
-			.WithScenario("a roman numeral is compared against a boxed short with the same value")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (object)((short)5))
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Equality", "Non-generic")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_((short)10))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against a boxed short with a different value");
 
-			.WithScenario("a roman numeral is compared against a boxed short with a different value")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (object)((short)10))
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Equality", "Non-generic")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_((object) new RomanNumeral(5)))
+				.Then(_ => _.Is_(true))
+				.BDDfy("a roman numeral is compared against the same objectified numeral");
 
-			.WithScenario("a roman numeral is compared against the same objectified numeral")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (object)new RomanNumeral(5))
-				.Then(Is_, true)
+			this.WithTags("RomanNumeral", "Equality", "Non-generic")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_((object) new RomanNumeral(10)))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against another objectified numeral");
 
-			.WithScenario("a roman numeral is compared against another objectified numeral")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (object)new RomanNumeral(10))
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Equality", "Non-generic")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_(RomanFigure.V))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against the same objectified figure");
 
-			.WithScenario("a roman numeral is compared against the same objectified figure")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (object)RomanFigure.V)
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Equality", "Non-generic")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_(RomanFigure.C))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against another objectified figure");
 
-			.WithScenario("a roman numeral is compared against another objectified figure")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (object)RomanFigure.C)
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Equality", "Non-generic")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_((object) null))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against null");
 
-			.WithScenario("a roman numeral is compared against null")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (object)null)
-				.Then(Is_, false)
-
-			.WithScenario("a roman numeral is compared against a boxed int with the same value")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (object)5)
-				.Then(Is_, false)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Equality", "Non-generic")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_(5))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against a boxed int with the same value");
 		}
 
-		[Test]
+		[Fact]
 		public void EquatableToRomanNumeral()
 		{
-			new Story("equatable to roman numeral")
-				.InOrderTo("say that a numeral is equal to another numeral")
-				.AsA("library user")
-				.IWant("to use IEquatable<RomanNumeral> methods against a roman numeral")
+			this.WithTags("RomanNumeral", "Equality", "IEquatable<>")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_(new RomanNumeral(5)))
+				.Then(_ => _.Is_(true))
+				.BDDfy("a roman numeral is compared against the same roman numeral");
 
-			.WithScenario("a roman numeral is compared against the same roman numeral")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, new RomanNumeral(5))
-				.Then(Is_, true)
+			this.WithTags("RomanNumeral", "Equality", "IEquatable<>")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_(new RomanNumeral(15)))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against not the same roman numeral");
 
-			.WithScenario("a roman numeral is compared against not the same roman numeral")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, new RomanNumeral(15))
-				.Then(Is_, false)
-
-			.WithScenario("a roman numeral is compared against null")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(ComparedTo_, (RomanNumeral)null)
-				.Then(Is_, false)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Equality", "IEquatable<>")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.ComparedTo_(null))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against null");
 		}
 
-		[Test]
+		[Fact]
 		public void EqualToRomanNumeral()
 		{
-			new Story("equality to roman numeral")
-				.InOrderTo("say that a numeral is equal to another numeral")
-				.AsA("library user")
-				.IWant("to use the equality operator against a roman numeral")
+			this.WithTags("RomanNumeral", "Equality", "equality operator")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.EqualTo_(new RomanNumeral(5)))
+				.Then(_ => _.Is_(true))
+				.BDDfy("a roman numeral is compared against the same roman numeral");
 
-			.WithScenario("a roman numeral is compared against the same roman numeral")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(EqualTo_, new RomanNumeral(5))
-				.Then(Is_, true)
+			this.WithTags("RomanNumeral", "Equality", "equality operator")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.EqualTo_(new RomanNumeral(15)))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against not the same roman numeral");
 
-			.WithScenario("a roman numeral is compared against not the same roman numeral")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(EqualTo_, new RomanNumeral(15))
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Equality", "equality operator")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.EqualTo_(null))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against null");
 
-			.WithScenario("a roman numeral is compared against null")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(EqualTo_, (RomanNumeral)null)
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Equality", "equality operator")
+				.Given(_ => _.TheRomanNumeral_(null))
+				.When(_ => _.EqualTo_(RomanNumeral.Zero))
+				.Then(_ => _.Is_(false))
+				.BDDfy("null is compared against a roman numeral");
 
-			.WithScenario("null is compared against a roman numeral")
-				.Given(TheRomanNumeral_, (RomanNumeral)null)
-				.When(EqualTo_, RomanNumeral.Zero)
-				.Then(Is_, false)
-
-			.WithScenario("null is compared against null")
-				.Given(TheRomanNumeral_, (RomanNumeral)null)
-				.When(EqualTo_, (RomanNumeral)null)
-				.Then(Is_, true)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Equality", "equality operator")
+				.Given(_ => _.TheRomanNumeral_(null))
+				.When(_ => _.EqualTo_(null))
+				.Then(_ => _.Is_(true))
+				.BDDfy("null is compared against null");
 		}
 
-		[Test]
+		[Fact]
 		public void NotEqualToRomanNumeral()
 		{
-			new Story("inequality to roman numeral")
-				.InOrderTo("say that a numeral is not equal to another numeral")
-				.AsA("library user")
-				.IWant("to use the inequality operator against a roman numeral")
+			this.WithTags("RomanNumeral", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.NotEqualTo_(new RomanNumeral(5)))
+				.Then(_ => _.Is_(false))
+				.BDDfy("a roman numeral is compared against the same roman numeral");
 
-			.WithScenario("a roman numeral is compared against the same roman numeral")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(NotEqualTo_, new RomanNumeral(5))
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.NotEqualTo_(new RomanNumeral(15)))
+				.Then(_ => _.Is_(true))
+				.BDDfy("a roman numeral is compared against not the same roman numeral");
 
-			.WithScenario("a roman numeral is compared against not the same roman numeral")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(NotEqualTo_, new RomanNumeral(15))
-				.Then(Is_, true)
+			this.WithTags("RomanNumeral", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(5)))
+				.When(_ => _.NotEqualTo_(null))
+				.Then(_ => _.Is_(true))
+				.BDDfy("a roman numeral is compared against null");
 
-			.WithScenario("a roman numeral is compared against null")
-				.Given(TheRomanNumeral_, new RomanNumeral(5))
-				.When(NotEqualTo_, (RomanNumeral)null)
-				.Then(Is_, true)
+			this.WithTags("RomanNumeral", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanNumeral_(null))
+				.When(_ => _.NotEqualTo_(new RomanNumeral(5)))
+				.Then(_ => _.Is_(true))
+				.BDDfy("null is compared against a roman numeral");
 
-			.WithScenario("null is compared against a roman numeral")
-				.Given(TheRomanNumeral_, (RomanNumeral)null)
-				.When(NotEqualTo_, new RomanNumeral(5))
-				.Then(Is_, true)
-
-			.WithScenario("null is compared against null")
-				.Given(TheRomanNumeral_, (RomanNumeral)null)
-				.When(NotEqualTo_, (RomanNumeral)null)
-				.Then(Is_, false)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Equality", "inequality operator")
+				.Given(_ => _.TheRomanNumeral_(null))
+				.When(_ => _.NotEqualTo_(null))
+				.Then(_ => _.Is_(false))
+				.BDDfy("null is compared against null");
 		}
 
 		private RomanNumeral _subject;
@@ -184,7 +185,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void Is_(bool result)
 		{
-			Assert.That(_operation, Is.EqualTo(result));
+			Assert.Equal(result, _operation);
 		}
 	}
 }

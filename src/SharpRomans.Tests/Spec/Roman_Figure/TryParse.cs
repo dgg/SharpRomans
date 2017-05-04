@@ -1,97 +1,89 @@
-﻿using NUnit.Framework;
-using StoryQ;
+﻿
+using SharpRomans.Tests.Support;
+using Xunit;
+using TestStack.BDDfy;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("TryParse")]
-	public class TryParseTester
+	[Category("Spec"), Category("RomanFigure"), Category("TryParse")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "try parse",
+		AsA = "library user",
+		IWant = "to be able to try to parse text",
+		SoThat = "I can get a figure instance"
+	)]
+	public class TryParse
 	{
-		[Test]
-		public void TryParseChar()
-		{
-			new Story("try parse a char").Tag("RomanFigure")
-				.InOrderTo("try to get a figure instance")
-				.AsA("library user")
-				.IWant("to be able to try to parse a char")
-
-				.WithScenario("parse a defined figure")
-					.Given(aCharacter_, 'I')
-					.When(theCharIsParsed)
-					.Then(theResultIs_, true)
-					.And(theFigureIs_, RomanFigure.I)
-
-				.WithScenario("parse an undefined figure")
-					.Given(aCharacter_, 'W')
-					.When(theCharIsParsed)
-					.Then(theResultIs_, false)
-					.And(theFigureIs_, (RomanFigure)null)
-
-				.WithScenario("figures are unique")
-					.Given(aCharacter_, 'X')
-					.When(theCharIsParsed)
-					.And(theChar_IsParsedAgain, 'X')
-					.Then(isTheSameFigure)
-
-				.ExecuteWithReport();
-		}
-
-		[Test]
+		[Fact]
 		public void TryParseString()
 		{
-			new Story("try parse a string").Tag("RomanFigure")
-				.InOrderTo("try to get a figure instance")
-				.AsA("library user")
-				.IWant("to be able to try to parse a string")
+			this.WithTags("RomanFigure", "TryParse", "string")
+				.Given(_ => _.theString("I"))
+				.When(_=> _.theStringIsParsed())
+				.Then(_ => _.theResultIs(true))
+				.And(_ => _.theFigureIs(RomanFigure.I))
+				.BDDfy("parse a defined figure");
 
-				.WithScenario("parse a defined figure")
-					.Given(aString_, "I")
-					.When(theStringIsParsed)
-					.Then(theResultIs_, true)
-					.And(theFigureIs_, RomanFigure.I)
+			this.WithTags("RomanFigure", "TryParse", "string")
+				.Given(_ => _.theString("W"))
+				.When(_ => _.theStringIsParsed())
+				.Then(_ => _.theResultIs(false))
+				.And(_ => _.theFigureIs(null))
+				.BDDfy("parse an undefined figure");
 
-				.WithScenario("parse an undefined figure")
-					.Given(aString_, "W")
-					.When(theStringIsParsed)
-					.Then(theResultIs_, false)
-					.And(theFigureIs_, (RomanFigure)null)
-
-				.WithScenario("figures are unique")
-					.Given(aString_, "X")
-					.When(theStringIsParsed)
-					.And(theString_IsParsedAgain, "X")
-					.Then(isTheSameFigure)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanFigure", "TryParse", "string")
+				.Given(_ => _.theString("X"))
+				.When(_ => _.theStringIsParsed())
+				.And(_ => _.theString_IsParsedAgain("X"))
+				.Then(_ => _.isTheSameFigure())
+				.BDDfy("figures are unique");
 		}
 
-		char _character;
-		private void aCharacter_(char character)
+		[Fact]
+		public void TryParseChar()
 		{
-			_character = character;
+			this.WithTags("RomanFigure", "TryParse", "char")
+				.Given(_ => _.theCharacter('I'))
+				.When(_ => _.theCharIsParsed())
+				.Then(_ => _.theResultIs(true))
+				.And(_ => _.theFigureIs(RomanFigure.I))
+				.BDDfy("parse a defined figure");
+
+			this.WithTags("RomanFigure", "TryParse", "char")
+				.Given(_ => _.theCharacter('W'))
+				.When(_ => _.theCharIsParsed())
+				.Then(_ => _.theResultIs(false))
+				.And(_ => _.theFigureIs(null))
+				.BDDfy("parse an undefined figure");
+
+			this.WithTags("RomanFigure", "TryParse", "char")
+				.Given(_ => _.theCharacter('X'))
+				.When(_ => _.theCharIsParsed())
+				.And(_ => _.theChar_IsParsedAgain('X'))
+				.Then(_ => _.isTheSameFigure())
+				.BDDfy("figures are unique");
 		}
 
-		string _string;
-		private void aString_(string str)
+		private string _string;
+		private void theString(string str)
 		{
 			_string = str;
 		}
 
-		private bool _result;
-		private RomanFigure _parsed;
-		private void theCharIsParsed()
+		char _character;
+		private void theCharacter(char character)
 		{
-			_result = RomanFigure.TryParse(_character, out _parsed);
-		}
-
-		private RomanFigure _anotherFigure;
-		private void theChar_IsParsedAgain(char c)
-		{
-			_result = RomanFigure.TryParse(c, out _anotherFigure);
+			_character = character;
 		}
 
 		private void theStringIsParsed()
 		{
 			_result = RomanFigure.TryParse(_string, out _parsed);
+		}
+		private void theCharIsParsed()
+		{
+			_result = RomanFigure.TryParse(_character, out _parsed);
 		}
 
 		private void theString_IsParsedAgain(string s)
@@ -99,19 +91,27 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			_result = RomanFigure.TryParse(s, out _anotherFigure);
 		}
 
-		private void theResultIs_(bool obj)
+		private void theChar_IsParsedAgain(char c)
 		{
-			Assert.That(_result, Is.EqualTo(obj));
+			_result = RomanFigure.TryParse(c, out _anotherFigure);
 		}
 
-		private void theFigureIs_(RomanFigure figure)
+		private bool _result;
+		private void theResultIs(bool obj)
 		{
-			Assert.That(_parsed, Is.EqualTo(figure));
+			Assert.Equal(obj, _result);
 		}
 
+		private RomanFigure _parsed;
+		private void theFigureIs(RomanFigure figure)
+		{
+			Assert.Equal(figure, _parsed);
+		}
+
+		private RomanFigure _anotherFigure;
 		private void isTheSameFigure()
 		{
-			Assert.That(_parsed, Is.SameAs(_anotherFigure));
+			Assert.Same(_anotherFigure, _parsed);
 		}
 	}
 }

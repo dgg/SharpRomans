@@ -1,73 +1,77 @@
-﻿using System.Globalization;
-using NUnit.Framework;
+﻿using System;
+using System.Globalization;
 using SharpRomans.Tests.Spec.Roman_Numeral.Support;
-using StoryQ;
+using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Instantiation")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Instantiation")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "creation of roman numerals",
+		AsA = "library user",
+		IWant = "to be able to create an instance of a roman numeral from an arabic number or have direct access to peculiar numerals",
+		SoThat = "I can have an instance of a roman numeral"
+	)]
 	public class InstantiationTester
 	{
-		[Test]
+		[Fact]
 		public void Instantiation()
 		{
-			new Story("roman numerals creation")
-				.InOrderTo("convert an arabic numeral to a roman numeral")
-				.AsA("library user")
-				.IWant("to be able to create an instance of a roman numeral from an arabic number")
 
-				.WithScenario("negative number")
-					.Given(anArabicNumeral_, -20)
-					.When(theRomanNumeralIsInstantiating)
-					.Then(aRangeExceptionIsThrown)
+			this.WithTags("RomanNumeral", "Creation", "Outside range")
+				.Given(_ => _.anArabicNumeral_(-20))
+				.When(_ => _.theRomanNumeralIsInstantiating())
+				.Then(_ => _.aRangeExceptionIsThrown())
+				.BDDfy("negative number");
 
-				.WithScenario("overflowing number")
-					.Given(anArabicNumeral_, 4001)
-					.When(theRomanNumeralIsInstantiating)
-					.Then(aRangeExceptionIsThrown)
+			this.WithTags("RomanNumeral", "Creation", "Outside range")
+				.Given(_ => _.anArabicNumeral_(4001))
+				.When(_ => _.theRomanNumeralIsInstantiating())
+				.Then(_ => _.aRangeExceptionIsThrown())
+				.BDDfy("overflowing number");
 
-				.WithScenario("zero")
-					.Given(anArabicNumeral_, 0)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithValue_, 0)
+			this.WithTags("RomanNumeral", "Creation", "Within range")
+				.Given(_ => _.anArabicNumeral_(0))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithValue_(0))
+				.BDDfy("zero");
 
-				.WithScenario("single-figure")
-					.Given(anArabicNumeral_, 50)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithValue_, 50)
+			this.WithTags("RomanNumeral", "Creation", "Within range")
+				.Given(_ => _.anArabicNumeral_(50))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithValue_(50))
+				.BDDfy("single-figure");
 
-				.WithScenario("multiple-figures")
-					.Given(anArabicNumeral_, 75)
-					.When(theRomanNumeralIsInstantiated)
-					.Then(isARomanNumeralWithValue_, 75)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Creation", "Within range")
+				.Given(_ => _.anArabicNumeral_(75))
+				.When(_ => _.theRomanNumeralIsInstantiated())
+				.Then(_ => _.isARomanNumeralWithValue_(75))
+				.BDDfy("multiple-figures");
 		}
 
-		[Test]
+		[Fact]
 		public void Instances()
 		{
-			new Story("roman numerals instances")
-				.InOrderTo("have easy access to peculiar roman numerals")
-				.AsA("library user")
-				.IWant("to be able to obtain instances from the roman numeral itself")
+			this.WithTags("RomanNumeral", "Creation", "Peculiar")
+				.Given(_ => _.the_RomanNumeral(Ins.tance(() => RomanNumeral.Zero)))
+				.When(_ => _.itIsAccessed())
+				.Then(_ => _.isARomanNumeralWithValue_(0))
+				.BDDfy("zero");
 
-				.WithScenario("zero")
-					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Zero))
-					.When(itIsAccessed)
-					.Then(isARomanNumeralWithValue_, 0)
+			this.WithTags("RomanNumeral", "Creation", "Peculiar")
+				.Given(_ => _.the_RomanNumeral(Ins.tance(() => RomanNumeral.Min)))
+				.When(_ => _.itIsAccessed())
+				.Then(_ => _.isARomanNumeralWithValue_(RomanNumeral.MinValue))
+				.BDDfy("min");
 
-				.WithScenario("min")
-					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Min))
-					.When(itIsAccessed)
-					.Then(isARomanNumeralWithValue_, (int)RomanNumeral.MinValue)
-
-				.WithScenario("max")
-					.Given(the_RomanNumeral, Ins.tance(() => RomanNumeral.Max))
-					.When(itIsAccessed)
-					.Then(isARomanNumeralWithValue_, (int)RomanNumeral.MaxValue)
-
-				.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Creation", "Peculiar")
+				.Given(_ => _.the_RomanNumeral(Ins.tance(() => RomanNumeral.Max)))
+				.When(_ => _.itIsAccessed())
+				.Then(_ => _.isARomanNumeralWithValue_(RomanNumeral.MaxValue))
+				.BDDfy("max");
 		}
 
 		ushort _number;
@@ -76,7 +80,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_number = (ushort)number;
 		}
 
-		TestDelegate _instantiation;
+		Action _instantiation;
 		private void theRomanNumeralIsInstantiating()
 		{
 			_instantiation = () => new RomanNumeral(_number);
@@ -97,16 +101,15 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void aRangeExceptionIsThrown()
 		{
-			Assert.That(_instantiation, Throws.InstanceOf<NumeralOutOfRangeException>()
-				.With.Message.StringContaining(_number.ToString(CultureInfo.InvariantCulture))
-				.And.Message.StringContaining(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture))
-				.And.Message.StringContaining(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture)));
+			var ex = Assert.ThrowsAny<NumeralOutOfRangeException>(_instantiation);
+			Assert.Contains(_number.ToString(CultureInfo.InvariantCulture), ex.Message);
+			Assert.Contains(RomanNumeral.MinValue.ToString(CultureInfo.InvariantCulture), ex.Message);
+			Assert.Contains(RomanNumeral.MaxValue.ToString(CultureInfo.InvariantCulture), ex.Message);
 		}
 
 		private void isARomanNumeralWithValue_(int value)
 		{
-			Assert.That(_subject.Value, Is.EqualTo(value));
-
+			Assert.Equal(value, _subject.Value);
 		}
 	}
 }

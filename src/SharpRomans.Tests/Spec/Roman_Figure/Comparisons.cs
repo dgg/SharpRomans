@@ -1,190 +1,193 @@
-﻿using NUnit.Framework;
-using SharpRomans.Tests.Spec.Roman_Figure.Support;
-using StoryQ;
+﻿using SharpRomans.Tests.Spec.Roman_Figure.Support;
+using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[TestFixture, Category("Spec"), Category("RomanFigure"), Category("Comparisons")]
+	[Category("Spec"), Category("RomanFigure"), Category("Comparisons")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "compare roman figures",
+		AsA = "library user",
+		IWant = "use comparison operators and methods",
+		SoThat = "I can tell the relative magnitude of two roman figures"
+	)]
 	public class ComparisonsTester
 	{
-		[Test]
+		[Fact]
 		public void CompareToRomanFigure()
 		{
-			new Story("compare to roman figure")
-				.InOrderTo("say that a figure is greater or lower than another figure")
-				.AsA("library user")
-				.IWant("compare a roman figure against another roman figure")
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.V))
+				.When(_ => _.ComparedTo_(RomanFigure.I))
+				.Then(_ => _.TheResultIsGreaterThanZero())
+				.BDDfy("one figure is greater than another");
 
-			.WithScenario("one figure is greater than another")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(ComparedTo_, RomanFigure.I)
-				.Then(TheResultIsGreaterThanZero)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.I))
+				.When(_ => _.ComparedTo_(RomanFigure.X))
+				.Then(_ => _.TheResultIsLessThanZero())
+				.BDDfy("one figure is less than another");
 
-			.WithScenario("one figure is less than another")
-				.Given(TheRomanFigure_, RomanFigure.I)
-				.When(ComparedTo_, RomanFigure.X)
-				.Then(TheResultIsLessThanZero)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.X))
+				.When(_ => _.ComparedTo_(RomanFigure.X))
+				.Then(_ => _.TheResultIsZero())
+				.BDDfy("one figure is equal to another");
 
-			.WithScenario("one figure is equal to another")
-				.Given(TheRomanFigure_, RomanFigure.X)
-				.When(ComparedTo_, RomanFigure.X)
-				.Then(TheResultIsZero)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.X))
+				.When(_ => _.ComparedTo_((RomanFigure) null))
+				.Then(_ => _.TheResultIsGreaterThanZero())
+				.BDDfy("one figure is compared to NULL");
 
-			.WithScenario("one figure is compared to NULL")
-				.Given(TheRomanFigure_, RomanFigure.X)
-				.When(ComparedTo_, (RomanFigure)null)
-				.Then(TheResultIsGreaterThanZero)
-
-			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void GreaterThanRomanFigure()
 		{
-			new Story("greater than roman figure")
-				.InOrderTo("say that a figure is greater than another figure")
-				.AsA("library user")
-				.IWant("apply a greater than operator against another roman figure")
 
-			.WithScenario("one figure is greater than another")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(_IsEvaluatedAgainst_, Op.Gt, RomanFigure.I)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.V))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Gt, RomanFigure.I))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one figure is greater than another");
 
-			.WithScenario("one figure is less than another")
-				.Given(TheRomanFigure_, RomanFigure.I)
-				.When(_IsEvaluatedAgainst_, Op.Gt, RomanFigure.X)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.I))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Gt, RomanFigure.X))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is less than another");
 
-			.WithScenario("one figure is equal to another")
-				.Given(TheRomanFigure_, RomanFigure.X)
-				.When(_IsEvaluatedAgainst_, Op.Gt, RomanFigure.X)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.X))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Gt, RomanFigure.X))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is equal to another");
 
-			.WithScenario("one figure is compared to NULL")
-				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(_IsEvaluatedAgainst_, Op.Gt, (RomanFigure)null)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.N))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Gt, (RomanFigure) null))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one figure is compared to NULL");
 
-				.WithScenario("NULL is compared to a figure")
-				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(_IsEvaluatedAgainst_, Op.Gt, RomanFigure.N)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_((RomanFigure) null))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Gt, RomanFigure.N))
+				.Then(_ => _.Is_(false))
+				.BDDfy("NULL is compared to a figure");
 
-			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void GreaterThanOrEqualToRomanFigure()
 		{
-			new Story("greater than or equal to roman figure")
-				.InOrderTo("say that a figure is greater than or equal to another figure")
-				.AsA("library user")
-				.IWant("apply a greater than or equal operator against another roman figure")
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.V))
+				.When(_ => _._IsEvaluatedAgainst_(Op.GtE, RomanFigure.I))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one figure is greater than another");
 
-			.WithScenario("one figure is greater than another")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(_IsEvaluatedAgainst_, Op.GtE, RomanFigure.I)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.I))
+				.When(_ => _._IsEvaluatedAgainst_(Op.GtE, RomanFigure.X))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is less than another");
 
-			.WithScenario("one figure is less than another")
-				.Given(TheRomanFigure_, RomanFigure.I)
-				.When(_IsEvaluatedAgainst_, Op.GtE, RomanFigure.X)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.X))
+				.When(_ => _._IsEvaluatedAgainst_(Op.GtE, RomanFigure.X))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one figure is equal to another");
 
-			.WithScenario("one figure is equal to another")
-				.Given(TheRomanFigure_, RomanFigure.X)
-				.When(_IsEvaluatedAgainst_, Op.GtE, RomanFigure.X)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.N))
+				.When(_ => _._IsEvaluatedAgainst_(Op.GtE, (RomanFigure) null))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one figure is compared to NULL");
 
-			.WithScenario("one figure is compared to NULL")
-				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(_IsEvaluatedAgainst_, Op.GtE, (RomanFigure)null)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_((RomanFigure) null))
+				.When(_ => _._IsEvaluatedAgainst_(Op.GtE, RomanFigure.N))
+				.Then(_ => _.Is_(false))
+				.BDDfy("NULL is compared to a figure");
 
-				.WithScenario("NULL is compared to a figure")
-				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(_IsEvaluatedAgainst_, Op.GtE, RomanFigure.N)
-				.Then(Is_, false)
-
-			.ExecuteWithReport();
 		}
 
-		[Test]
+		[Fact]
 		public void LessThanRomanFigure()
 		{
-			new Story("less than roman figure")
-				.InOrderTo("say that a figure is less than another figure")
-				.AsA("library user")
-				.IWant("apply a less than operator against another roman figure")
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.V))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Lt, (RomanFigure.I)))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is greater than another");
 
-			.WithScenario("one figure is greater than another")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(_IsEvaluatedAgainst_, Op.Lt, (RomanFigure.I))
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.V))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Lt, RomanFigure.I))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is greater than another");
 
-			.WithScenario("one figure is greater than another")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(_IsEvaluatedAgainst_, Op.Lt, RomanFigure.I)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.I))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Lt, RomanFigure.X))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one figure is less than another")
+				;
 
-			.WithScenario("one figure is less than another")
-				.Given(TheRomanFigure_, RomanFigure.I)
-				.When(_IsEvaluatedAgainst_, Op.Lt, RomanFigure.X)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.X))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Lt, RomanFigure.X))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is equal to another");
 
-			.WithScenario("one figure is equal to another")
-				.Given(TheRomanFigure_, RomanFigure.X)
-				.When(_IsEvaluatedAgainst_, Op.Lt, RomanFigure.X)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.N))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Lt, (RomanFigure) null))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is compared to NULL");
 
-			.WithScenario("one figure is compared to NULL")
-				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(_IsEvaluatedAgainst_, Op.Lt, (RomanFigure)null)
-				.Then(Is_, false)
-
-				.WithScenario("NULL is compared to a figure")
-				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(_IsEvaluatedAgainst_, Op.Lt, RomanFigure.N)
-				.Then(Is_, true)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_((RomanFigure) null))
+				.When(_ => _._IsEvaluatedAgainst_(Op.Lt, RomanFigure.N))
+				.Then(_ => _.Is_(true))
+				.BDDfy("NULL is compared to a figure");
 		}
 
-		[Test]
+		[Fact]
 		public void LessThanOrEqualToRomanFigure()
 		{
-			new Story("less than or equal to roman figure")
-				.InOrderTo("say that a figure is less than or equal to another figure")
-				.AsA("library user")
-				.IWant("apply a less than or equal operator against another roman figure")
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.V))
+				.When(_ => _._IsEvaluatedAgainst_(Op.LtE, RomanFigure.I))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is greater than another");
 
-			.WithScenario("one figure is greater than another")
-				.Given(TheRomanFigure_, RomanFigure.V)
-				.When(_IsEvaluatedAgainst_, Op.LtE, RomanFigure.I)
-				.Then(Is_, false)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.I))
+				.When(_ => _._IsEvaluatedAgainst_(Op.LtE, RomanFigure.X))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one figure is less than another");
 
-			.WithScenario("one figure is less than another")
-				.Given(TheRomanFigure_, RomanFigure.I)
-				.When(_IsEvaluatedAgainst_, Op.LtE, RomanFigure.X)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.X))
+				.When(_ => _._IsEvaluatedAgainst_(Op.LtE, RomanFigure.X))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one figure is equal to another");
 
-			.WithScenario("one figure is equal to another")
-				.Given(TheRomanFigure_, RomanFigure.X)
-				.When(_IsEvaluatedAgainst_, Op.LtE, RomanFigure.X)
-				.Then(Is_, true)
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_(RomanFigure.N))
+				.When(_ => _._IsEvaluatedAgainst_(Op.LtE, (RomanFigure) null))
+				.Then(_ => _.Is_(false))
+				.BDDfy("one figure is compared to NULL");
 
-			.WithScenario("one figure is compared to NULL")
-				.Given(TheRomanFigure_, RomanFigure.N)
-				.When(_IsEvaluatedAgainst_, Op.LtE, (RomanFigure)null)
-				.Then(Is_, false)
-
-				.WithScenario("NULL is compared to a figure")
-				.Given(TheRomanFigure_, (RomanFigure)null)
-				.When(_IsEvaluatedAgainst_, Op.LtE, RomanFigure.N)
-				.Then(Is_, true)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanFigure", "Comparisons")
+				.Given(_ => _.TheRomanFigure_((RomanFigure) null))
+				.When(_ => _._IsEvaluatedAgainst_(Op.LtE, RomanFigure.N))
+				.Then(_ => _.Is_(true))
+				.BDDfy("NULL is compared to a figure");
 		}
 
 
@@ -208,22 +211,22 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		
 		private void TheResultIsZero()
 		{
-			Assert.That(_comparison, Is.EqualTo(0));
+			Assert.Equal(0, _comparison);
 		}
 
 		private void TheResultIsLessThanZero()
 		{
-			Assert.That(_comparison, Is.LessThan(0));
+			Assert.True(_comparison < 0);
 		}
 
 		private void TheResultIsGreaterThanZero()
 		{
-			Assert.That(_comparison, Is.GreaterThan(0));
+			Assert.True(_comparison > 0);
 		}
 
 		private void Is_(bool value)
 		{
-			Assert.That(_operation, Is.EqualTo(value));
+			Assert.Equal(value, _operation);
 		}
 	}
 

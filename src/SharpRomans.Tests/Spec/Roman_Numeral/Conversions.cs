@@ -1,442 +1,389 @@
 ﻿using System;
-using NUnit.Framework;
 using SharpRomans.Tests.Spec.Roman_Numeral.Support;
-using StoryQ;
+using SharpRomans.Tests.Support;
+using TestStack.BDDfy;
+using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[TestFixture, Category("Spec"), Category("RomanNumeral"), Category("Conversions")]
+	[Category("Spec"), Category("RomanNumeral"), Category("Conversions")]
+	[Collection("bddfy")]
+	[Story(
+		Title = "roman numeral equality",
+		AsA = "library user",
+		IWant = "to use conversion methods",
+		SoThat = "I can convert a roman numeral to clr types whenever possible"
+	)]
 	public class ConversionsTester
 	{
-		[Test]
+		[Fact]
 		public void ConvertToBoolean()
 		{
-			new Story("convert to Boolean")
-				.InOrderTo("convert a roman numeral to boolean whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "bool")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToBoolean(f))))
+				.Then(_ => _.Is_(false))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToBoolean(f)))
-				.Then(Is_, false)
+			this.WithTags("RomanNumeral", "Conversions", "bool")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(1)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToBoolean(f))))
+				.Then(_ => _.Is_(true))
+				.BDDfy("one");
 
-			.WithScenario("one")
-				.Given(TheRomanNumeral_, new RomanNumeral(1))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToBoolean(f)))
-				.Then(Is_, true)
+			this.WithTags("RomanNumeral", "Conversions", "bool")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(51)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToBoolean(f))))
+				.Then(_ => _.Is_(true))
+				.BDDfy("more than one");
 
-			.WithScenario("more than one")
-				.Given(TheRomanNumeral_, new RomanNumeral(51))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToBoolean(f)))
-				.Then(Is_, true)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToBoolean(f)))
-				.Then(Is_, true)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "bool")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToBoolean(f))))
+				.Then(_ => _.Is_(true))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToChar()
 		{
-			new Story("convert to Char")
-				.InOrderTo("convert a roman numeral to a char whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "char")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToChar(f))))
+				.Then(_ => _.Is_('N'))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
-				.Then(Is_, 'N')
+			this.WithTags("RomanNumeral", "Conversions", "char")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(500)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToChar(f))))
+				.Then(_ => _.Is_('D'))
+				.BDDfy("single figure");
 
-			.WithScenario("single figure")
-				.Given(TheRomanNumeral_, new RomanNumeral(500))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
-				.Then(Is_, 'D')
-
-			.WithScenario("multiple figure")
-				.Given(TheRomanNumeral_, new RomanNumeral(11))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToChar(f)))
-				.Then(ThrowsException)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "char")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(11)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToChar(f))))
+				.Then(_ => _.ThrowsException())
+				.BDDfy("multiple figure");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToSByte()
 		{
-			new Story("convert to SByte")
-				.InOrderTo("convert a roman numeral to a signed byte whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "sbyte")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToSByte(f))))
+				.Then(_ => _.Is_((sbyte)0))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "sbyte")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(101)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToSByte(f))))
+				.Then(_ => _.Is_((sbyte)101))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(101))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
-				.Then(Is_, 101)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToSByte(f)))
-				.Then(Overflows)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "sbyte")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToSByte(f))))
+				.Then(_ => _.Overflows())
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToByte()
 		{
-			new Story("convert to Byte")
-				.InOrderTo("convert a roman numeral to a byte whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "byte")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToByte(f))))
+				.Then(_ => _.Is_((byte)0))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "byte")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToByte(f))))
+				.Then(_ => _.Is_((byte)100))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToByte(f)))
-				.Then(Overflows)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "byte")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToByte(f))))
+				.Then(_ => _.Overflows())
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToShort()
 		{
-			new Story("convert to short")
-				.InOrderTo("convert a roman numeral to a short whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "short")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt16(f))))
+				.Then(_ => _.Is_((short)0))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "short")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt16(f))))
+				.Then(_ => _.Is_((short)100))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt16(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "short")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt16(f))))
+				.Then(_ => _.Is_((short)3999))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToUShort()
 		{
-			new Story("convert to UShort")
-				.InOrderTo("convert a roman numeral to an unsigned short whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "ushort")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt16(f))))
+				.Then(_ => _.Is_((ushort)0))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "ushort")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt16(f))))
+				.Then(_ => _.Is_((ushort)100))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt16(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "ushort")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt16(f))))
+				.Then(_ => _.Is_((ushort)3999))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToInt()
 		{
-			new Story("convert to Int")
-				.InOrderTo("convert a roman numeral to an int whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "int")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt32(f))))
+				.Then(_ => _.Is_(0))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt32(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "int")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt32(f))))
+				.Then(_ => _.Is_(100))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt32(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt32(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "int")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt32(f))))
+				.Then(_ => _.Is_(3999))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToUInt()
 		{
-			new Story("convert to UInt")
-				.InOrderTo("convert a roman numeral to an unsigned int whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "uint")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt32(f))))
+				.Then(_ => _.Is_(0u))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "uint")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt32(f))))
+				.Then(_ => _.Is_(100u))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt32(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "uint")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt32(f))))
+				.Then(_ => _.Is_(3999u))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToLong()
 		{
-			new Story("convert to Long")
-				.InOrderTo("convert a roman numeral to a long whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "long")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt64(f))))
+				.Then(_ => _.Is_(0L))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "long")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt64(f))))
+				.Then(_ => _.Is_(100L))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToInt64(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "long")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToInt64(f))))
+				.Then(_ => _.Is_(3999L))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToULong()
 		{
-			new Story("convert to ULong")
-				.InOrderTo("convert a roman numeral to an unsigned long whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "ulong")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt64(f))))
+				.Then(_ => _.Is_(0uL))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "ulong")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt64(f))))
+				.Then(_ => _.Is_(100uL))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToUInt64(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "ulong")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToUInt64(f))))
+				.Then(_ => _.Is_(3999uL))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToFloat()
 		{
-			new Story("convert to Float")
-				.InOrderTo("convert a roman numeral to a float whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "float")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToSingle(f))))
+				.Then(_ => _.Is_(0f))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "float")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToSingle(f))))
+				.Then(_ => _.Is_(100f))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToSingle(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "float")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToSingle(f))))
+				.Then(_ => _.Is_(3999f))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToDouble()
 		{
-			new Story("convert to Double")
-				.InOrderTo("convert a roman numeral to a double whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "double")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDouble(f))))
+				.Then(_ => _.Is_(0d))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "double")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDouble(f))))
+				.Then(_ => _.Is_(100d))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDouble(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "double")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDouble(f))))
+				.Then(_ => _.Is_(3999d))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToDecimal()
 		{
-			new Story("convert to Decimal")
-				.InOrderTo("convert a roman numeral to a decimal whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "decimal")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDecimal(f))))
+				.Then(_ => _.Is_(0m))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 0)
+			this.WithTags("RomanNumeral", "Conversions", "decimal")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDecimal(f))))
+				.Then(_ => _.Is_(100m))
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 100)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDecimal(f)))
-				.Then(Is_, 3999)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "decimal")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDecimal(f))))
+				.Then(_ => _.Is_(3999m))
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToDateTime()
 		{
-			new Story("convert to DateTime")
-				.InOrderTo("convert a roman numeral to date-time whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "datetime")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDateTime(f))))
+				.Then(_ => _.CannotCast())
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
-				.Then(CannotCast)
+			this.WithTags("RomanNumeral", "Conversions", "datetime")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(100)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDateTime(f))))
+				.Then(_ => _.CannotCast())
+				.BDDfy("less than max");
 
-			.WithScenario("less than max")
-				.Given(TheRomanNumeral_, new RomanNumeral(100))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
-				.Then(CannotCast)
-
-			.WithScenario("max")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToDateTime(f)))
-				.Then(CannotCast)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "datetime")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToDateTime(f))))
+				.Then(_ => _.CannotCast())
+				.BDDfy("max");
 		}
 
-		[Test]
+		[Fact]
 		public void ConvertToString()
 		{
-			new Story("convert to Char")
-				.InOrderTo("convert a roman figure to a string")
-				.AsA("library user")
-				.IWant("Convert() to a roman figure")
+			this.WithTags("RomanNumeral", "Conversions", "string")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Zero))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToString(f))))
+				.Then(_ => _.Is_("N"))
+				.BDDfy("zero");
 
-			.WithScenario("zero")
-				.Given(TheRomanNumeral_, RomanNumeral.Zero)
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
-				.Then(Is_, "N")
+			this.WithTags("RomanNumeral", "Conversions", "string")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(500)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToString(f))))
+				.Then(_ => _.Is_("D"))
+				.BDDfy("single figure");
 
-			.WithScenario("single figure")
-				.Given(TheRomanNumeral_, new RomanNumeral(500))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
-				.Then(Is_, "D")
-
-			.WithScenario("multiple figure")
-				.Given(TheRomanNumeral_, new RomanNumeral(11))
-				.When(ConvertedTo_, Conv.ert(f => Convert.ToString(f)))
-				.Then(Is_, "XI")
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "string")
+				.Given(_ => _.TheRomanNumeral_(new RomanNumeral(11)))
+				.When(_ => _.ConvertedTo_(Conv.ert(f => Convert.ToString(f))))
+				.Then(_ => _.Is_("XI"))
+				.BDDfy("multiple figure");
 		}
 
-		[Test]
+		[Fact]
 		public void ChangeType()
 		{
-			new Story("change type")
-				.InOrderTo("convert a roman numeral to a clr type whenever possible")
-				.AsA("library user")
-				.IWant("Convert() to a roman numeral")
+			this.WithTags("RomanNumeral", "Conversions", "ChangeType")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(typeof(long)))
+				.Then(_ => _.Is_(3999L))
+				.BDDfy("supported type");
 
-			.WithScenario("supported type")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, typeof(long))
-				.Then(Is_, 3999)
+			this.WithTags("RomanNumeral", "Conversions", "ChangeType")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(typeof(byte)))
+				.Then(_ => _.Overflows())
+				.BDDfy("overflowing type");
 
-			.WithScenario("overflowing type")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, typeof(byte))
-				.Then(Overflows)
+			this.WithTags("RomanNumeral", "Conversions", "ChangeType")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Min))
+				.When(_ => _.ConvertedTo_(typeof(TimeSpan)))
+				.Then(_ => _.CannotCast())
+				.BDDfy("unsupported type");
 
-			.WithScenario("unsupported type")
-				.Given(TheRomanNumeral_, RomanNumeral.Min)
-				.When(ConvertedTo_, typeof(TimeSpan))
-				.Then(CannotCast)
+			this.WithTags("RomanNumeral", "Conversions", "ChangeType")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Min))
+				.When(_ => _.ConvertedTo_(typeof(Exception)))
+				.Then(_ => _.CannotCast()) 
+				.BDDfy("unsupported type");
 
-			.WithScenario("unsupported type")
-				.Given(TheRomanNumeral_, RomanNumeral.Min)
-				.When(ConvertedTo_, typeof(Exception))
-				.Then(CannotCast)
-
-			.WithScenario("itself")
-				.Given(TheRomanNumeral_, RomanNumeral.Max)
-				.When(ConvertedTo_, typeof(RomanNumeral))
-				.Then(Is_, RomanNumeral.Max)
-
-			.ExecuteWithReport();
+			this.WithTags("RomanNumeral", "Conversions", "ChangeType")
+				.Given(_ => _.TheRomanNumeral_(RomanNumeral.Max))
+				.When(_ => _.ConvertedTo_(typeof(RomanNumeral)))
+				.Then(_ => _.Is_(RomanNumeral.Max))
+				.BDDfy("itself");
 		}
 
 		RomanNumeral _subject;
@@ -458,26 +405,26 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 
 		private void Is_<T>(T value)
 		{
-			Assert.That(_conversion(), Is.EqualTo(value));
+			Assert.Equal(value, _conversion());
 		}
 
 		private void ThrowsException()
 		{
-			TestDelegate conversion = () => _conversion();
-			Assert.That(conversion, Throws.InstanceOf<FormatException>());
+			Action conversion = () => _conversion();
+			Assert.ThrowsAny<FormatException>(conversion);
 		}
 
 		private void Overflows()
 		{
-			TestDelegate conversion = () => _conversion();
-			Assert.That(conversion, Throws.InstanceOf<OverflowException>());
+			Action conversion = () => _conversion();
+			Assert.ThrowsAny<OverflowException>(conversion);
 		}
 
 		private void CannotCast()
 		{
-			TestDelegate conversion = () => _conversion();
-			Assert.That(conversion, Throws.InstanceOf<InvalidCastException>()
-				.With.Message.StringContaining(typeof(RomanNumeral).Name));
+			Action conversion = () => _conversion();
+			var ex = Assert.ThrowsAny<InvalidCastException>(conversion);
+			Assert.Contains(typeof(RomanNumeral).Name, ex.Message);
 		}
 	}
 }

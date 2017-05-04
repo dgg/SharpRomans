@@ -1,18 +1,19 @@
 [CmdletBinding()]
 Param(
-	[string]$task,
+	[string]$Task,
 	[ValidateSet('Debug', 'Release')]
-	[string]$configuration = 'Release'
+	[string]$Configuration = 'Release'
 )
 
 function Main () {
 	$script_directory = Split-Path -parent $PSCommandPath   
 	$base_dir  = resolve-path $script_directory
+	$tools_dir = Join-Path $base_dir tools
 
-	$psake_dir = Get-ChildItem $base_dir\tools\* -Directory | where {$_.Name.StartsWith('psake')}
+	$tool_dir = Get-ChildItem (Join-Path $tools_dir *) -Directory | where {$_.Name.StartsWith('Invoke-Build')}
 	# get first directory
-	$psake_dir = $psake_dir[0]
+	$tool_dir = $tool_dir[0]
 
-	& $psake_dir\tools\psake.ps1 $base_dir\SharpRomans.build.ps1 $task -properties @{"configuration"=$configuration}
+	& $tool_dir\tools\Invoke-Build.ps1 $Task -Configuration $configuration
 }
 Main
