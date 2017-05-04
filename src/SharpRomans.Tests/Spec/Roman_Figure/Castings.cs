@@ -5,7 +5,7 @@ using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[Category("Spec"), Category("RomanFigure"), Category("Castings")]
+	[Category("Spec", Subject = "RomanFigure", Feature = "Castings")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "explicit casting",
@@ -19,19 +19,19 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void CastToChar()
 		{
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_(RomanFigure.N))
+				.Given(_ => _.theRomanFigure(RomanFigure.N))
 				.When(_ => _.isCastedToChar())
-				.Then(_ => _.theCharacterIs_('N'))
+				.Then(_ => _.theCharacterIs('N'))
 				.BDDfy("character of a figure");
 
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_(RomanFigure.X))
+				.Given(_ => _.theRomanFigure(RomanFigure.X))
 				.When(_ => _.isCastedToChar())
-				.Then(_ => _.theCharacterIs_('X'))
+				.Then(_ => _.theCharacterIs('X'))
 				.BDDfy("character of a figure");
 
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_((RomanFigure)null))
+				.Given(_ => _.theRomanFigure(null))
 					.When(_ => _.isCastedToChar())
 					.Then(_ => _.throwsArgumentException())
 				.BDDfy("character of null");
@@ -41,19 +41,19 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void CastToNumber()
 		{
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_(RomanFigure.N))
+				.Given(_ => _.theRomanFigure(RomanFigure.N))
 				.When(_ => _.isCastedToNumber())
-				.Then(_ => _.theNumberIs_(0))
+				.Then(_ => _.theNumberIs(0))
 				.BDDfy("number of a figure");
 
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_(RomanFigure.X))
+				.Given(_ => _.theRomanFigure(RomanFigure.X))
 				.When(_ => _.isCastedToNumber())
-				.Then(_ => _.theNumberIs_(10))
+				.Then(_ => _.theNumberIs(10))
 				.BDDfy("number of a figure");
 
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_((RomanFigure)null))
+				.Given(_ => _.theRomanFigure(null))
 				.When(_ => _.isCastedToNumber())
 				.Then(_ => _.throwsArgumentException())
 				.BDDfy("number of null");
@@ -63,26 +63,26 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void CastToString()
 		{
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_(RomanFigure.N))
+				.Given(_ => _.theRomanFigure(RomanFigure.N))
 				.When(_ => _.isCastedToString())
-				.Then(_ => _.theStringIs_("N"))
+				.Then(_ => _.theStringIs("N"))
 				.BDDfy("string of a figure");
 
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_(RomanFigure.X))
+				.Given(_ => _.theRomanFigure(RomanFigure.X))
 				.When(_ => _.isCastedToString())
-				.Then(_ => _.theStringIs_("X"))
+				.Then(_ => _.theStringIs("X"))
 				.BDDfy("string of a figure");
 
 			this.WithTags("RomanFigure", "Castings")
-				.Given(_ => _.aRomanFigure_((RomanFigure)null))
+				.Given(_ => _.theRomanFigure(null))
 				.When(_ => _.isCastedToString())
-				.Then(_ => _.theStringIs_((string)null))
+				.Then(_ => _.theStringIs(null))
 				.BDDfy("number of null");
 		}
 
 		RomanFigure _subject;
-		private void aRomanFigure_(RomanFigure figure)
+		private void theRomanFigure(RomanFigure figure)
 		{
 			_subject = figure;
 		}
@@ -105,17 +105,17 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			_string = () => (string)_subject;
 		}
 
-		private void theCharacterIs_(char character)
+		private void theCharacterIs(char character)
 		{
 			Assert.Equal(character, _character());
 		}
 
-		private void theNumberIs_(int number)
+		private void theNumberIs(int number)
 		{
 			Assert.Equal(number, _number());
 		}
 
-		private void theStringIs_(string numeral)
+		private void theStringIs(string numeral)
 		{
 			Assert.Equal(numeral, _string());
 		}
