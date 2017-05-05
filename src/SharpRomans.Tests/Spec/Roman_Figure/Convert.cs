@@ -18,21 +18,21 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		[Fact]
 		public void ConvertNumber()
 		{
-			this.WithTags("RomanFigure", "Equality")
+			this.WithTags("RomanFigure", "Convert")
 				.Given(_ => _.theNumber(1))
 				.When(_ => _.theNumberIsConverted())
 				.Then(_ => _.theFigureIs(RomanFigure.I))
 				.BDDfy("convert a defined figure");
 
-			this.WithTags("RomanFigure", "Equality")
+			this.WithTags("RomanFigure", "Convert")
 				.Given(_ => _.theNumber(3))
 				.When(_ => _.theNumberIsConverted())
 				.Then(_ => _.throwsArgumentException())
 				.BDDfy("convert an undefined figure");
 
-			this.WithTags("RomanFigure", "Equality")
+			this.WithTags("RomanFigure", "Convert")
 				.Given(_ => _.theNumber(10))
-				.When(_ => _.theNumber_IsConvertedAgain(10))
+				.When(_ => _.theNumber_IsConvertedAgain(10), "the number {0} is converted again")
 				.Then(_ => _.isTheSameFigure())
 				.BDDfy("figures are unique");
 		}
