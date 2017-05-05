@@ -1,10 +1,11 @@
-﻿using SharpRomans.Tests.Support;
+﻿using System.Collections.Generic;
+using SharpRomans.Tests.Support;
 using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[Category("Spec"), Category("RomanFigure"), Category("Literal")]
+	[Category("Spec", Subject = "RomanFigure", Feature = "Literal")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "literals",
@@ -14,49 +15,25 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 	)]
 	public class LiteralTester
 	{
-		[Fact]
-		public void Literals()
+		public static IEnumerable<object[]> FigureLiterals = new []
+		{
+			new object[]{RomanFigure.I, 'I'}, 
+			new object[]{RomanFigure.V, 'V'}, 
+			new object[]{RomanFigure.X, 'X'}, 
+			new object[]{RomanFigure.L, 'L'}, 
+			new object[]{RomanFigure.C, 'C'}, 
+			new object[]{RomanFigure.D, 'D'}, 
+			new object[]{RomanFigure.M, 'M'}, 
+		};
+
+		[Theory]
+		[MemberData(nameof(FigureLiterals))]
+		public void Literals(RomanFigure figure, char literal)
 		{
 			this.WithTags("RomanFigure", "Literal")
-				.Given(_ => _.theRomanFigure(RomanFigure.I))
+				.Given(_ => _.theRomanFigure(figure))
 				.When(_ => _.theLiteralIsObtained())
-				.Then(_ => _.theLiteralIs('I'))
-				.BDDfy("character of a figure");
-
-			this.WithTags("RomanFigure", "Literal")
-				.Given(_ => _.theRomanFigure(RomanFigure.V))
-				.When(_ => _.theLiteralIsObtained())
-				.Then(_ => _.theLiteralIs('V'))
-				.BDDfy("character of a figure");
-
-			this.WithTags("RomanFigure", "Literal")
-				.Given(_ => _.theRomanFigure(RomanFigure.X))
-				.When(_ => _.theLiteralIsObtained())
-				.Then(_ => _.theLiteralIs('X'))
-				.BDDfy("character of a figure");
-
-			this.WithTags("RomanFigure", "Literal")
-				.Given(_ => _.theRomanFigure(RomanFigure.L))
-				.When(_ => _.theLiteralIsObtained())
-				.Then(_ => _.theLiteralIs('L'))
-				.BDDfy("character of a figure");
-
-			this.WithTags("RomanFigure", "Literal")
-				.Given(_ => _.theRomanFigure(RomanFigure.C))
-				.When(_ => _.theLiteralIsObtained())
-				.Then(_ => _.theLiteralIs('C'))
-				.BDDfy("character of a figure");
-
-			this.WithTags("RomanFigure", "Literal")
-				.Given(_ => _.theRomanFigure(RomanFigure.D))
-				.When(_ => _.theLiteralIsObtained())
-				.Then(_ => _.theLiteralIs('D'))
-				.BDDfy("character of a figure");
-
-			this.WithTags("RomanFigure", "Literal")
-				.Given(_ => _.theRomanFigure(RomanFigure.M))
-				.When(_ => _.theLiteralIsObtained())
-				.Then(_ => _.theLiteralIs('M'))
+				.Then(_ => _.theLiteralIs(literal))
 				.BDDfy("character of a figure");
 		}
 
