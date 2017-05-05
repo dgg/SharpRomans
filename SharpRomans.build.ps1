@@ -5,7 +5,7 @@ param(
 $release_dir = Join-Path $BuildRoot release
 $solution_file = Join-Path $BuildRoot SharpRomans.sln
 $target_monikers = @{
-	netstandard = 'netstandard1.3'
+	netstandard = 'netstandard1.1'
 	net = 'net46'
 }
 
