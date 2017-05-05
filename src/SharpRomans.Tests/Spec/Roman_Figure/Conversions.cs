@@ -10,7 +10,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 	[Category("Spec", Subject = "RomanFigure", Feature = "Conversions")]
 	[Collection("bddfy")]
 	[Story(
-		Title = "conversions",
+		Title = "roman figure conversions",
 		AsA = "library user",
 		IWant = "to get rid of little used code",
 		SoThat = "I can reach as many platforms as possible"
@@ -79,7 +79,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 				.Given(_ => _.theMostConvertibleRomanFigure(RomanFigure.I))
 				.When(_ => _.convertedTo(typeof(RomanFigure)))
 				.Then(_ => _.@is(RomanFigure.I))
-				.BDDfy("Convert.ToString()");
+				.BDDfy("ChangeType(RomanLiteral)");
 		}
 
 		private RomanFigure _subject;
@@ -102,11 +102,6 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		private void @is<T>(T value)
 		{
 			Assert.Equal(value, _conversion());
-		}
-
-		private void overflows()
-		{
-			Assert.ThrowsAny<OverflowException>(_conversion);
 		}
 
 		private void cannotConvert()

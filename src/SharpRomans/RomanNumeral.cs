@@ -7,7 +7,7 @@ using SharpRomans.Support;
 
 namespace SharpRomans
 {
-	public sealed class RomanNumeral : IComparable<RomanNumeral>, IEquatable<RomanNumeral>, IConvertible, IValuable
+	public sealed class RomanNumeral : IComparable<RomanNumeral>, IEquatable<RomanNumeral>, IValuable
 	{
 		public static readonly ushort MinValue = default(ushort);
 		public static readonly ushort MaxValue = 3999;
@@ -115,102 +115,6 @@ namespace SharpRomans
 		public static bool operator !=(RomanNumeral left, RomanNumeral right)
 		{
 			return !Equals(left, right);
-		}
-
-		#endregion
-
-		#region IConvertible
-
-		public TypeCode GetTypeCode()
-		{
-			throw new NotImplementedException();
-		}
-
-		public bool ToBoolean(IFormatProvider provider)
-		{
-			return Convert.ToBoolean(Value, provider);
-		}
-
-		public char ToChar(IFormatProvider provider)
-		{
-			return Convert.ToChar(_figures, provider);
-		}
-
-		public sbyte ToSByte(IFormatProvider provider)
-		{
-			return Convert.ToSByte(Value, provider);
-		}
-
-		public byte ToByte(IFormatProvider provider)
-		{
-			return Convert.ToByte(Value, provider);
-		}
-
-		public short ToInt16(IFormatProvider provider)
-		{
-			return Convert.ToInt16(Value, provider);
-		}
-
-		public ushort ToUInt16(IFormatProvider provider)
-		{
-			return Convert.ToUInt16(Value, provider);
-		}
-
-		public int ToInt32(IFormatProvider provider)
-		{
-			return Convert.ToInt32(Value, provider);
-		}
-
-		public uint ToUInt32(IFormatProvider provider)
-		{
-			return Convert.ToUInt32(Value, provider);
-		}
-
-		public long ToInt64(IFormatProvider provider)
-		{
-			return Convert.ToInt64(Value, provider);
-		}
-
-		public ulong ToUInt64(IFormatProvider provider)
-		{
-			return Convert.ToUInt64(Value, provider);
-		}
-
-		public float ToSingle(IFormatProvider provider)
-		{
-			return Convert.ToSingle(Value, provider);
-		}
-
-		public double ToDouble(IFormatProvider provider)
-		{
-			return Convert.ToDouble(Value, provider);
-		}
-
-		public decimal ToDecimal(IFormatProvider provider)
-		{
-			return Convert.ToDecimal(Value, provider);
-		}
-
-		DateTime IConvertible.ToDateTime(IFormatProvider provider)
-		{
-			throw invalidCast(typeof(DateTime));
-		}
-
-		private InvalidCastException invalidCast(Type other)
-		{
-			return new InvalidCastException(string.Format("Invalid cast from '{0}' to '{1}'", typeof(RomanNumeral).Name, other.Name));
-		}
-
-		public string ToString(IFormatProvider provider)
-		{
-			return Convert.ToString(_figures, provider);
-		}
-
-		public object ToType(Type conversionType, IFormatProvider provider)
-		{
-			// only called when another CLR type is passed. So unless it is itself (weird) it cannot be converted
-			if (conversionType == typeof(RomanNumeral)) return this;
-			throw invalidCast(conversionType);
 		}
 
 		#endregion
