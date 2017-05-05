@@ -5,7 +5,7 @@ using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[Category("Spec"), Category("RomanFigure"), Category("Parse")]
+	[Category("Spec", Subject = "RomanFigure", Feature = "Parse")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "parse",
@@ -13,7 +13,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		IWant = "to be able to parse text",
 		SoThat = "I can get a roman figure instance"
 	)]
-	public class Parse
+	public class ParseTester
 	{
 		[Fact]
 		public void ParseString()
@@ -38,7 +38,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 			this.WithTags("RomanFigure", "Parse", "string")
 				.Given(_ => _.theString("X"))
-				.When(_ => _.theString_IsParsedAgain("X"))
+				.When(_ => _.theString_IsParsedAgain("X"), "the string {0} is parsed again")
 				.Then(_ => _.isTheSameFigure())
 				.BDDfy("figures are unique");
 		}
@@ -60,7 +60,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 
 			this.WithTags("RomanFigure", "Parse", "char")
 				.Given(_ => _.theCharacter('X'))
-				.When(_ => _.theChar_IsParsedAgain('X'))
+				.When(_ => _.theChar_IsParsedAgain('X'), "the char {0} is parsed again")
 				.Then(_ => _.isTheSameFigure())
 				.BDDfy("figures are unique");
 		}
