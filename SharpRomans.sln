@@ -1,16 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpRomans.Tests", "src\SharpRomans.Tests\SharpRomans.Tests.csproj", "{5404BF41-F6A4-4E24-959C-5D0C34AF770F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{17765643-9606-44C2-B338-369C55AED6B0}"
 	ProjectSection(SolutionItems) = preProject
-		Build-Stories.ps1 = Build-Stories.ps1
 		build.ps1 = build.ps1
 		SharpRomans.build.ps1 = SharpRomans.build.ps1
-		StoryQ-md.xslt = StoryQ-md.xslt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpRomans", "src\SharpRomans\SharpRomans.csproj", "{6D6A2DF9-D389-4FAD-A937-748D729F3C0A}"
