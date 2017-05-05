@@ -5,7 +5,7 @@ using TestStack.BDDfy;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[Category("Spec"), Category("RomanFigure"), Category("TryParse")]
+	[Category("Spec", Subject = "RomanFigure", Feature = "TryParse")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "try parse",
@@ -13,7 +13,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		IWant = "to be able to try to parse text",
 		SoThat = "I can get a figure instance"
 	)]
-	public class TryParse
+	public class TryParseTester
 	{
 		[Fact]
 		public void TryParseString()
@@ -35,7 +35,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			this.WithTags("RomanFigure", "TryParse", "string")
 				.Given(_ => _.theString("X"))
 				.When(_ => _.theStringIsParsed())
-				.And(_ => _.theString_IsParsedAgain("X"))
+				.And(_ => _.theString_IsParsedAgain("X"), "the string {0} is parsed again")
 				.Then(_ => _.isTheSameFigure())
 				.BDDfy("figures are unique");
 		}
@@ -60,7 +60,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			this.WithTags("RomanFigure", "TryParse", "char")
 				.Given(_ => _.theCharacter('X'))
 				.When(_ => _.theCharIsParsed())
-				.And(_ => _.theChar_IsParsedAgain('X'))
+				.And(_ => _.theChar_IsParsedAgain('X'), "the char {0} is parsed again")
 				.Then(_ => _.isTheSameFigure())
 				.BDDfy("figures are unique");
 		}
