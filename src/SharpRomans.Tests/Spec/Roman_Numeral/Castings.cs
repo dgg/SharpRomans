@@ -5,7 +5,7 @@ using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[Category("Spec"), Category("RomanNumeral"), Category("Castings")]
+	[Category("Spec", Subject = "RomanNumeral", Feature = "Castings")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "explicit casting",
@@ -19,19 +19,19 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		public void CastToNumber()
 		{
 			this.WithTags("RomanNumeral", "Castings", "to number")
-				.Given(_ => _.aRomanNumeral_(RomanNumeral.Zero))
+				.Given(_ => _.theRomanNumeral(RomanNumeral.Zero))
 				.When(_ => _.isCastedToNumber())
-				.Then(_ => _.theNumberIs_(0))
+				.Then(_ => _.theNumberIs(0))
 				.BDDfy("number of a numeral");
 
 			this.WithTags("RomanNumeral", "Castings", "to number")
-				.Given(_ => _.aRomanNumeral_(new RomanNumeral(11)))
+				.Given(_ => _.theRomanNumeral(new RomanNumeral(11)))
 				.When(_ => _.isCastedToNumber())
-				.Then(_ => _.theNumberIs_(11))
+				.Then(_ => _.theNumberIs(11))
 				.BDDfy("number of a numeral");
 
 			this.WithTags("RomanNumeral", "Castings", "to number")
-				.Given(_ => _.aRomanNumeral_((RomanNumeral) null))
+				.Given(_ => _.theRomanNumeral(null))
 				.When(_ => _.isCastedToNumber())
 				.Then(_ => _.throwsArgumentException())
 				.BDDfy("number of null");
@@ -41,26 +41,26 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		public void CastToString()
 		{
 			this.WithTags("RomanNumeral", "Castings", "to string")
-				.Given(_ => _.aRomanNumeral_(RomanNumeral.Zero))
+				.Given(_ => _.theRomanNumeral(RomanNumeral.Zero))
 				.When(_ => _.isCastedToString())
 				.Then(_ => _.theStringIs_("N"))
 				.BDDfy("string of a numeral");
 
 			this.WithTags("RomanNumeral", "Castings", "to string")
-				.Given(_ => _.aRomanNumeral_(new RomanNumeral(11)))
+				.Given(_ => _.theRomanNumeral(new RomanNumeral(11)))
 				.When(_ => _.isCastedToString())
 				.Then(_ => _.theStringIs_("XI"))
 				.BDDfy("string of a numeral");
 
 			this.WithTags("RomanNumeral", "Castings", "to string")
-				.Given(_ => _.aRomanNumeral_((RomanNumeral) null))
+				.Given(_ => _.theRomanNumeral(null))
 				.When(_ => _.isCastedToString())
-				.Then(_ => _.theStringIs_((string) null))
+				.Then(_ => _.theStringIs_(null))
 				.BDDfy("string of null");
 		}
 
 		RomanNumeral _subject;
-		private void aRomanNumeral_(RomanNumeral numeral)
+		private void theRomanNumeral(RomanNumeral numeral)
 		{
 			_subject = numeral;
 		}
@@ -77,7 +77,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_string = () => (string)_subject;
 		}
 
-		private void theNumberIs_(int number)
+		private void theNumberIs(int number)
 		{
 			Assert.Equal(number, _number());
 		}
