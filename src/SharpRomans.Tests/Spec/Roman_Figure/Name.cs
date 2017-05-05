@@ -1,10 +1,12 @@
-﻿using SharpRomans.Tests.Support;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SharpRomans.Tests.Support;
 using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[Category("Spec"), Category("RomanFigure"), Category("Name")]
+	[Category("Spec", Subject = "RomanFigure", Feature = "Name")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "names",
@@ -14,60 +16,16 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 	)]
 	public class NameTester
 	{
-		[Fact]
-		public void Name()
+		public static readonly IEnumerable<object[]> RomanFigures = RomanFigure.All
+			.Select(f => new object[]{f});
+
+		[Theory]
+		[MemberData(nameof(RomanFigures))]
+		public void Name(RomanFigure figure)
 		{
 			this.WithTags("RomanFigure", "Name")
-				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.N))
-				.When(_=>_.theNameIsObtained())
-				.Then(_ => _.theNameIsNotEmpty())
-				.BDDfy("zero");
-
-			this.WithTags("RomanFigure", "Name")
-
-				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.I))
-				.When(_=>_.theNameIsObtained())
-				.Then(_ => _.theNameIsNotEmpty())
-				.BDDfy("one");
-
-			this.WithTags("RomanFigure", "Name")
-
-				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.V))
-				.When(_=>_.theNameIsObtained())
-				.Then(_ => _.theNameIsNotEmpty())
-				.BDDfy("five");
-
-			this.WithTags("RomanFigure", "Name")
-
-				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.X))
-				.When(_=>_.theNameIsObtained())
-				.Then(_ => _.theNameIsNotEmpty())
-				.BDDfy("ten");
-
-			this.WithTags("RomanFigure", "Name")
-
-				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.L))
-				.When(_=>_.theNameIsObtained())
-				.Then(_ => _.theNameIsNotEmpty())
-				.BDDfy("figures with names");
-
-			this.WithTags("RomanFigure", "Name")
-
-				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.C))
-				.When(_=>_.theNameIsObtained())
-				.Then(_ => _.theNameIsNotEmpty())
-				.BDDfy("figures with names");
-
-			this.WithTags("RomanFigure", "Name")
-
-				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.D))
-				.When(_=>_.theNameIsObtained())
-				.Then(_ => _.theNameIsNotEmpty())
-				.BDDfy("figures with names");
-
-			this.WithTags("RomanFigure", "Name")
-				.Given(_ => _.theFigure_DoesHaveAName(RomanFigure.M))
-				.When(_=>_.theNameIsObtained())
+				.Given(_ => _.theFigure_DoesHaveAName(figure), "the figure {0} does have a name")
+				.When(_ => _.theNameIsObtained())
 				.Then(_ => _.theNameIsNotEmpty())
 				.BDDfy("figures with names");
 		}
