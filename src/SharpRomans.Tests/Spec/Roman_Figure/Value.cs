@@ -1,10 +1,11 @@
-﻿using SharpRomans.Tests.Support;
+﻿using System.Collections.Generic;
+using SharpRomans.Tests.Support;
 using TestStack.BDDfy;
 using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[Category("Spec"), Category("RomanFigure"), Category("Value")]
+	[Category("Spec", Subject = "RomanFigure", Feature = "Value")]
 	[Collection("bddfy")]
 	[Story(
 		SoThat = "I can get the integral values of individual figures",
@@ -12,55 +13,31 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		IWant = "to be able to invoke a property on a roman figure")]
 	public class ValueTester
 	{
-		[Fact]
+		public static IEnumerable<object[]> FigureValues = new[]
+		{
+			new object[]{RomanFigure.I, 1u},
+			new object[]{RomanFigure.V, 5u},
+			new object[]{RomanFigure.X, 10u},
+			new object[]{RomanFigure.L, 50u},
+			new object[]{RomanFigure.C, 100u},
+			new object[]{RomanFigure.D, 500u},
+			new object[]{RomanFigure.M, 1000u},
+		};
+
+		[Theory]
+		[MemberData(nameof(FigureValues))]
 		
-		public void Value()
+		public void Value(RomanFigure figure, uint value)
 		{
 			this.WithTags("RomanFigure", "Value")
-				.Given(_ => _.aRomanFigure_(RomanFigure.I))
+				.Given(_ => _.theRomanFigure(figure))
 				.When(_ => _.theValueIsObtained())
-				.Then(_ => _.theValueIs_(1u))
-				.BDDfy("value of a figure");
-
-			this.WithTags("RomanFigure", "Value")
-				.Given(_ => _.aRomanFigure_(RomanFigure.V))
-				.When(_ => _.theValueIsObtained())
-				.Then(_ => _.theValueIs_(5u))
-				.BDDfy("value of a figure");
-
-			this.WithTags("RomanFigure", "Value")
-				.Given(_ => _.aRomanFigure_(RomanFigure.X))
-				.When(_ => _.theValueIsObtained())
-				.Then(_ => _.theValueIs_(10u))
-				.BDDfy("value of a figure");
-
-			this.WithTags("RomanFigure", "Value")
-				.Given(_ => _.aRomanFigure_(RomanFigure.L))
-				.When(_ => _.theValueIsObtained())
-				.Then(_ => _.theValueIs_(50u))
-				.BDDfy("value of a figure");
-
-			this.WithTags("RomanFigure", "Value")
-				.Given(_ => _.aRomanFigure_(RomanFigure.C))
-				.When(_ => _.theValueIsObtained())
-				.Then(_ => _.theValueIs_(100u))
-				.BDDfy("value of a figure");
-
-			this.WithTags("RomanFigure", "Value")
-				.Given(_ => _.aRomanFigure_(RomanFigure.D))
-				.When(_ => _.theValueIsObtained())
-				.Then(_ => _.theValueIs_(500u))
-				.BDDfy("value of a figure");
-
-			this.WithTags("RomanFigure", "Value")
-				.Given(_ => _.aRomanFigure_(RomanFigure.M))
-				.When(_ => _.theValueIsObtained())
-				.Then(_ => _.theValueIs_(1000u))
+				.Then(_ => _.theValueIs(value))
 				.BDDfy("value of a figure");
 		}
 
 		RomanFigure _subject;
-		private void aRomanFigure_(RomanFigure figure)
+		private void theRomanFigure(RomanFigure figure)
 		{
 			_subject = figure;
 		}
@@ -71,7 +48,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			_value = _subject.Value;
 		}
 
-		private void theValueIs_(uint value)
+		private void theValueIs(uint value)
 		{
 			Assert.Equal(value, _value);
 		}
