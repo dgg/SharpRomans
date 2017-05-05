@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[Category("Spec"), Category("RomanFigure"), Category("Equality")]
+	[Category("Spec", Subject = "RomanFigure", Feature = "Equality")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "equality",
@@ -12,64 +12,63 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		IWant = "to use methods and operators on roman figures",
 		SoThat = "I can say that two roman figures are equal"
 	)]
-	public class Equality
+	public class EqualityTester
 	{
 		[Fact]
 		public void EqualsObject()
 		{
-
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_=>_.equals('V'))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against a boxed char with the same value");
 
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals('X'))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against a boxed char with a different value");
 
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals((ushort) 5))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against a boxed number with the same value");
 
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals((ushort) 10))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against a boxed number with a different value");
 
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals((object) RomanFigure.V))
-				.Then(_ => _.Is(true))
+				.Then(_ => _.@is(true))
 				.BDDfy("a roman figure is compared against the same objectified figure");
 
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals((object) RomanFigure.X))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against another objectified figure");
 
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals((object) null))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against null");
 
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals('v'))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against a boxed lowercase char with the same value");
 
 			this.WithTags("RomanFigure", "Equality", "non-generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals(5))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against a boxed int with the same value");
 		}
 
@@ -79,19 +78,19 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			this.WithTags("RomanFigure", "Equality", "generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals(RomanFigure.V))
-				.Then(_ => _.Is(true))
+				.Then(_ => _.@is(true))
 				.BDDfy("a roman figure is compared against the same roman figure");
 
 			this.WithTags("RomanFigure", "Equality", "generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals(RomanFigure.X))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against not the same roman figure");
 
 			this.WithTags("RomanFigure", "Equality", "generic")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equals(null))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against null");
 		}
 
@@ -101,31 +100,31 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			this.WithTags("RomanFigure", "Equality", "equality operator")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equalTo(RomanFigure.Convert(5)))
-				.Then(_ => _.Is(true))
+				.Then(_ => _.@is(true))
 				.BDDfy("a roman figure is compared against the same roman figure");
 
 			this.WithTags("RomanFigure", "Equality", "equality operator")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equalTo(RomanFigure.X))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against not the same roman figure");
 
 			this.WithTags("RomanFigure", "Equality", "equality operator")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.equalTo(null))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against null");
 
 			this.WithTags("RomanFigure", "Equality", "equality operator")
 				.Given(_ => _.TheRomanFigure(null))
 				.When(_ => _.equalTo(RomanFigure.X))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("null is compared against a roman figure");
 
 			this.WithTags("RomanFigure", "Equality", "equality operator")
 				.Given(_ => _.TheRomanFigure(null))
 				.When(_ => _.equalTo(null))
-				.Then(_ => _.Is(true))
+				.Then(_ => _.@is(true))
 				.BDDfy("null is compared against null");
 		}
 
@@ -136,31 +135,31 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			this.WithTags("RomanFigure", "Equality", "inequality operator")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.notEqualTo(RomanFigure.V))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("a roman figure is compared against the same roman figure");
 
 			this.WithTags("RomanFigure", "Equality", "inequality operator")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.notEqualTo(RomanFigure.X))
-				.Then(_ => _.Is(true))
+				.Then(_ => _.@is(true))
 				.BDDfy("a roman figure is compared against not the same roman figure");
 
 			this.WithTags("RomanFigure", "Equality", "inequality operator")
 				.Given(_ => _.TheRomanFigure(RomanFigure.V))
 				.When(_ => _.notEqualTo(null))
-				.Then(_ => _.Is(true))
+				.Then(_ => _.@is(true))
 				.BDDfy("a roman figure is compared against null");
 
 			this.WithTags("RomanFigure", "Equality", "inequality operator")
 				.Given(_ => _.TheRomanFigure(null))
 				.When(_ => _.notEqualTo(RomanFigure.X))
-				.Then(_ => _.Is(true))
+				.Then(_ => _.@is(true))
 				.BDDfy("null is compared against a roman figure");
 
 			this.WithTags("RomanFigure", "Equality", "inequality operator")
 				.Given(_ => _.TheRomanFigure(null))
 				.When(_ => _.notEqualTo(null))
-				.Then(_ => _.Is(false))
+				.Then(_ => _.@is(false))
 				.BDDfy("null is compared against null");
 		}
 
@@ -170,7 +169,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 			_subject = figure;
 		}
 		private bool _operation;
-		private void Is(bool result)
+		private void @is(bool result)
 		{
 			Assert.Equal(result, _operation);
 		}
