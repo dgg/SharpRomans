@@ -5,7 +5,7 @@ using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[Category("Spec"), Category("RomanNumeral"), Category("Figures")]
+	[Category("Spec", Subject = "RomanNumeral", Feature = "Figures")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "creation of roman numerals",
@@ -19,26 +19,26 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		public void Figures()
 		{
 			this.WithTags("RomanNumeral", "Figures")
-				.Given(_ => _.anArabicNumeral_(0))
+				.Given(_ => _.theArabicNumeral(0))
 				.When(_ => _.theRomanNumeralIsInstantiated())
-				.Then(_ => _.isARomanNumeralWithFigures_("N"))
+				.Then(_ => _.isARomanNumeralWithFigures("N"))
 				.BDDfy("zero");
 
 			this.WithTags("RomanNumeral", "Figures")
-				.Given(_ => _.anArabicNumeral_(50))
+				.Given(_ => _.theArabicNumeral(50))
 				.When(_ => _.theRomanNumeralIsInstantiated())
-				.Then(_ => _.isARomanNumeralWithFigures_("L"))
+				.Then(_ => _.isARomanNumeralWithFigures("L"))
 				.BDDfy("single-figure");
 
 			this.WithTags("RomanNumeral", "Figures")
-				.Given(_ => _.anArabicNumeral_(75))
+				.Given(_ => _.theArabicNumeral(75))
 				.When(_ => _.theRomanNumeralIsInstantiated())
-				.Then(_ => _.isARomanNumeralWithFigures_("LXXV"))
+				.Then(_ => _.isARomanNumeralWithFigures("LXXV"))
 				.BDDfy("multiple-figures");
 		}
 
 		ushort _number;
-		private void anArabicNumeral_(int number)
+		private void theArabicNumeral(int number)
 		{
 			_number = (ushort)number;
 		}
@@ -49,7 +49,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_subject = new RomanNumeral(_number);
 		}
 
-		private void isARomanNumeralWithFigures_(string figures)
+		private void isARomanNumeralWithFigures(string figures)
 		{
 			RomanFigure[] list = figures
 				.Select(RomanFigure.Parse)
