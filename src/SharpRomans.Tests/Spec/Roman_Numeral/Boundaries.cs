@@ -6,7 +6,7 @@ using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[Category("Spec"), Category("RomanNumeral"), Category("Boundaries")]
+	[Category("Spec", Subject = "RomanNumeral", Feature = "Boundaries")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "roman numerals boundaries",
@@ -20,44 +20,44 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 		public void Boundaries()
 		{
 			this.WithTags("RomanNumeral", "Boundaries")
-				.Given(_ => _.anArabicNumeral_(20))
+				.Given(_ => _.theArabicNumeral(20))
 				.When(_ => _.theNumeralIsChecked())
-				.Then(_ => _.theResultIs_(true))
+				.Then(_ => _.theResultIs(true))
 				.BDDfy("check a number in range");
 
 			this.WithTags("RomanNumeral", "Boundaries")
-				.Given(_ => _.anArabicNumeral_(-1))
+				.Given(_ => _.theArabicNumeral(-1))
 				.When(_ => _.theNumeralIsChecked())
-				.Then(_ => _.theResultIs_(false))
+				.Then(_ => _.theResultIs(false))
 				.BDDfy("check a negative number");
 
 			this.WithTags("RomanNumeral", "Boundaries")
-				.Given(_ => _.anArabicNumeral_(4001))
+				.Given(_ => _.theArabicNumeral(4001))
 				.When(_ => _.theNumeralIsChecked())
-				.Then(_ => _.theResultIs_(false))
+				.Then(_ => _.theResultIs(false))
 				.BDDfy("check an overflowing number");
 
 			this.WithTags("RomanNumeral", "Boundaries")
-				.Given(_ => _.anArabicNumeral_(20))
+				.Given(_ => _.theArabicNumeral(20))
 				.When(_ => _.theNumeralIsAsserted())
 				.Then(_ => _.noExceptionIsRaised())
 				.BDDfy("assert a number in range");
 
 			this.WithTags("RomanNumeral", "Boundaries")
-				.Given(_ => _.anArabicNumeral_(-1))
+				.Given(_ => _.theArabicNumeral(-1))
 				.When(_ => _.theNumeralIsAsserted())
 				.Then(_ => _.aRangeExceptionIsThrown())
 				.BDDfy("assert a negative number");
 
 			this.WithTags("RomanNumeral", "Boundaries")
-				.Given(_ => _.anArabicNumeral_(4001))
+				.Given(_ => _.theArabicNumeral(4001))
 				.When(_ => _.theNumeralIsAsserted())
 				.Then(_ => _.aRangeExceptionIsThrown())
 				.BDDfy("assert an overflowing number");
 		}
 
 		ushort _number;
-		private void anArabicNumeral_(int number)
+		private void theArabicNumeral(int number)
 		{
 			_number = (ushort)number;
 		}
@@ -74,7 +74,7 @@ namespace SharpRomans.Tests.Spec.Roman_Numeral
 			_assertion = () => RomanNumeral.AssertRange(_number);
 		}
 
-		private void theResultIs_(bool check)
+		private void theResultIs(bool check)
 		{
 			Assert.Equal(check, _check);
 		}
