@@ -16,11 +16,11 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 	)]
 	public class NameTester
 	{
-		public static readonly IEnumerable<object[]> RomanFigures = RomanFigure.All
+		public static readonly IEnumerable<object[]> Name_Data = RomanFigure.All
 			.Select(f => new object[]{f});
 
 		[Theory]
-		[MemberData(nameof(RomanFigures))]
+		[MemberData(nameof(Name_Data))]
 		public void Name(RomanFigure figure)
 		{
 			this.WithTags("RomanFigure", "Name")

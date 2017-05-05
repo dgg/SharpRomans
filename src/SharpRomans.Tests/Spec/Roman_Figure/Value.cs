@@ -13,7 +13,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		IWant = "to be able to invoke a property on a roman figure")]
 	public class ValueTester
 	{
-		public static IEnumerable<object[]> FigureValues = new[]
+		public static IEnumerable<object[]> Value_Data = new[]
 		{
 			new object[]{RomanFigure.I, 1u},
 			new object[]{RomanFigure.V, 5u},
@@ -25,7 +25,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		};
 
 		[Theory]
-		[MemberData(nameof(FigureValues))]
+		[MemberData(nameof(Value_Data))]
 		
 		public void Value(RomanFigure figure, uint value)
 		{

@@ -15,7 +15,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 	)]
 	public class LiteralTester
 	{
-		public static IEnumerable<object[]> FigureLiterals = new []
+		public static IEnumerable<object[]> Literals_Data = new []
 		{
 			new object[]{RomanFigure.I, 'I'}, 
 			new object[]{RomanFigure.V, 'V'}, 
@@ -27,7 +27,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		};
 
 		[Theory]
-		[MemberData(nameof(FigureLiterals))]
+		[MemberData(nameof(Literals_Data))]
 		public void Literals(RomanFigure figure, char literal)
 		{
 			this.WithTags("RomanFigure", "Literal")

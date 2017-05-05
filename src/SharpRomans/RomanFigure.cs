@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SharpRomans
 {
-	public sealed class RomanFigure : IComparable<RomanFigure>, IConvertible, IEquatable<RomanFigure>, IValuable
+	public sealed class RomanFigure : IComparable<RomanFigure>, IEquatable<RomanFigure>, IValuable
 	{
 		public char Literal { get; private set; }
 		public ushort Value { get; private set; }
@@ -129,102 +129,6 @@ namespace SharpRomans
 		}
 
 		#endregion
-
-		#endregion
-
-		#region IConvertible
-
-		public TypeCode GetTypeCode()
-		{
-			return TypeCode.Object;
-		}
-
-		public bool ToBoolean(IFormatProvider provider)
-		{
-			return System.Convert.ToBoolean(Value, provider);
-		}
-
-		public char ToChar(IFormatProvider provider)
-		{
-			return System.Convert.ToChar(Literal, provider);
-		}
-
-		public sbyte ToSByte(IFormatProvider provider)
-		{
-			return System.Convert.ToSByte(Value, provider);
-		}
-
-		public byte ToByte(IFormatProvider provider)
-		{
-			return System.Convert.ToByte(Value, provider);
-		}
-
-		public short ToInt16(IFormatProvider provider)
-		{
-			return System.Convert.ToInt16(Value, provider);
-		}
-
-		public ushort ToUInt16(IFormatProvider provider)
-		{
-			return System.Convert.ToUInt16(Value, provider);
-		}
-
-		public int ToInt32(IFormatProvider provider)
-		{
-			return System.Convert.ToInt32(Value, provider);
-		}
-
-		public uint ToUInt32(IFormatProvider provider)
-		{
-			return System.Convert.ToUInt32(Value, provider);
-		}
-
-		public long ToInt64(IFormatProvider provider)
-		{
-			return System.Convert.ToInt64(Value, provider);
-		}
-
-		public ulong ToUInt64(IFormatProvider provider)
-		{
-			return System.Convert.ToUInt64(Value, provider);
-		}
-
-		public float ToSingle(IFormatProvider provider)
-		{
-			return System.Convert.ToSingle(Value, provider);
-		}
-
-		public double ToDouble(IFormatProvider provider)
-		{
-			return System.Convert.ToDouble(Value, provider);
-		}
-
-		public decimal ToDecimal(IFormatProvider provider)
-		{
-			return System.Convert.ToDecimal(Value, provider);
-		}
-
-		public DateTime ToDateTime(IFormatProvider provider)
-		{
-			throw invalidCast(typeof(DateTime));
-		}
-
-		private InvalidCastException invalidCast(Type other)
-		{
-			return new InvalidCastException(string.Format("Invalid cast from '{0}' to '{1}'", typeof(RomanFigure).Name, other.Name));
-		}
-
-		public string ToString(IFormatProvider provider)
-		{
-			return System.Convert.ToString(Literal, provider);
-		}
-
-		public object ToType(Type conversionType, IFormatProvider provider)
-		{
-			// only called when another CLR type is passed. So unless it is itself (weird) it cannot be converted
-			if (conversionType == typeof(RomanFigure)) return this;
-			throw invalidCast(conversionType);
-		}
 
 		#endregion
 

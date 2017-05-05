@@ -37,10 +37,6 @@ namespace SharpRomans.Tests
 			_1928 = (ushort) nineteenTwentyEight;
 			XXX = (string) thirty;
 
-			// conversions
-			_1928 = Convert.ToUInt16(nineteenTwentyEight);
-			XXX = Convert.ToString(thirty);
-
 			// arithmetic
 			RomanNumeral sixty = thirty.Plus(thirty);
 			thirty = sixty.Minus(thirty);
@@ -83,10 +79,6 @@ namespace SharpRomans.Tests
 			// castings
 			_5 = (ushort) five;
 			V = (char) five;		
-
-			// conversions
-			_5 = Convert.ToUInt16(five);
-			V = Convert.ToChar(five);
 		}
 	}
 }
