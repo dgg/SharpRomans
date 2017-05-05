@@ -7,7 +7,7 @@ using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Numeral
 {
-	[Category("Spec"), Category("RomanNumeral"), Category("Conversions")]
+	[Category("Spec", Subject = "RomanNumeral", Feature = "Conversions")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "roman figure conversions",
