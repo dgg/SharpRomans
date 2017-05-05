@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SharpRomans.Tests.Spec.Roman_Figure
 {
-	[Category("Spec"), Category("RomanFigure"), Category("TryConvert")]
+	[Category("Spec", Subject = "RomanFigure", Feature = "TryConvert")]
 	[Collection("bddfy")]
 	[Story(
 		Title = "try convert a number",
@@ -18,29 +18,29 @@ namespace SharpRomans.Tests.Spec.Roman_Figure
 		public void TryConvertNumber()
 		{
 			this.WithTags("RomanFigure", "TryConvert")
-				.Given(_ => _.theNumber_(10))
+				.Given(_ => _.theNumber(10))
 				.When(_ => _.theNumberIsConverted())
 				.Then(_ => _.theResultIs(true))
 					.And(_ => _.theFigureIs(RomanFigure.X))
 				.BDDfy("convert a defined figure");
 
 			this.WithTags("RomanFigure", "TryConvert")
-				.Given(_ => _.theNumber_(11))
+				.Given(_ => _.theNumber(11))
 				.When(_ => _.theNumberIsConverted())
 				.Then(_ => _.theResultIs(false))
 				.And(_ => _.theFigureIs(null))
 				.BDDfy("convert an undefined figure");
 
 			this.WithTags("RomanFigure", "TryConvert")
-				.Given(_ => _.theNumber_(10))
+				.Given(_ => _.theNumber(10))
 				.When(_ => _.theNumberIsConverted())
-				.And(_ => _.theNumber_IsConvertedAgain(10))
+				.And(_ => _.theNumber_IsConvertedAgain(10), "the number {0} is converted again")
 				.Then(_ => _.isTheSameFigure())
 				.BDDfy("figures are unique");
 		}
 
 		ushort _number;
-		private void theNumber_(int number)
+		private void theNumber(int number)
 		{
 			_number = (ushort)number;
 		}
