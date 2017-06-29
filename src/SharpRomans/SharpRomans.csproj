@@ -9,7 +9,7 @@
     <PackageProjectUrl>https://github.com/dgg/SharpRomans</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/wiki/dgg/SharpRomans/img/SharpRomans_logo.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/dgg/SharpRomans.git</RepositoryUrl>
-    <PackageTags>roman numeral figure</PackageTags>
+    <PackageTags>roman numeral figure roman-numeral number parsing arabic arabic-numeral</PackageTags>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseUrl>http://www.opensource.org/licenses/bsd-license.php</PackageLicenseUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>

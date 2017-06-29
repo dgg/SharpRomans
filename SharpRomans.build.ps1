@@ -31,8 +31,8 @@ task Test Compile, {
 	$bin_dir = Join-Path $test_dir "bin\$Configuration"
 	$bin_dir = Join-Path $bin_dir $target_monikers.Get_Item('net')
 	$html_report = Join-Path $bin_dir BDDfy.html
-	$markdown_report = Join-Path $bin_dir BDDfy.md
-	Copy-Item -Path ($html_report, $markdown_report) -Destination $release_dir
+	$markdown_reports = Join-Path $bin_dir *.md
+	Copy-Item -Path ($html_report, $markdown_reports) -Destination $release_dir
 }
 
 task Pack Test, {
