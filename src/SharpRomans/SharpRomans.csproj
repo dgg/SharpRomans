@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <Authors>Daniel González García, Niels Jorck Ellegaard</Authors>
     <Company />
     <Description>Implementation of Roman Numerals for the .Net platform. Allows conversion between integers and their roman numeral representations as well as parsing roman numerals.</Description>
@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/dgg/SharpRomans.git</RepositoryUrl>
     <PackageTags>roman numeral figure roman-numeral number parsing arabic arabic-numeral</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <PackageLicenseUrl>http://www.opensource.org/licenses/bsd-license.php</PackageLicenseUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/dgg/SharpRomans/master/LICENSE</PackageLicenseUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
