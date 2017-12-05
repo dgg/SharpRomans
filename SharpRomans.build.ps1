@@ -12,7 +12,9 @@ $target_monikers = @{
 task Clean {
 	exec { dotnet clean $solution_file -c $Configuration -v m }
 
-	Remove-Item -Path $release_dir -Force -Recurse | Out-Null
+	if (Test-Path $release_dir){
+		Remove-Item -Path $release_dir -Force -Recurse | Out-Null
+	}
 	New-Item -ItemType Directory $release_dir -Force | Out-Null
 }
 
