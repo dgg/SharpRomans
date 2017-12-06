@@ -13,8 +13,8 @@ namespace SharpRomans
 		public static readonly ushort MaxValue = 3999;
 		private static readonly Range<ushort> _validity = new Range<ushort>(MinValue, MaxValue);
 
-		public ushort Value { get; private set; }
-		public ReadOnlyCollection<RomanFigure> Figures { get; private set; }
+		public ushort Value { get; }
+		public ReadOnlyCollection<RomanFigure> Figures { get; }
 		private readonly string _figures;
 		public RomanNumeral(ushort number)
 		{
@@ -123,7 +123,7 @@ namespace SharpRomans
 
 		public static explicit operator ushort(RomanNumeral numeral)
 		{
-			if (numeral == null) throw new ArgumentNullException("numeral");
+			if (numeral == null) throw new ArgumentNullException(nameof(numeral));
 
 			return numeral.Value;
 		}
@@ -212,8 +212,8 @@ namespace SharpRomans
 
 		private static void assertInput(string numeral)
 		{
-			if (numeral == null) throw new ArgumentNullException("numeral");
-			if (string.IsNullOrWhiteSpace(numeral)) throw new ArgumentException(null, "numeral");
+			if (numeral == null) throw new ArgumentNullException(nameof(numeral));
+			if (string.IsNullOrWhiteSpace(numeral)) throw new ArgumentException(null, nameof(numeral));
 		}
 
 		private static bool checkInput(string numeral)
