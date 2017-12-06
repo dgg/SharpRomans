@@ -5,7 +5,7 @@ namespace SharpRomans.Tests.Spec.Roman_Figure.Support
 {
 	internal class Op : Spec.Support.Op<RomanFigure>
 	{
-		protected Op(Expression<Func<RomanFigure, RomanFigure, bool>> exp) :
+		private Op(Expression<Func<RomanFigure, RomanFigure, bool>> exp) :
 			base(exp) { }
 
 		public static Op Gt { get { return new Op((x, y) => x > y); } }
