@@ -15,7 +15,7 @@ namespace SharpRomans
 
 		internal static NumeralOutOfRangeException Build(string paramName, ushort value, Range<ushort> validity)
 		{
-			string message = string.Format("Only numbers contained within {0} are allowed.\nActual value was '{1}'", validity, value);
+			string message = $"Only numbers contained within {validity} are allowed.\nActual value was '{value}'";
 			var ex = new NumeralOutOfRangeException(paramName, message);
 			return ex;
 		}

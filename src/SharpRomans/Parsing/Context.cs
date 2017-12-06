@@ -2,7 +2,7 @@ using System;
 
 namespace SharpRomans.Parsing
 {
-	internal class Context
+	internal sealed class Context
 	{
 		private string _input;
 		private ushort _output;
@@ -12,7 +12,7 @@ namespace SharpRomans.Parsing
 			_input = input;
 		}
 
-		internal bool IsEmpty { get { return string.IsNullOrWhiteSpace(_input); } }
+		internal bool IsEmpty => string.IsNullOrWhiteSpace(_input);
 
 		internal ushort? GetValue()
 		{

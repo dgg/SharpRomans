@@ -2,33 +2,31 @@
 
 namespace SharpRomans.Support
 {
-	internal class Range<T> where T : IComparable<T>
+	internal struct Range<T> where T : IComparable<T>
 	{
 		private readonly T _lowerBound;
 		private readonly T _upperBound;
 
-		public Range() { }
-
 		public Range(T lowerBound, T upperBound)
 		{
-			if (lowerBound.IsMoreThan(upperBound)) throw new ArgumentOutOfRangeException("upperBound", string.Format("The start value of the range must not be greater than its end value.\nActual value was: {0}", upperBound));
+			if (lowerBound.IsMoreThan(upperBound)) throw new ArgumentOutOfRangeException(nameof(upperBound), string.Format("The start value of the range must not be greater than its end value.\nActual value was: {0}", upperBound));
 
 			_lowerBound = lowerBound;
 			_upperBound = upperBound;
 		}
 
-		public T LowerBound { get { return _lowerBound; } }
+		public T LowerBound => _lowerBound;
 
-		public T UpperBound { get { return _upperBound; } }
+		public T UpperBound => _upperBound;
 
-		public virtual bool Contains(T item)
+		public bool Contains(T item)
 		{
 			return item.IsAtLeast(_lowerBound) && item.IsAtMost(_upperBound);
 		}
 
 		public override string ToString()
 		{
-			return string.Format("[{0}..{1}]", LowerBound, UpperBound);
+			return $"[{LowerBound}..{UpperBound}]";
 		}
 	}
 }

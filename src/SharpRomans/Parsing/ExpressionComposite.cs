@@ -1,7 +1,7 @@
 ﻿namespace SharpRomans.Parsing
 {
 	// to prevent concurrency problems, make it transient since expression hold state
-	internal class ExpressionComposite
+	internal sealed class ExpressionComposite
 	{
 		private readonly Expression[] _elements;
 		internal ExpressionComposite()
