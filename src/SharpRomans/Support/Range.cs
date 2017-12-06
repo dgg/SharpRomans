@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SharpRomans.Support
 {
@@ -23,6 +24,27 @@ namespace SharpRomans.Support
 		public override string ToString()
 		{
 			return $"[{_lowerBound}..{_upperBound}]";
+		}
+
+		private bool equals(Range<T> other)
+		{
+			return EqualityComparer<T>.Default.Equals(_lowerBound, other._lowerBound) &&
+				EqualityComparer<T>.Default.Equals(_upperBound, other._upperBound);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			return obj is Range<T> range && equals(range);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				return (EqualityComparer<T>.Default.GetHashCode(_lowerBound) * 397) ^
+					EqualityComparer<T>.Default.GetHashCode(_upperBound);
+			}
 		}
 	}
 }
