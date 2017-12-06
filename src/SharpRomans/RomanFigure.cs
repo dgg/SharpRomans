@@ -6,12 +6,12 @@ namespace SharpRomans
 {
 	public sealed class RomanFigure : IComparable<RomanFigure>, IEquatable<RomanFigure>, IValuable
 	{
-		public char Literal { get; private set; }
-		public ushort Value { get; private set; }
-		public string Name { get; private set; }
+		public char Literal { get; }
+		public ushort Value { get; }
+		public string Name { get; }
 
-		public bool IsSubstractive { get; private set; }
-		public bool IsRepeteable { get; private set; }
+		public bool IsSubstractive { get; }
+		public bool IsRepeteable { get; }
 
 		private readonly string _string;
 		private RomanFigure(char literal, ushort value, string name, bool isSubstractive, bool isRepeteable)
@@ -44,10 +44,9 @@ namespace SharpRomans
 
 		public static RomanFigure Parse(char figure)
 		{
-			RomanFigure parsed;
-			if (!TryParse(figure, out parsed))
+			if (!TryParse(figure, out var parsed))
 			{
-				throw new ArgumentException(string.Format("Requested value '{0}' was not found", figure), "figure");
+				throw new ArgumentException($"Requested value '{figure}' was not found", nameof(figure));
 			}
 			return parsed;
 		}
@@ -67,8 +66,7 @@ namespace SharpRomans
 		{
 			bool success = false;
 			parsed = null;
-			char character;
-			if (char.TryParse(figure, out character))
+			if (char.TryParse(figure, out var character))
 			{
 				success = TryParse(character, out parsed);
 			}
@@ -87,7 +85,7 @@ namespace SharpRomans
 			}
 			catch (InvalidOperationException)
 			{
-				throw new ArgumentException(string.Format("Requested value '{0}' was not found", value), "value");
+				throw new ArgumentException($"Requested value '{value}' was not found", nameof(value));
 			}
 		}
 
@@ -136,14 +134,14 @@ namespace SharpRomans
 
 		public static explicit operator char(RomanFigure figure)
 		{
-			if (figure == null) throw new ArgumentNullException("figure");
+			if (figure == null) throw new ArgumentNullException(nameof(figure));
 
 			return figure.Literal;
 		}
 
 		public static explicit operator ushort(RomanFigure figure)
 		{
-			if (figure == null) throw new ArgumentNullException("figure");
+			if (figure == null) throw new ArgumentNullException(nameof(figure));
 
 			return figure.Value;
 		}
