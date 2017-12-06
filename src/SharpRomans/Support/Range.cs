@@ -15,10 +15,6 @@ namespace SharpRomans.Support
 			_upperBound = upperBound;
 		}
 
-		public T LowerBound => _lowerBound;
-
-		public T UpperBound => _upperBound;
-
 		public bool Contains(T item)
 		{
 			return item.IsAtLeast(_lowerBound) && item.IsAtMost(_upperBound);
@@ -26,7 +22,7 @@ namespace SharpRomans.Support
 
 		public override string ToString()
 		{
-			return $"[{LowerBound}..{UpperBound}]";
+			return $"[{_lowerBound}..{_upperBound}]";
 		}
 	}
 }

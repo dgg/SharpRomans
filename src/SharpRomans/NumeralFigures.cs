@@ -6,14 +6,14 @@ namespace SharpRomans
 {
 	internal static class NumeralFigures
 	{
-		internal static Tuple<RomanFigure[], ushort> AsCalculationRow(this RomanFigure figure)
+		private static Tuple<RomanFigure[], ushort> AsCalculationRow(this RomanFigure figure)
 		{
 			return new Tuple<RomanFigure[], ushort>(new[] { figure }, figure.Value);
 		}
 		
 		private static readonly Tuple<RomanFigure[], ushort>[] _calculationTable;
-		public static readonly ReadOnlyCollection<RomanFigure> _zero;
-		internal static ReadOnlyCollection<RomanFigure> Zero { get { return _zero; } }
+		internal static ReadOnlyCollection<RomanFigure> Zero { get; }
+
 		static NumeralFigures()
 		{
 			_calculationTable = new[]
@@ -32,7 +32,7 @@ namespace SharpRomans
 				calculationRow(4, RomanFigure.I, RomanFigure.V),
 				RomanFigure.I.AsCalculationRow()
 			};
-			_zero = new ReadOnlyCollection<RomanFigure>(new[] { RomanFigure.N });
+			Zero = new ReadOnlyCollection<RomanFigure>(new[] { RomanFigure.N });
 		}
 
 		internal static readonly int MaxLength = 16;
@@ -44,7 +44,7 @@ namespace SharpRomans
 
 		internal static ReadOnlyCollection<RomanFigure> Calculate(ushort number)
 		{
-			if (number == 0) throw new ArgumentOutOfRangeException("number", "only > 0");
+			if (number == 0) throw new ArgumentOutOfRangeException(nameof(number), "only > 0");
 
 			var figures = new List<RomanFigure>(MaxLength);
 			for (int i = 0; i < _calculationTable.Length; i++)
