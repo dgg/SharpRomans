@@ -40,6 +40,6 @@ namespace SharpRomans.Parsing
 
 		public abstract ushort Multiplier { get; }
 
-		public virtual byte MaxRepetitions { get { return 3; } }
+		public virtual byte MaxRepetitions => 3;
 	}
 }

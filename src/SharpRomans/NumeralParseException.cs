@@ -12,7 +12,7 @@ namespace SharpRomans
 
 		internal static NumeralParseException Build(string toBeParsed)
 		{
-			string message = string.Format("An invalid roman numeral '{0}' was specified.", toBeParsed);
+			string message = $"An invalid roman numeral '{toBeParsed}' was specified.";
 			var ex = new NumeralParseException(message);
 			return ex;
 		}
